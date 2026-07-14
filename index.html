@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telegram Web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app">
+<aside class="sidebar">
+<div class="sidebar-header">
+<button class="icon-btn" id="menuBtn" aria-label="Menu">
+<i data-lucide="menu" style="width:22px;height:22px"></i>
+</button>
+<div class="search-container">
+<i data-lucide="search" class="search-icon" style="width:18px;height:18px"></i>
+<input type="text" class="search-input" placeholder="Search" id="searchInput" autocomplete="off">
+</div>
+</div>
+<div class="chat-list" id="chatList"></div>
+</aside>
+<main class="chat-window" id="chatWindow">
+<div class="empty-state" id="emptyState">
+<div class="empty-state-icon">
+<i data-lucide="message-circle" style="width:42px;height:42px;color:var(--accent)"></i>
+</div>
+<div>
+<h3>Welcome to Telegram Web</h3>
+<p>Select a chat to start messaging</p>
+</div>
+</div>
+<div id="chatContent" style="display:none;flex-direction:column;height:100%;position:relative;z-index:1">
+<header class="chat-header">
+<button class="icon-btn mobile-back-btn" id="backBtn" aria-label="Back">
+<i data-lucide="arrow-left" style="width:22px;height:22px"></i>
+</button>
+<div class="avatar" id="chatHeaderAvatar" style="width:42px;height:42px;font-size:16px"></div>
+<div class="chat-header-info">
+<span class="chat-header-name" id="chatHeaderName"></span>
+<span class="chat-header-status" id="chatHeaderStatus"></span>
+</div>
+<div class="chat-header-actions">
+<button class="icon-btn" id="callBtn">
+<i data-lucide="phone" style="width:20px;height:20px"></i>
+</button>
+<button class="icon-btn" id="searchMsgBtn">
+<i data-lucide="search" style="width:20px;height:20px"></i>
+</button>
+<button class="icon-btn" id="moreBtn">
+<i data-lucide="more-vertical" style="width:20px;height:20px"></i>
+</button>
+</div>
+</header>
+<div class="messages-container" id="messagesContainer"></div>
+<div class="chat-input-container">
+<div class="input-wrapper">
+<button class="icon-btn" id="emojiBtn">
+<i data-lucide="smile" style="width:22px;height:22px"></i>
+</button>
+<textarea class="message-input" id="messageInput" placeholder="Write a message..." rows="1"></textarea>
+<button class="icon-btn" id="attachBtn">
+<i data-lucide="paperclip" style="width:20px;height:20px"></i>
+</button>
+</div>
+<button class="send-btn" id="sendBtn" disabled>
+<i data-lucide="send" style="width:20px;height:20px"></i>
+</button>
+<div class="emoji-picker" id="emojiPicker">
+<div class="emoji-picker-header" id="emojiPickerHeader"></div>
+<div class="emoji-list" id="emojiList"></div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<button class="theme-toggle" id="themeToggle">
+<i data-lucide="moon" id="themeIcon" style="width:22px;height:22px"></i>
+</button>
+<div class="toast" id="toast"></div>
+<script src="index.js"></script>
+</body>
+</html>
