@@ -1,40 +1,37 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
+    // =========================================
+    // 1. Safe Event Listener Helper
+    // Prevents crashes if an element is missing
+    // =========================================
+    function on(id, event, callback) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener(event, callback);
+        } else {
+            console.warn(`Element with ID '${id}' not found in the DOM.`);
+        }
+    }
 
     // =========================================
-    // DOM Element Selectors
+    // 2. DOM Element References
     // =========================================
     const appContainer = document.querySelector('.app-container');
-    const chatItems = document.querySelectorAll('.chat-item');
-    const folderItems = document.querySelectorAll('.folder-item');
-    const messageInput = document.getElementById('messageInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const messageArea = document.getElementById('messageArea');
-    const backBtn = document.getElementById('backBtn');
-    const menuBtn = document.getElementById('menuBtn');
-    const chatTitle = document.querySelector('.chat-title');
-    const searchInput = document.getElementById('searchInput');
-
-    // Settings Modal Selectors
-    const settingsModal = document.getElementById('settingsModal');
-    const openSettingsBtn = document.getElementById('openSettingsBtn');
-    const closeSettingsBtn = document.getElementById('closeSettingsBtn');
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const languageSelect = document.getElementById('languageSelect');
+    const settingsModal = document.getElementById('settings-modal');
+    const messageInput = document.getElementById('message-input');
+    const messageArea = document.getElementById('message-area');
+    const chatHeaderName = document.getElementById('chat-header-name');
+    const chatHeaderAvatar = document.getElementById('chat-header-avatar');
 
     // =========================================
-    // 1. Settings Modal & UI Toggles
+    // 3. Settings Modal & UI Toggles
     // =========================================
-    if (openSettingsBtn) {
-        openSettingsBtn.addEventListener('click', () => {
-            settingsModal.classList.remove('hidden');
-        });
-    }
+    on('btn-settings', 'click', () => {
+        if (settingsModal) settingsModal.classList.remove('hidden');
+    });
 
-    if (closeSettingsBtn) {
-        closeSettingsBtn.addEventListener('click', () => {
-            settingsModal.classList.add('hidden');
-        });
-    }
+    on('btn-close-settings', 'click', () => {
+        if (settingsModal) settingsModal.classList.add('hidden');
+    });
 
     // Close modal if clicking outside the content
     if (settingsModal) {
@@ -46,79 +43,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Dark Mode / Luxury Theme Toggle
-    if (darkModeToggle) {
-        // Load saved preference
-        const savedDarkMode = localStorage.getItem('luxDarkMode');
+    on('dark-mode-toggle', 'change', (e) => {
+        if (e.target.checked) {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('luxDarkMode', 'true');
+        } else {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('luxDarkMode', 'false');
+        }
+    });
+
+    // Load saved Dark Mode preference
+    const savedDarkMode = localStorage.getItem('luxDarkMode');
+    const darkToggle = document.getElementById('dark-mode-toggle');
+    if (darkToggle) {
         if (savedDarkMode === 'false') {
             document.body.classList.remove('dark-mode');
-            darkModeToggle.checked = false;
+            darkToggle.checked = false;
         } else {
             document.body.classList.add('dark-mode');
-            darkModeToggle.checked = true;
+            darkToggle.checked = true;
         }
-
-        darkModeToggle.addEventListener('change', () => {
-            if (darkModeToggle.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('luxDarkMode', 'true');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('luxDarkMode', 'false');
-            }
-        });
     }
 
     // Language Selection Logic
-    if (languageSelect) {
-        const savedLang = localStorage.getItem('luxLang') || 'en';
-        languageSelect.value = savedLang;
+    on('language-select', 'change', (e) => {
+        const selectedLang = e.target.value;
+        localStorage.setItem('luxLang', selectedLang);
+        applyLanguage(selectedLang);
+    });
 
+    function applyLanguage(lang) {
         const translations = {
             en: { search: 'Search', message: 'Message', settings: 'Settings' },
             es: { search: 'Buscar', message: 'Mensaje', settings: 'Ajustes' },
             fr: { search: 'Rechercher', message: 'Message', settings: 'Paramètres' },
             de: { search: 'Suche', message: 'Nachricht', settings: 'Einstellungen' }
         };
-
-        const applyLanguage = (lang) => {
-            const dict = translations[lang] || translations.en;
-            if (searchInput) searchInput.placeholder = dict.search;
-            if (messageInput) messageInput.placeholder = dict.message;
-            const modalTitle = document.querySelector('.modal-header h2');
-            if (modalTitle) modalTitle.textContent = dict.settings;
-        };
-
-        // Apply on load
-        applyLanguage(savedLang);
-
-        // Apply on change
-        languageSelect.addEventListener('change', (e) => {
-            const selectedLang = e.target.value;
-            localStorage.setItem('luxLang', selectedLang);
-            applyLanguage(selectedLang);
-        });
+        const dict = translations[lang] || translations.en;
+        
+        const searchInput = document.getElementById('search-input');
+        const settingsTitle = document.getElementById('settings-title');
+        
+        if (searchInput) searchInput.placeholder = dict.search;
+        if (messageInput) messageInput.placeholder = dict.message;
+        if (settingsTitle) settingsTitle.textContent = dict.settings;
     }
 
+    // Apply saved language on load
+    const savedLang = localStorage.getItem('luxLang') || 'en';
+    const langSelect = document.getElementById('language-select');
+    if (langSelect) langSelect.value = savedLang;
+    applyLanguage(savedLang);
+
     // =========================================
-    // 2. PWA Install Logic
+    // 4. PWA Install Logic
     // =========================================
     let deferredPrompt = null;
 
     window.addEventListener('beforeinstallprompt', (e) => {
-        // Prevent the default browser mini-infobar
         e.preventDefault();
-        // Stash the event so it can be triggered later
         deferredPrompt = e;
-        // Show custom install button
         showInstallPromotion();
     });
 
     function showInstallPromotion() {
-        // Check if button already exists
-        if (document.getElementById('pwaInstallBtn')) return;
+        if (document.getElementById('pwa-install-btn')) return;
 
         const installBtn = document.createElement('button');
-        installBtn.id = 'pwaInstallBtn';
+        installBtn.id = 'pwa-install-btn';
         installBtn.innerHTML = '⬇ Install App';
         
         // Premium Gold/Black Styling matching the theme
@@ -147,13 +140,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(installBtn);
 
         installBtn.addEventListener('click', async () => {
-            // Hide the app provided install promotion
             installBtn.style.display = 'none';
             
             if (deferredPrompt) {
-                // Show the install prompt
                 deferredPrompt.prompt();
-                // Wait for the user to respond to the prompt
                 const { outcome } = await deferredPrompt.userChoice;
                 
                 if (outcome === 'accepted') {
@@ -161,14 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     console.log('User dismissed the install prompt');
                 }
-                // We've used the prompt, and can't use it again, throw it away
                 deferredPrompt = null;
-                // Remove button permanently after prompt handled
                 installBtn.remove();
             }
         });
 
-        // Add hover effect via JS
         installBtn.addEventListener('mouseenter', () => {
             installBtn.style.transform = 'translateX(-50%) scale(1.05)';
             installBtn.style.boxShadow = '0 6px 25px rgba(212, 175, 55, 0.7)';
@@ -180,73 +167,79 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('appinstalled', () => {
-        // Hide the app-provided install promotion
-        const installBtn = document.getElementById('pwaInstallBtn');
+        const installBtn = document.getElementById('pwa-install-btn');
         if (installBtn) installBtn.remove();
         console.log('PWA was installed');
     });
 
     // =========================================
-    // 3. Chat List Navigation
+    // 5. Chat List Navigation
     // =========================================
-    chatItems.forEach(item => {
-        item.addEventListener('click', () => {
+    const chatItems = ['chat-item-1', 'chat-item-2', 'chat-item-3', 'chat-item-4'];
+    
+    chatItems.forEach(id => {
+        on(id, 'click', () => {
             // Remove 'active' class from all chat items
-            chatItems.forEach(chat => chat.classList.remove('active'));
+            document.querySelectorAll('.chat-item').forEach(chat => chat.classList.remove('active'));
             
             // Add 'active' class to the clicked chat item
-            item.classList.add('active');
+            const clickedItem = document.getElementById(id);
+            clickedItem.classList.add('active');
 
             // Update the main chat header with the selected chat's info
-            const chatName = item.querySelector('.chat-name').textContent;
-            const avatar = item.querySelector('.avatar').cloneNode(true);
+            const chatName = clickedItem.querySelector('.chat-name').textContent;
+            const avatar = clickedItem.querySelector('.avatar').cloneNode(true);
             avatar.classList.add('small');
             
-            const headerInfo = document.querySelector('.chat-header-info');
-            const oldAvatar = headerInfo.querySelector('.avatar');
-            if (oldAvatar) oldAvatar.replaceWith(avatar);
+            if (chatHeaderAvatar) {
+                chatHeaderAvatar.replaceWith(avatar);
+                // Re-assign the variable because we replaced the node
+                // Actually, we need to update the ID on the new node so future replacements work
+                avatar.id = 'chat-header-avatar';
+            }
             
-            if (chatTitle) chatTitle.textContent = chatName;
+            if (chatHeaderName) chatHeaderName.textContent = chatName;
 
             // Handle Mobile View: Slide in the chat window
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 768 && appContainer) {
                 appContainer.classList.add('chat-open');
             }
         });
     });
 
     // =========================================
-    // Sidebar Folder Navigation
+    // 6. Sidebar Folder Navigation
     // =========================================
-    folderItems.forEach(item => {
-        item.addEventListener('click', () => {
+    const folders = ['folder-all', 'folder-work', 'folder-family', 'folder-saved'];
+    
+    folders.forEach(id => {
+        on(id, 'click', () => {
             // Remove 'active' class from all folders
-            folderItems.forEach(folder => folder.classList.remove('active'));
+            document.querySelectorAll('.folder-item').forEach(folder => folder.classList.remove('active'));
             
             // Add 'active' class to clicked folder
-            item.classList.add('active');
+            const clickedFolder = document.getElementById(id);
+            clickedFolder.classList.add('active');
         });
     });
 
     // =========================================
-    // Mobile Navigation Controls
+    // 7. Mobile Navigation Controls
     // =========================================
-    if (backBtn) {
-        backBtn.addEventListener('click', () => {
-            appContainer.classList.remove('chat-open');
-        });
-    }
+    on('btn-back', 'click', () => {
+        if (appContainer) appContainer.classList.remove('chat-open');
+    });
 
-    if (menuBtn) {
-        menuBtn.addEventListener('click', () => {
-            appContainer.classList.toggle('sidebar-open');
-        });
-    }
+    on('btn-menu', 'click', () => {
+        if (appContainer) appContainer.classList.toggle('sidebar-open');
+    });
 
     // =========================================
-    // 4. Message Sending & UI Interactivity
+    // 8. Message Sending & UI Interactivity
     // =========================================
-    const sendMessage = () => {
+    function sendMessage() {
+        if (!messageInput || !messageArea) return;
+
         const text = messageInput.value.trim();
         if (text === '') return; // Don't send empty messages
 
@@ -286,29 +279,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Micro-interaction: Send button pulse
-        sendBtn.style.transform = 'scale(0.9)';
-        setTimeout(() => {
-            sendBtn.style.transform = 'scale(1)';
-        }, 150);
-    };
+        const sendBtn = document.getElementById('btn-send');
+        if (sendBtn) {
+            sendBtn.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                sendBtn.style.transform = 'scale(1)';
+            }, 150);
+        }
+    }
 
     // Event listener for Send Button click
-    if (sendBtn) {
-        sendBtn.addEventListener('click', sendMessage);
-    }
+    on('btn-send', 'click', sendMessage);
 
     // Event listener for "Enter" key press inside the input
-    if (messageInput) {
-        messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault(); // Prevent new line on enter
-                sendMessage();
-            }
-        });
-    }
+    on('message-input', 'keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault(); // Prevent new line on enter
+            sendMessage();
+        }
+    });
 
     // =========================================
-    // Initialize default states
+    // 9. Initialize default states
     // =========================================
     // Scroll to bottom on initial load
     if (messageArea) {
@@ -316,6 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Smooth transition styling for send button
+    const sendBtn = document.getElementById('btn-send');
     if (sendBtn) {
         sendBtn.style.transition = 'transform 0.15s ease, background 0.3s ease';
     }
