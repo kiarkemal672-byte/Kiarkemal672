@@ -36,32 +36,32 @@
         <!-- 1. Sidebar for Chat Folders/Categories -->
         <aside class="sidebar glass">
             <div class="sidebar-header">
-                <button class="icon-btn menu-btn" aria-label="Menu" id="menuBtn">
+                <button class="icon-btn menu-btn" id="btn-menu" aria-label="Menu">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
                 </button>
             </div>
             
             <nav class="folder-nav">
                 <ul>
-                    <li class="folder-item active" data-folder="all">
+                    <li class="folder-item active" id="folder-all" data-folder="all">
                         <span class="folder-icon">
                             <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path fill="currentColor" d="M12 6a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/></svg>
                         </span>
                         <span class="folder-name">All</span>
                     </li>
-                    <li class="folder-item" data-folder="work">
+                    <li class="folder-item" id="folder-work" data-folder="work">
                         <span class="folder-icon">
                             <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 6h-4V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM10 4h4v2h-4z"/></svg>
                         </span>
                         <span class="folder-name">Work</span>
                     </li>
-                    <li class="folder-item" data-folder="family">
+                    <li class="folder-item" id="folder-family" data-folder="family">
                         <span class="folder-icon">
                             <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                         </span>
                         <span class="folder-name">Family</span>
                     </li>
-                    <li class="folder-item" data-folder="saved">
+                    <li class="folder-item" id="folder-saved" data-folder="saved">
                         <span class="folder-icon">
                             <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
                         </span>
@@ -71,7 +71,7 @@
             </nav>
             
             <div class="sidebar-footer">
-                <button class="icon-btn settings-btn" aria-label="Settings" id="openSettingsBtn">
+                <button class="icon-btn settings-btn" id="btn-settings" aria-label="Settings">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
                 </button>
             </div>
@@ -82,13 +82,13 @@
             <header class="panel-header">
                 <div class="search-bar">
                     <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5L20.49 19l-5-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
-                    <input type="text" placeholder="Search" class="search-input" id="searchInput">
+                    <input type="text" placeholder="Search" class="search-input" id="search-input">
                 </div>
             </header>
             
-            <div class="chat-list" id="chatList">
+            <div class="chat-list" id="chat-list">
                 <!-- Chat Item 1 -->
-                <div class="chat-item active" data-chat-id="1">
+                <div class="chat-item active" id="chat-item-1" data-chat-id="1">
                     <div class="avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B);">JD</div>
                     <div class="chat-info">
                         <div class="chat-top-row">
@@ -103,7 +103,7 @@
                 </div>
                 
                 <!-- Chat Item 2 -->
-                <div class="chat-item" data-chat-id="2">
+                <div class="chat-item" id="chat-item-2" data-chat-id="2">
                     <div class="avatar" style="background: linear-gradient(135deg, #F0E68C, #DAA520);">F</div>
                     <div class="chat-info">
                         <div class="chat-top-row">
@@ -118,7 +118,7 @@
                 </div>
                 
                 <!-- Chat Item 3 -->
-                <div class="chat-item" data-chat-id="3">
+                <div class="chat-item" id="chat-item-3" data-chat-id="3">
                     <div class="avatar" style="background: linear-gradient(135deg, #FFD700, #FF8C00);">S</div>
                     <div class="chat-info">
                         <div class="chat-top-row">
@@ -126,13 +126,13 @@
                             <span class="chat-time">Yesterday</span>
                         </div>
                         <div class="chat-bottom-row">
-                            <span class="last-message"><i class="icon-check"></i> Sounds good to me.</span>
+                            <span class="last-message">Sounds good to me.</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Chat Item 4 -->
-                <div class="chat-item" data-chat-id="4">
+                <div class="chat-item" id="chat-item-4" data-chat-id="4">
                     <div class="avatar" style="background: linear-gradient(135deg, #DAA520, #B8860B);">W</div>
                     <div class="chat-info">
                         <div class="chat-top-row">
@@ -150,13 +150,13 @@
         <!-- 3. Main Chat Window -->
         <section class="chat-window glass">
             <header class="chat-header">
-                <button class="icon-btn back-btn" aria-label="Back" id="backBtn">
+                <button class="icon-btn back-btn" id="btn-back" aria-label="Back">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                 </button>
                 <div class="chat-header-info">
-                    <div class="avatar small" style="background: linear-gradient(135deg, #FFD700, #B8860B);">JD</div>
+                    <div class="avatar small" id="chat-header-avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B);">JD</div>
                     <div>
-                        <h3 class="chat-title">John Doe</h3>
+                        <h3 class="chat-title" id="chat-header-name">John Doe</h3>
                         <span class="chat-status">online</span>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                 </div>
             </header>
 
-            <main class="message-area" id="messageArea">
+            <main class="message-area" id="message-area">
                 <div class="date-separator"><span>Today</span></div>
                 
                 <div class="message received">
@@ -183,7 +183,7 @@
                 <div class="message sent">
                     <div class="message-bubble">
                         <p>I'm doing great, thanks! Just finishing up the frontend.</p>
-                        <span class="message-time">12:32 <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg></span>
+                        <span class="message-time">12:32</span>
                     </div>
                 </div>
                 
@@ -200,12 +200,12 @@
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16.5 6v11.5a4 4 0 1 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"/></svg>
                 </button>
                 <div class="input-wrapper">
-                    <input type="text" id="messageInput" placeholder="Message" autocomplete="off">
+                    <input type="text" id="message-input" placeholder="Message" autocomplete="off">
                     <button class="icon-btn emoji-btn" aria-label="Emoji">
                         <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
                     </button>
                 </div>
-                <button class="icon-btn send-btn" aria-label="Send" id="sendBtn">
+                <button class="icon-btn send-btn" id="btn-send" aria-label="Send">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
                 </button>
             </footer>
@@ -213,11 +213,11 @@
     </div>
 
     <!-- 4. Settings Modal/Panel -->
-    <div class="modal-overlay hidden" id="settingsModal">
+    <div class="modal-overlay hidden" id="settings-modal">
         <div class="modal-content glass premium-theme">
             <header class="modal-header">
-                <h2>Settings</h2>
-                <button class="icon-btn close-modal" id="closeSettingsBtn" aria-label="Close">
+                <h2 id="settings-title">Settings</h2>
+                <button class="icon-btn close-modal" id="btn-close-settings" aria-label="Close">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>
             </header>
@@ -246,7 +246,7 @@
                             <span class="option-description">OLED Black & Gold Theme</span>
                         </div>
                         <label class="switch">
-                            <input type="checkbox" id="darkModeToggle" checked>
+                            <input type="checkbox" id="dark-mode-toggle" checked>
                             <span class="slider"></span>
                         </label>
                     </div>
@@ -257,7 +257,7 @@
                             <span>Language</span>
                             <span class="option-description">Select your preferred language</span>
                         </div>
-                        <select class="dropdown-select" id="languageSelect">
+                        <select class="dropdown-select" id="language-select">
                             <option value="en">English</option>
                             <option value="es">Español</option>
                             <option value="fr">Français</option>
