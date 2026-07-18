@@ -3,30 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#1c1c1e">
-    <title>Telegram Clone</title>
+    
+    <!-- PWA / Installable Support -->
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="A premium luxurious Telegram-like chat application.">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Lux Chat">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    
+    <title>Lux Chat - Premium</title>
     
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- Preconnect for Fonts (Optional but recommended for smooth loading) -->
+    <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="dark-mode">
 
-    <!-- Background Elements for Glassmorphism Effect -->
+    <!-- Premium Golden Background Blurs -->
     <div class="bg-blur bg-blur-1"></div>
     <div class="bg-blur bg-blur-2"></div>
     <div class="bg-blur bg-blur-3"></div>
 
-    <div class="app-container">
+    <div class="app-container premium-theme">
         
         <!-- 1. Sidebar for Chat Folders/Categories -->
         <aside class="sidebar glass">
             <div class="sidebar-header">
-                <button class="icon-btn menu-btn" aria-label="Menu">
+                <button class="icon-btn menu-btn" aria-label="Menu" id="menuBtn">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
                 </button>
             </div>
@@ -61,7 +71,7 @@
             </nav>
             
             <div class="sidebar-footer">
-                <button class="icon-btn settings-btn" aria-label="Settings">
+                <button class="icon-btn settings-btn" aria-label="Settings" id="openSettingsBtn">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
                 </button>
             </div>
@@ -79,7 +89,7 @@
             <div class="chat-list" id="chatList">
                 <!-- Chat Item 1 -->
                 <div class="chat-item active" data-chat-id="1">
-                    <div class="avatar" style="background: linear-gradient(135deg, #ff6b6b, #ee5253);">JD</div>
+                    <div class="avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B);">JD</div>
                     <div class="chat-info">
                         <div class="chat-top-row">
                             <span class="chat-name">John Doe</span>
@@ -94,7 +104,7 @@
                 
                 <!-- Chat Item 2 -->
                 <div class="chat-item" data-chat-id="2">
-                    <div class="avatar" style="background: linear-gradient(135deg, #48dbfb, #0abde3);">F</div>
+                    <div class="avatar" style="background: linear-gradient(135deg, #F0E68C, #DAA520);">F</div>
                     <div class="chat-info">
                         <div class="chat-top-row">
                             <span class="chat-name">Family Group</span>
@@ -109,7 +119,7 @@
                 
                 <!-- Chat Item 3 -->
                 <div class="chat-item" data-chat-id="3">
-                    <div class="avatar" style="background: linear-gradient(135deg, #1dd1a1, #10ac84);">S</div>
+                    <div class="avatar" style="background: linear-gradient(135deg, #FFD700, #FF8C00);">S</div>
                     <div class="chat-info">
                         <div class="chat-top-row">
                             <span class="chat-name">Sarah Smith</span>
@@ -123,7 +133,7 @@
 
                 <!-- Chat Item 4 -->
                 <div class="chat-item" data-chat-id="4">
-                    <div class="avatar" style="background: linear-gradient(135deg, #feca57, #ff9f43);">W</div>
+                    <div class="avatar" style="background: linear-gradient(135deg, #DAA520, #B8860B);">W</div>
                     <div class="chat-info">
                         <div class="chat-top-row">
                             <span class="chat-name">Work Channel</span>
@@ -140,11 +150,11 @@
         <!-- 3. Main Chat Window -->
         <section class="chat-window glass">
             <header class="chat-header">
-                <button class="icon-btn back-btn" aria-label="Back">
+                <button class="icon-btn back-btn" aria-label="Back" id="backBtn">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                 </button>
                 <div class="chat-header-info">
-                    <div class="avatar small" style="background: linear-gradient(135deg, #ff6b6b, #ee5253);">JD</div>
+                    <div class="avatar small" style="background: linear-gradient(135deg, #FFD700, #B8860B);">JD</div>
                     <div>
                         <h3 class="chat-title">John Doe</h3>
                         <span class="chat-status">online</span>
@@ -202,7 +212,77 @@
         </section>
     </div>
 
+    <!-- 4. Settings Modal/Panel -->
+    <div class="modal-overlay hidden" id="settingsModal">
+        <div class="modal-content glass premium-theme">
+            <header class="modal-header">
+                <h2>Settings</h2>
+                <button class="icon-btn close-modal" id="closeSettingsBtn" aria-label="Close">
+                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </header>
+
+            <div class="modal-body">
+                <!-- Account Details -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">Account</h3>
+                    <div class="settings-account">
+                        <div class="avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B);">AU</div>
+                        <div class="account-info">
+                            <span class="account-name">Admin User</span>
+                            <span class="account-phone">+1 (555) 123-4567</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preferences -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">Preferences</h3>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <div class="settings-option">
+                        <div class="option-label">
+                            <span>Dark Mode</span>
+                            <span class="option-description">OLED Black & Gold Theme</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeToggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- Language Selection -->
+                    <div class="settings-option">
+                        <div class="option-label">
+                            <span>Language</span>
+                            <span class="option-description">Select your preferred language</span>
+                        </div>
+                        <select class="dropdown-select" id="languageSelect">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- External Frontend Script -->
     <script src="index.js"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }).catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
