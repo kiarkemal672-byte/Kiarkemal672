@@ -1334,6 +1334,23 @@
                 setTimeout(() => toast.remove(), 300);
             }, 2000);
         }
+        document.addEventListener('DOMContentLoaded', () => {
+  const countrySelect = document.getElementById('country-select');
+  if (countrySelect) {
+    const countries = [
+      { name: "Ethiopia", code: "+251" },
+      { name: "Saudi Arabia", code: "+966" },
+      { name: "Egypt", code: "+20" },
+      { name: "UAE", code: "+971" },
+      { name: "USA", code: "+1" },
+      { name: "UK", code: "+44" }
+    ];
+    
+    countrySelect.innerHTML = countries.map(c => 
+      `<option value="${c.code}">${c.name} (${c.code})</option>`
+    ).join('');
+  }
+});
     </script>
 </body>
 </html>
