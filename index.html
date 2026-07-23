@@ -3,43 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <title>خيار (Khiyar)</title>
     
     <!-- PWA Configuration -->
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#D4AF37">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Telegram Gold</title>
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-primary: #000000;
+            --bg-primary: #050505;
             --bg-secondary: #0a0a0a;
-            --bg-tertiary: #141414;
-            --glass-bg: rgba(15, 15, 15, 0.65);
-            --glass-border: rgba(212, 175, 55, 0.25);
-            --glass-highlight: rgba(212, 175, 55, 0.05);
+            --glass-bg: rgba(15, 15, 15, 0.75);
+            --glass-border: rgba(212, 175, 55, 0.3);
+            --glass-highlight: rgba(212, 175, 55, 0.1);
             --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
+            --text-secondary: #b0b0b0;
             --text-tertiary: #666666;
             --accent-gold: #D4AF37;
             --accent-gold-light: #F4D03F;
             --accent-gold-dark: #B8860B;
             --accent-glow: rgba(212, 175, 55, 0.4);
-            --online-green: #4CAF50;
+            --male-color: #4a90e2;
+            --female-color: #e26a90;
             --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --fracture-opacity: 0.15;
         }
 
         body.light-mode {
-            --bg-primary: #f0f2f5;
+            --bg-primary: #f5f5f5;
             --bg-secondary: #ffffff;
-            --bg-tertiary: #e9e9e9;
-            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.75);
             --glass-border: rgba(183, 148, 44, 0.3);
             --glass-highlight: rgba(183, 148, 44, 0.1);
             --text-primary: #1c1c1e;
@@ -48,7 +47,6 @@
             --accent-gold: #B7942C;
             --accent-gold-light: #D4AF37;
             --accent-gold-dark: #8A6D1B;
-            --fracture-opacity: 0.3;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -63,32 +61,21 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Luxury Geometric Fracture Background */
-        .bg-fracture {
+        /* Black & Gold Marble Fracture Background */
+        .bg-marble {
             position: fixed; inset: 0; z-index: -2;
             background-color: var(--bg-primary);
             background-image: 
-                linear-gradient(30deg, var(--bg-secondary) 12%, transparent 12.5%, transparent 87%, var(--bg-secondary) 87.5%, var(--bg-secondary)),
-                linear-gradient(150deg, var(--bg-secondary) 12%, transparent 12.5%, transparent 87%, var(--bg-secondary) 87.5%, var(--bg-secondary)),
-                linear-gradient(30deg, var(--bg-secondary) 12%, transparent 12.5%, transparent 87%, var(--bg-secondary) 87.5%, var(--bg-secondary)),
-                linear-gradient(150deg, var(--bg-secondary) 12%, transparent 12.5%, transparent 87%, var(--bg-secondary) 87.5%, var(--bg-secondary));
-            background-size: 80px 140px;
-            background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 85% 80%, rgba(184, 134, 11, 0.1) 0%, transparent 30%),
+                linear-gradient(135deg, transparent 0%, transparent 40%, rgba(212, 175, 55, 0.05) 50%, transparent 60%),
+                linear-gradient(45deg, transparent 0%, transparent 30%, rgba(212, 175, 55, 0.03) 50%, transparent 70%);
         }
-
-        .bg-glow {
-            position: fixed; width: 600px; height: 600px; border-radius: 50%;
-            filter: blur(120px); z-index: -1; opacity: var(--fracture-opacity); pointer-events: none;
-            animation: float 20s infinite ease-in-out;
-        }
-        .glow-1 { background: var(--accent-gold); top: -200px; left: -150px; }
-        .glow-2 { background: var(--accent-gold-dark); bottom: -200px; right: -150px; animation-delay: 5s; }
-        .glow-3 { background: var(--accent-gold-light); top: 40%; left: 30%; width: 400px; height: 400px; opacity: 0.08; animation-delay: 10s; }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(60px, -40px) scale(1.1); }
-            66% { transform: translate(-40px, 50px) scale(0.9); }
+        
+        .bg-veins {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0 50 L20 40 L40 60 L60 30 L80 70 L100 50" stroke="rgba(212,175,55,0.1)" fill="none" stroke-width="1"/><path d="M10 0 L30 20 L10 40 L30 60 L10 80 L30 100" stroke="rgba(212,175,55,0.05)" fill="none" stroke-width="2"/></svg>');
+            opacity: 0.6;
         }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -97,628 +84,844 @@
 
         .glass {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
             border: 1px solid var(--glass-border);
         }
 
-        /* Auth Screen */
-        .auth-screen {
-            position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center;
-            background: var(--bg-primary); transition: opacity 0.5s ease, visibility 0.5s ease;
+        .hidden { display: none !important; }
+
+        /* Auth Screens */
+        .auth-container {
+            position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+            padding: 20px; z-index: 1000; transition: opacity 0.5s ease;
         }
-        .auth-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .auth-card { width: 90%; max-width: 380px; padding: 40px; border-radius: 24px; text-align: center; }
-        .auth-logo { width: 100px; height: 100px; margin: 0 auto 20px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 48px; color: #000; font-family: 'Playfair Display', serif; font-weight: 700; box-shadow: 0 10px 30px var(--accent-glow); }
-        .auth-title { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--accent-gold); margin-bottom: 10px; }
+        .auth-card { width: 100%; max-width: 400px; padding: 40px; border-radius: 24px; text-align: center; }
+        .auth-logo { width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 36px; color: #000; font-family: 'Amiri', serif; font-weight: 700; box-shadow: 0 10px 30px var(--accent-glow); }
+        .auth-title { font-family: 'Amiri', serif; font-size: 32px; color: var(--accent-gold); margin-bottom: 10px; }
         .auth-subtitle { color: var(--text-secondary); margin-bottom: 30px; font-size: 14px; }
-        .auth-input { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-primary); font-size: 16px; text-align: center; letter-spacing: 2px; }
-        .auth-input:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 10px var(--accent-glow); }
-        .auth-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); color: #000; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.2s; }
-        .auth-btn:active { transform: scale(0.98); }
+        
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-label { display: block; font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .form-input, .form-select { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-primary); font-size: 16px; font-family: inherit; }
+        body.light-mode .form-input, body.light-mode .form-select { background: rgba(0,0,0,0.05); }
+        .form-input:focus, .form-select:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 10px var(--accent-glow); }
+        .form-select option { background: var(--bg-secondary); }
+        
+        .file-upload-wrapper { display: flex; align-items: center; gap: 15px; }
+        .file-upload-btn { padding: 10px 15px; background: var(--glass-highlight); border: 1px solid var(--accent-gold); color: var(--accent-gold); border-radius: 8px; cursor: pointer; font-size: 14px; white-space: nowrap; }
+        .file-preview { width: 50px; height: 50px; border-radius: 50%; background: var(--bg-secondary); border: 1px solid var(--glass-border); background-size: cover; background-position: center; }
 
-        /* Top Navigation */
-        .top-nav {
-            position: fixed; top: 0; left: 0; right: 0; height: 60px;
-            display: flex; align-items: center; padding: 0 20px; z-index: 100;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .nav-icon-btn {
-            background: transparent; border: none; color: var(--text-secondary);
-            cursor: pointer; padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
-            transition: all var(--transition-smooth);
-        }
+        .btn-gold { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); color: #000; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.2s; margin-top: 10px; }
+        .btn-gold:active { transform: scale(0.98); }
+
+        /* Main App Layout */
+        .app-container { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+        .top-nav { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--glass-border); z-index: 100; flex-shrink: 0; }
+        .nav-icon-btn { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
         .nav-icon-btn:hover { background: var(--glass-highlight); color: var(--accent-gold); }
-        .nav-title { flex: 1; text-align: center; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--accent-gold); letter-spacing: 1px; }
+        .nav-title { flex: 1; text-align: center; font-family: 'Amiri', serif; font-size: 24px; font-weight: 700; color: var(--accent-gold); }
 
-        /* Sidebar Drawer */
-        .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; opacity: 0; visibility: hidden; transition: all var(--transition-smooth); }
+        .folder-tabs { display: flex; gap: 10px; padding: 15px 20px; overflow-x: auto; border-bottom: 1px solid var(--glass-border); flex-shrink: 0; }
+        .folder-tab { padding: 8px 16px; border-radius: 20px; background: transparent; border: 1px solid var(--glass-border); color: var(--text-secondary); cursor: pointer; white-space: nowrap; transition: all 0.3s; font-size: 14px; }
+        .folder-tab.active { background: var(--accent-gold); color: #000; border-color: var(--accent-gold); }
+
+        .main-content { flex: 1; display: flex; overflow: hidden; }
+        
+        /* Side Drawer */
+        .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; opacity: 0; visibility: hidden; transition: all 0.3s; }
         .drawer-overlay.open { opacity: 1; visibility: visible; }
-        
-        .side-drawer {
-            position: fixed; top: 0; left: 0; width: 300px; height: 100%; z-index: 201;
-            background: var(--glass-bg); backdrop-filter: blur(30px);
-            border-right: 1px solid var(--glass-border);
-            transform: translateX(-100%); transition: transform var(--transition-smooth);
-            display: flex; flex-direction: column; padding: 20px;
-        }
+        .side-drawer { position: fixed; top: 0; left: 0; width: 280px; height: 100%; z-index: 201; transform: translateX(-100%); transition: transform 0.3s; display: flex; flex-direction: column; padding: 20px; }
         .side-drawer.open { transform: translateX(0); }
-        
         .drawer-header { padding: 20px 0; border-bottom: 1px solid var(--glass-border); margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
-        .drawer-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #000; font-family: 'Playfair Display', serif; }
-        .drawer-name { font-size: 18px; font-weight: 600; color: var(--text-primary); }
-        .drawer-phone { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
-        
+        .drawer-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: #000; }
         .drawer-menu { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-        .drawer-item { display: flex; align-items: center; gap: 15px; padding: 15px; border-radius: 12px; color: var(--text-primary); cursor: pointer; transition: all var(--transition-smooth); font-size: 16px; }
-        .drawer-item:hover { background: var(--glass-highlight); color: var(--accent-gold); }
+        .drawer-item { display: flex; align-items: center; gap: 15px; padding: 15px; border-radius: 12px; color: var(--text-primary); cursor: pointer; transition: all 0.3s; font-size: 16px; }
+        .drawer-item:hover, .drawer-item.active { background: var(--glass-highlight); color: var(--accent-gold); }
         .drawer-item svg { width: 24px; height: 24px; }
-        .drawer-item.active { background: rgba(212, 175, 55, 0.15); color: var(--accent-gold); border-left: 3px solid var(--accent-gold); }
 
-        /* Main Layout */
-        .app-container { display: grid; grid-template-columns: 360px 1fr; height: 100vh; padding-top: 60px; overflow: hidden; }
+        /* Views */
+        .view-container { flex: 1; overflow-y: auto; padding: 20px; }
+        .view-section { display: none; }
+        .view-section.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Chat List Panel */
-        .chat-list-panel { border-right: 1px solid var(--glass-border); display: flex; flex-direction: column; overflow: hidden; }
-        .search-bar { padding: 15px; border-bottom: 1px solid var(--glass-border); }
-        .search-input-wrapper { display: flex; align-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px 15px; }
-        body.light-mode .search-input-wrapper { background: rgba(0,0,0,0.05); }
-        .search-input-wrapper:focus-within { border-color: var(--accent-gold); box-shadow: 0 0 10px var(--accent-glow); }
-        .search-input-wrapper svg { margin-right: 10px; color: var(--text-tertiary); }
-        .search-input { background: transparent; border: none; outline: none; color: var(--text-primary); width: 100%; font-size: 15px; font-family: inherit; }
+        /* Chat List */
+        .chat-list { display: flex; flex-direction: column; gap: 10px; }
+        .chat-item { display: flex; align-items: center; padding: 15px; border-radius: 16px; cursor: pointer; transition: all 0.3s; }
+        .chat-item:hover, .chat-item.active { background: var(--glass-highlight); }
+        .chat-avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #000; margin-right: 15px; flex-shrink: 0; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); }
+        .chat-info h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .chat-info p { font-size: 14px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
 
-        .chat-list { flex: 1; overflow-y: auto; padding: 10px; }
-        .chat-item { display: flex; align-items: center; padding: 15px; border-radius: 16px; cursor: pointer; margin-bottom: 5px; transition: all var(--transition-smooth); border: 1px solid transparent; }
-        .chat-item:hover { background: var(--glass-highlight); }
-        .chat-item.active { background: rgba(212, 175, 55, 0.1); border-color: var(--glass-border); }
+        /* Family Tree */
+        .family-header { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; }
+        .search-wrapper { flex: 1; display: flex; align-items: center; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 8px 15px; }
+        .search-wrapper input { background: transparent; border: none; outline: none; color: var(--text-primary); width: 100%; margin-left: 10px; }
+        .view-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
+        .toggle-btn { flex: 1; padding: 12px; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-primary); cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .toggle-btn.active { background: var(--accent-gold); color: #000; border-color: var(--accent-gold); }
 
-        .avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #000; margin-right: 15px; flex-shrink: 0; text-transform: uppercase; font-size: 18px; font-family: 'Playfair Display', serif; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; }
-        .status-dot { position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--bg-primary); }
-        .status-online { background: var(--online-green); box-shadow: 0 0 5px var(--online-green); }
-        .status-offline { background: #666; }
+        .tree-container { position: relative; display: flex; flex-direction: column; align-items: center; gap: 50px; padding: 20px 0; }
+        .generation-row { display: flex; justify-content: center; gap: 20px; position: relative; flex-wrap: wrap; }
+        
+        .member-card { width: 220px; padding: 20px; border-radius: 16px; position: relative; z-index: 2; }
+        .member-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .member-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; font-size: 18px; border: 2px solid var(--accent-gold); }
+        .male { border-color: var(--male-color); }
+        .female { border-color: var(--female-color); }
+        .member-name { font-size: 14px; font-weight: 600; }
+        .member-relation { font-size: 12px; color: var(--text-secondary); }
+        .member-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+        .action-btn { background: var(--glass-highlight); border: 1px solid var(--glass-border); color: var(--text-primary); border-radius: 6px; padding: 6px; font-size: 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+        .action-btn:hover { background: var(--accent-gold); color: #000; }
+        .card-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; border-top: 1px solid var(--glass-border); padding-top: 10px; }
+        .card-action-icon { color: var(--text-secondary); cursor: pointer; transition: color 0.3s; }
+        .card-action-icon:hover { color: var(--accent-gold); }
+        .card-action-icon.delete:hover { color: #e74c3c; }
 
-        .chat-info { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .chat-top-row { display: flex; justify-content: space-between; align-items: center; }
-        .chat-name { font-size: 16px; font-weight: 500; color: var(--text-primary); }
-        .chat-time { font-size: 12px; color: var(--text-tertiary); }
-        .chat-bottom-row { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
-        .last-message { font-size: 14px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .unread-badge { background: var(--accent-gold); color: #000; border-radius: 50%; min-width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; margin-left: 10px; font-weight: 700; box-shadow: 0 0 8px var(--accent-glow); }
+        /* Tree Lines */
+        .tree-line-v { width: 2px; height: 40px; background: var(--accent-gold); margin: 0 auto; }
+        .tree-line-h { height: 2px; background: var(--accent-gold); position: absolute; top: -20px; left: 50%; transform: translateX(-50%); }
+
+        /* Statistics */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { padding: 20px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .stat-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--glass-highlight); display: flex; align-items: center; justify-content: center; color: var(--accent-gold); }
+        .stat-value { font-size: 28px; font-weight: 700; color: var(--text-primary); }
+        .stat-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; }
+
+        .gen-bars { padding: 20px; border-radius: 16px; margin-bottom: 20px; }
+        .gen-bar-item { margin-bottom: 15px; }
+        .gen-bar-header { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px; }
+        .progress-track { height: 8px; background: var(--glass-highlight); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-gold-light), var(--accent-gold-dark)); border-radius: 4px; }
+        
+        .stat-controls { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
+        .control-btn { width: 36px; height: 36px; border-radius: 8px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        /* Modals */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 300; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .modal-overlay.open { opacity: 1; visibility: visible; }
+        .modal-content { width: 90%; max-width: 500px; max-height: 90vh; border-radius: 24px; display: flex; flex-direction: column; overflow: hidden; transform: scale(0.95); transition: transform 0.3s; }
+        .modal-overlay.open .modal-content { transform: scale(1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid var(--glass-border); }
+        .modal-body { padding: 20px; overflow-y: auto; }
+        .settings-section { margin-bottom: 25px; }
+        .settings-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 10px; }
+        .settings-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
+        .settings-item:last-child { border-bottom: none; }
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; inset: 0; background-color: #333; transition: 0.4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: #666; transition: 0.4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--accent-gold); }
+        input:checked + .slider:before { transform: translateX(20px); background-color: #000; }
 
         /* Chat Workspace */
-        .chat-workspace { display: flex; flex-direction: column; overflow: hidden; }
-        .chat-header { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--glass-border); background: var(--glass-bg); gap: 15px; }
-        .back-btn { display: none; }
-        .chat-header-info { display: flex; align-items: center; gap: 15px; flex: 1; }
-        .chat-header-name { font-size: 18px; font-weight: 600; color: var(--text-primary); font-family: 'Playfair Display', serif; }
-        .chat-header-status { font-size: 13px; color: var(--accent-gold); }
-
-        .message-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .date-separator { text-align: center; margin: 10px 0; }
-        .date-separator span { background: var(--glass-bg); backdrop-filter: blur(10px); color: var(--accent-gold); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; border: 1px solid var(--glass-border); }
-
-        .message { max-width: 70%; display: flex; flex-direction: column; animation: fadeIn 0.3s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .message.sent { align-self: flex-end; }
-        .message.received { align-self: flex-start; }
-        
-        .message-bubble { padding: 12px 16px; border-radius: 18px; position: relative; word-wrap: break-word; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .message.sent .message-bubble { background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold)); color: #000; border-bottom-right-radius: 4px; }
-        .message.received .message-bubble { background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--glass-border); border-bottom-left-radius: 4px; }
-        .message-text { font-size: 15px; line-height: 1.4; margin-bottom: 4px; white-space: pre-wrap; }
-        .message-time { font-size: 11px; float: right; margin-left: 10px; margin-top: 5px; opacity: 0.8; }
+        .chat-workspace { position: fixed; top: 0; right: 0; bottom: 0; width: 100%; z-index: 150; transform: translateX(100%); transition: transform 0.3s; display: flex; flex-direction: column; }
+        .chat-workspace.open { transform: translateX(0); }
+        .chat-header { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid var(--glass-border); gap: 15px; }
+        .messages-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .message-bubble { max-width: 75%; padding: 12px 16px; border-radius: 18px; font-size: 15px; word-wrap: break-word; }
+        .message-sent { align-self: flex-end; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold)); color: #000; border-bottom-right-radius: 4px; }
+        .message-received { align-self: flex-start; background: var(--bg-secondary); border: 1px solid var(--glass-border); border-bottom-left-radius: 4px; }
         .message-img { max-width: 100%; border-radius: 12px; margin-bottom: 5px; display: block; }
-        .message-file { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px; text-decoration: none; color: inherit; }
-        body.light-mode .message.sent .message-file { background: rgba(255,255,255,0.2); color: #000; }
-        .message.sent .message-file { color: #000; background: rgba(0,0,0,0.2); }
-        .file-icon { width: 40px; height: 40px; background: var(--bg-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        body.light-mode .file-icon { background: #ddd; }
-        .message.sent .file-icon { background: rgba(0,0,0,0.3); }
-        .file-name { font-weight: 600; font-size: 14px; word-break: break-all; }
-
-        .message-input-bar { display: flex; align-items: center; padding: 15px 20px; gap: 10px; border-top: 1px solid var(--glass-border); background: var(--glass-bg); }
-        .input-wrapper { flex: 1; display: flex; align-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 22px; padding: 5px 5px 5px 15px; transition: all var(--transition-smooth); }
-        body.light-mode .input-wrapper { background: rgba(0,0,0,0.05); }
-        .input-wrapper:focus-within { border-color: var(--accent-gold); box-shadow: 0 0 10px var(--accent-glow); }
-        .message-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); font-size: 15px; padding: 10px 0; font-family: inherit; }
+        .chat-input-bar { display: flex; align-items: center; padding: 15px; gap: 10px; border-top: 1px solid var(--glass-border); }
+        .chat-input { flex: 1; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 22px; padding: 12px 15px; color: var(--text-primary); outline: none; }
         
-        .send-btn { background: var(--accent-gold); color: #000; padding: 12px; border-radius: 50%; width: 44px; height: 44px; box-shadow: 0 4px 20px var(--accent-glow); transition: all var(--transition-smooth); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .send-btn:hover { background: var(--accent-gold-light); transform: scale(1.05); }
-        .send-btn:active { transform: scale(0.95); }
-
-        /* Settings Modal */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 300; opacity: 0; visibility: hidden; transition: all var(--transition-smooth); }
-        .modal-overlay.open { opacity: 1; visibility: visible; }
-        .modal-content { width: 90%; max-width: 500px; max-height: 90vh; border-radius: 24px; border: 1px solid var(--accent-gold); background: var(--bg-secondary); box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(212, 175, 55, 0.1); display: flex; flex-direction: column; overflow: hidden; transform: scale(0.95); transition: transform var(--transition-smooth); }
-        .modal-overlay.open .modal-content { transform: scale(1); }
-        
-        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--glass-border); }
-        .modal-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--accent-gold); font-weight: 700; }
-        .modal-body { padding: 24px; overflow-y: auto; }
-        
-        .settings-section { margin-bottom: 25px; }
-        .settings-section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-tertiary); margin-bottom: 12px; font-weight: 600; }
-        .settings-card { background: rgba(255, 255, 255, 0.03); padding: 16px; border-radius: 16px; border: 1px solid var(--glass-border); }
-        body.light-mode .settings-card { background: rgba(0,0,0,0.03); }
-        
-        .profile-editor { display: flex; align-items: center; gap: 15px; }
-        .profile-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #000; }
-        .profile-input { background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 8px; padding: 8px 12px; color: var(--text-primary); font-family: inherit; width: 100%; margin-bottom: 8px; }
-        body.light-mode .profile-input { background: rgba(255,255,255,0.5); }
-        .profile-input:focus { outline: none; border-color: var(--accent-gold); }
-
-        .settings-option { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        body.light-mode .settings-option { border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .settings-option:last-child { border-bottom: none; }
-        .option-label { display: flex; flex-direction: column; }
-        .option-title { font-size: 16px; color: var(--text-primary); font-weight: 500; }
-        .option-desc { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
-
-        /* Toggle Switch */
-        .switch { position: relative; display: inline-block; width: 50px; height: 28px; flex-shrink: 0; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; inset: 0; background-color: #2c2c2c; transition: 0.4s; border-radius: 28px; border: 1px solid var(--glass-border); }
-        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: #666; transition: 0.4s; border-radius: 50%; }
-        input:checked + .slider { background-color: var(--accent-gold); border-color: var(--accent-gold); box-shadow: 0 0 15px var(--accent-glow); }
-        input:checked + .slider:before { transform: translateX(22px); background-color: #000; }
-
-        /* Dropdown */
-        .dropdown { background: rgba(0,0,0,0.3); color: var(--accent-gold); border: 1px solid var(--accent-gold); border-radius: 8px; padding: 8px 12px; font-family: inherit; font-size: 14px; cursor: pointer; outline: none; }
-        .dropdown option { background: var(--bg-secondary); color: var(--text-primary); }
-
-        /* PWA Install Banner */
-        .install-banner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(150%); background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); color: #000; padding: 12px 24px; border-radius: 30px; font-weight: 700; font-family: 'Inter', sans-serif; font-size: 14px; cursor: pointer; box-shadow: 0 4px 20px var(--accent-glow); z-index: 400; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; gap: 10px; border: none; }
-        .install-banner.show { transform: translateX(-50%) translateY(0); }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .app-container { grid-template-columns: 1fr; }
-            .chat-workspace { position: fixed; top: 60px; left: 0; right: 0; bottom: 0; z-index: 50; transform: translateX(100%); transition: transform var(--transition-smooth); background: var(--bg-primary); }
-            .chat-workspace.open { transform: translateX(0); }
-            .back-btn { display: flex; }
-            .message { max-width: 85%; }
+        @media (min-width: 769px) {
+            .chat-workspace { position: relative; flex: 1; transform: translateX(0); border-left: 1px solid var(--glass-border); }
         }
     </style>
 </head>
 <body>
+    <div class="bg-marble"></div>
+    <div class="bg-veins"></div>
 
-    <!-- Backgrounds -->
-    <div class="bg-fracture"></div>
-    <div class="bg-glow glow-1"></div>
-    <div class="bg-glow glow-2"></div>
-    <div class="bg-glow glow-3"></div>
-
-    <!-- Sign In Screen -->
-    <div class="auth-screen" id="auth-screen">
+    <!-- Auth Page 1: Verification -->
+    <div class="auth-container glass" id="auth-page-1">
         <div class="auth-card glass">
-            <div class="auth-logo">TG</div>
-            <h1 class="auth-title">Telegram Gold</h1>
-            <p class="auth-subtitle" id="auth-subtitle">Enter your phone number to continue</p>
+            <div class="auth-logo">خ</div>
+            <h1 class="auth-title">خيار</h1>
+            <p class="auth-subtitle">First Page / Login</p>
             
-            <div id="auth-step-1">
-                <input type="tel" class="auth-input" id="phone-input" placeholder="+1 555 123 4567">
-                <button class="auth-btn" onclick="sendCode()">Next</button>
+            <div class="form-group">
+                <label class="form-label">Country</label>
+                <select class="form-select" id="country-select">
+                    <option value="all">All Country</option>
+                    <option value="sa">Saudi Arabia</option>
+                    <option value="ae">UAE</option>
+                    <option value="eg">Egypt</option>
+                    <option value="us">United States</option>
+                </select>
             </div>
 
-            <div id="auth-step-2" style="display: none;">
-                <input type="text" class="auth-input" id="code-input" placeholder="Enter Code (12345)" maxlength="5">
-                <button class="auth-btn" onclick="login()">Sign In</button>
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-input" id="phone-input" placeholder="+1 555 123 4567">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Verification Code</label>
+                <input type="text" class="form-input" id="code-input" placeholder="true verification code">
+            </div>
+
+            <button class="btn-gold" onclick="goToPage('auth-page-2')">Verify & Continue</button>
+        </div>
+    </div>
+
+    <!-- Auth Page 2: Profile Setup -->
+    <div class="auth-container glass hidden" id="auth-page-2">
+        <div class="auth-card glass">
+            <div class="auth-logo">خ</div>
+            <h1 class="auth-title">Setup Profile</h1>
+            <p class="auth-subtitle">Enter your details to continue</p>
+
+            <div class="form-group">
+                <label class="form-label">Profile Picture</label>
+                <div class="file-upload-wrapper">
+                    <div class="file-preview" id="profile-preview"></div>
+                    <input type="file" id="profile-pic-input" hidden accept="image/*">
+                    <button class="file-upload-btn" onclick="document.getElementById('profile-pic-input').click()">Upload Photo</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" id="fullname-input" placeholder="John Doe">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-input" id="username-input" placeholder="@johndoe">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Bio</label>
+                <input type="text" class="form-input" id="bio-input" placeholder="Tell us about yourself">
+            </div>
+
+            <button class="btn-gold" onclick="enterApp()">Continue to App</button>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-container hidden" id="main-app">
+        <header class="top-nav glass">
+            <button class="nav-icon-btn" onclick="toggleDrawer(true)">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+            </button>
+            <h1 class="nav-title">خيار (Khiyar)</h1>
+            <button class="nav-icon-btn" onclick="toggleTheme()" id="theme-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 3v2m0 14v2M5.6 5.6l1.4 1.4m10 10l1.4 1.4M3 12h2m14 0h2M5.6 18.4l1.4-1.4m10-10l1.4-1.4M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>
+            </button>
+            <button class="nav-icon-btn" onclick="openModal('settings-modal')">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            </button>
+        </header>
+
+        <nav class="folder-tabs">
+            <button class="folder-tab active" onclick="switchTab(this)">Channel</button>
+            <button class="folder-tab" onclick="switchTab(this)">Group</button>
+            <button class="folder-tab" onclick="switchTab(this)">Personal</button>
+            <button class="folder-tab" onclick="switchTab(this)">Group1</button>
+            <button class="folder-tab" onclick="switchTab(this)">Group2</button>
+            <button class="folder-tab" onclick="switchTab(this)">Group3</button>
+        </nav>
+
+        <div class="main-content">
+            <!-- View: Chat/Home -->
+            <div class="view-container view-section active" id="view-home">
+                <div class="chat-list">
+                    <div class="chat-item glass" onclick="openChat()">
+                        <div class="chat-avatar">F</div>
+                        <div class="chat-info">
+                            <h4>Fatima Hassan</h4>
+                            <p>Welcome to the family group!</p>
+                        </div>
+                    </div>
+                    <div class="chat-item glass" onclick="openChat()">
+                        <div class="chat-avatar">O</div>
+                        <div class="chat-info">
+                            <h4>Omar Al-Rashid</h4>
+                            <p>See you at the gathering.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Family Tree -->
+            <div class="view-container view-section" id="view-tree">
+                <div class="family-header">
+                    <div class="search-wrapper glass">
+                        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5L20.49 19l-5-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+                        <input type="text" placeholder="Search members...">
+                    </div>
+                </div>
+
+                <div class="view-toggle">
+                    <button class="toggle-btn active" onclick="switchTreeView(this, 'tree-content')">
+                        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2L8 8h3v6h2V8h3l-4-6zm-7 8v8h14v-8h-2v6H7v-6H5z"/></svg>
+                        🌳 Family Tree
+                    </button>
+                    <button class="toggle-btn" onclick="switchTreeView(this, 'stats-content')">
+                        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+                        📊 Statistics
+                    </button>
+                </div>
+
+                <!-- Tree Content -->
+                <div id="tree-content">
+                    <div class="tree-container">
+                        <!-- Gen 1 -->
+                        <div class="generation-row">
+                            <div class="member-card glass">
+                                <div class="member-header">
+                                    <div class="member-avatar male">♂</div>
+                                    <div>
+                                        <div class="member-name">Omar Al-Rashid</div>
+                                        <div class="member-relation">Grandfather</div>
+                                    </div>
+                                </div>
+                                <div class="member-actions">
+                                    <button class="action-btn">↑ Father</button>
+                                    <button class="action-btn">↑ Mother</button>
+                                    <button class="action-btn">← Brother</button>
+                                    <button class="action-btn">→ Sister</button>
+                                    <button class="action-btn">↓ Son</button>
+                                    <button class="action-btn">↓ Daughter</button>
+                                    <button class="action-btn">♥ Spouse</button>
+                                </div>
+                                <div class="card-actions">
+                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
+                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                                    <svg class="card-action-icon delete" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                </div>
+                            </div>
+                            <div class="member-card glass">
+                                <div class="member-header">
+                                    <div class="member-avatar female">♀</div>
+                                    <div>
+                                        <div class="member-name">Aisha Omar</div>
+                                        <div class="member-relation">Grandmother</div>
+                                    </div>
+                                </div>
+                                <div class="member-actions">
+                                    <button class="action-btn">↑ Father</button>
+                                    <button class="action-btn">↑ Mother</button>
+                                    <button class="action-btn">← Brother</button>
+                                    <button class="action-btn">→ Sister</button>
+                                    <button class="action-btn">↓ Son</button>
+                                    <button class="action-btn">↓ Daughter</button>
+                                    <button class="action-btn">♥ Spouse</button>
+                                </div>
+                                <div class="card-actions">
+                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
+                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                                    <svg class="card-action-icon delete" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tree-line-v"></div>
+
+                        <!-- Gen 2 -->
+                        <div class="generation-row">
+                            <div class="member-card glass">
+                                <div class="member-header">
+                                    <div class="member-avatar male">♂</div>
+                                    <div>
+                                        <div class="member-name">Hassan Omar</div>
+                                        <div class="member-relation">Father</div>
+                                    </div>
+                                </div>
+                                <div class="member-actions">
+                                    <button class="action-btn">↑ Father</button>
+                                    <button class="action-btn">↑ Mother</button>
+                                    <button class="action-btn">← Brother</button>
+                                    <button class="action-btn">→ Sister</button>
+                                    <button class="action-btn">↓ Son</button>
+                                    <button class="action-btn">↓ Daughter</button>
+                                    <button class="action-btn">♥ Spouse</button>
+                                </div>
+                                <div class="card-actions">
+                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
+                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                                    <svg class="card-action-icon delete" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                </div>
+                            </div>
+                            <div class="member-card glass">
+                                <div class="member-header">
+                                    <div class="member-avatar female">♀</div>
+                                    <div>
+                                        <div class="member-name">Fatima Hassan</div>
+                                        <div class="member-relation">Mother</div>
+                                    </div>
+                                </div>
+                                <div class="member-actions">
+                                    <button class="action-btn">↑ Father</button>
+                                    <button class="action-btn">↑ Mother</button>
+                                    <button class="action-btn">← Brother</button>
+                                    <button class="action-btn">→ Sister</button>
+                                    <button class="action-btn">↓ Son</button>
+                                    <button class="action-btn">↓ Daughter</button>
+                                    <button class="action-btn">♥ Spouse</button>
+                                </div>
+                                <div class="card-actions">
+                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
+                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                                    <svg class="card-action-icon delete" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tree-line-v"></div>
+
+                        <!-- Gen 3 -->
+                        <div class="generation-row">
+                            <div class="member-card glass">
+                                <div class="member-header">
+                                    <div class="member-avatar male">♂</div>
+                                    <div>
+                                        <div class="member-name">Ali Hassan</div>
+                                        <div class="member-relation">Son</div>
+                                    </div>
+                                </div>
+                                <div class="member-actions">
+                                    <button class="action-btn">↑ Father</button>
+                                    <button class="action-btn">↑ Mother</button>
+                                    <button class="action-btn">← Brother</button>
+                                    <button class="action-btn">→ Sister</button>
+                                    <button class="action-btn">↓ Son</button>
+                                    <button class="action-btn">↓ Daughter</button>
+                                    <button class="action-btn">♥ Spouse</button>
+                                </div>
+                                <div class="card-actions">
+                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
+                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                                    <svg class="card-action-icon delete" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Content -->
+                <div id="stats-content" class="hidden">
+                    <div class="stat-controls">
+                        <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
+                        <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13H5v-2h14v2z"/></svg></button>
+                        <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card glass">
+                            <div class="stat-icon"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+                            <div class="stat-value">7</div>
+                            <div class="stat-label">Members</div>
+                        </div>
+                        <div class="stat-card glass">
+                            <div class="stat-icon" style="color: var(--male-color);"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 9c-2.21 0-4 1.79-4 4v6h2v-6h2v6h6v-6c0-2.21-1.79-4-4-4H9zm6-7v2h3l-4 4 1.41 1.41L19 5.41V8h2V2h-6z"/></svg></div>
+                            <div class="stat-value">4</div>
+                            <div class="stat-label">Males</div>
+                        </div>
+                        <div class="stat-card glass">
+                            <div class="stat-icon" style="color: var(--female-color);"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2C8.69 2 6 4.69 6 8c0 2.97 2.16 5.43 5 5.91V17H9v2h2v2h2v-2h2v-2h-2v-3.09c2.84-.48 5-2.94 5-5.91 0-3.31-2.69-6-6-6z"/></svg></div>
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Females</div>
+                        </div>
+                        <div class="stat-card glass">
+                            <div class="stat-icon"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></div>
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Generations</div>
+                        </div>
+                        <div class="stat-card glass">
+                            <div class="stat-icon" style="color: var(--online-green);"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71 .33 1.47 .33 2.26 0 4.41-3.59 8-8 8z"/></svg></div>
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Living</div>
+                        </div>
+                        <div class="stat-card glass">
+                            <div class="stat-icon" style="color: #e74c3c;"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></div>
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Deceased</div>
+                        </div>
+                    </div>
+
+                    <div class="gen-bars glass">
+                        <div class="gen-bar-item">
+                            <div class="gen-bar-header">
+                                <span>Generation 1</span>
+                                <span>2 Members</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 28%;"></div>
+                            </div>
+                        </div>
+                        <div class="gen-bar-item">
+                            <div class="gen-bar-header">
+                                <span>Generation 2</span>
+                                <span>3 Members</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 42%;"></div>
+                            </div>
+                        </div>
+                        <div class="gen-bar-item">
+                            <div class="gen-bar-header">
+                                <span>Generation 3</span>
+                                <span>2 Members</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 28%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Statistics (General) -->
+            <div class="view-container view-section" id="view-stats">
+                 <div class="stat-controls">
+                    <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
+                    <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13H5v-2h14v2z"/></svg></button>
+                    <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="stats-grid">
+                     <div class="stat-card glass"><div class="stat-icon"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><div class="stat-value">7</div><div class="stat-label">Members</div></div>
+                     <div class="stat-card glass"><div class="stat-icon" style="color: var(--male-color);"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 9c-2.21 0-4 1.79-4 4v6h2v-6h2v6h6v-6c0-2.21-1.79-4-4-4H9zm6-7v2h3l-4 4 1.41 1.41L19 5.41V8h2V2h-6z"/></svg></div><div class="stat-value">4</div><div class="stat-label">Males</div></div>
+                     <div class="stat-card glass"><div class="stat-icon" style="color: var(--female-color);"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2C8.69 2 6 4.69 6 8c0 2.97 2.16 5.43 5 5.91V17H9v2h2v2h2v-2h2v-2h-2v-3.09c2.84-.48 5-2.94 5-5.91 0-3.31-2.69-6-6-6z"/></svg></div><div class="stat-value">3</div><div class="stat-label">Females</div></div>
+                     <div class="stat-card glass"><div class="stat-icon"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></div><div class="stat-value">3</div><div class="stat-label">Generations</div></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Top Navigation -->
-    <header class="top-nav">
-        <button class="nav-icon-btn" id="btn-menu" aria-label="Menu">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-        </button>
-        <h1 class="nav-title">Telegram Gold</h1>
-        <button class="nav-icon-btn" id="btn-settings" aria-label="Settings">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-        </button>
-    </header>
-
-    <!-- Side Drawer -->
-    <div class="drawer-overlay" id="drawer-overlay"></div>
-    <aside class="side-drawer" id="side-drawer">
+    <!-- Drawer -->
+    <div class="drawer-overlay" id="drawer-overlay" onclick="toggleDrawer(false)"></div>
+    <aside class="side-drawer glass" id="side-drawer">
         <div class="drawer-header">
-            <div class="drawer-avatar">AU</div>
+            <div class="drawer-avatar" id="drawer-avatar">خ</div>
             <div>
-                <div class="drawer-name">Admin User</div>
-                <div class="drawer-phone">+1 (555) 123-4567</div>
+                <div style="font-weight: 600;" id="drawer-name">Guest User</div>
+                <div style="font-size: 14px; color: var(--text-secondary);" id="drawer-phone">+1 555 123 4567</div>
             </div>
         </div>
         <nav class="drawer-menu">
-            <div class="drawer-item active" onclick="switchFolder(this, 'All')">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg>
-                All Chats
+            <div class="drawer-item active" onclick="switchView('view-home', this)">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                Home
             </div>
-            <div class="drawer-item" onclick="switchFolder(this, 'Work')">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 6h-4V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM10 4h4v2h-4z"/></svg>
-                Work
+            <div class="drawer-item" onclick="switchView('view-tree', this)">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L8 8h3v6h2V8h3l-4-6zm-7 8v8h14v-8h-2v6H7v-6H5z"/></svg>
+                Family Tree (شجرة العائلة)
             </div>
-            <div class="drawer-item" onclick="switchFolder(this, 'Family')">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-                Family
+            <div class="drawer-item" onclick="switchView('view-stats', this)">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+                Statistics (الإحصائيات)
             </div>
-            <div class="drawer-item" onclick="switchFolder(this, 'Channels')">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
-                Channels
+            <div class="drawer-item" onclick="openModal('settings-modal')" style="margin-top: auto; color: var(--accent-gold);">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                Settings
             </div>
-            <div class="drawer-item" id="drawer-install-btn" style="margin-top: auto; color: var(--accent-gold);">
+            <div class="drawer-item" id="drawer-install-btn">
                 <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                 Install App
             </div>
         </nav>
     </aside>
 
-    <!-- Main App Container -->
-    <div class="app-container">
-        <!-- Chat List -->
-        <section class="chat-list-panel">
-            <div class="search-bar">
-                <div class="search-input-wrapper">
-                    <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5L20.49 19l-5-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
-                    <input type="text" class="search-input" id="search-input" placeholder="Search Luxury Chats">
-                </div>
+    <!-- Chat Workspace -->
+    <div class="chat-workspace glass" id="chat-workspace">
+        <header class="chat-header glass">
+            <button class="nav-icon-btn" onclick="closeChat()">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+            <div class="chat-avatar" style="width: 40px; height: 40px; font-size: 16px;">F</div>
+            <div style="flex: 1;">
+                <h4 style="font-size: 16px; font-weight: 600;">Fatima Hassan</h4>
+                <p style="font-size: 12px; color: var(--accent-gold);">online</p>
             </div>
-            <div class="chat-list" id="chat-list">
-                <div class="chat-item active" onclick="switchChat('chat-1', 'John Doe', 'online', 'JD', 'linear-gradient(135deg, #FFD700, #B8860B)')">
-                    <div class="avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B);">JD<span class="status-dot status-online"></span></div>
-                    <div class="chat-info">
-                        <div class="chat-top-row"><span class="chat-name">John Doe</span><span class="chat-time">12:45</span></div>
-                        <div class="chat-bottom-row"><span class="last-message">Did you see the gold files?</span><span class="unread-badge">2</span></div>
-                    </div>
-                </div>
-                <div class="chat-item" onclick="switchChat('chat-2', 'Family Group', '3 members', 'F', 'linear-gradient(135deg, #F0E68C, #DAA520)')">
-                    <div class="avatar" style="background: linear-gradient(135deg, #F0E68C, #DAA520);">F<span class="status-dot status-offline"></span></div>
-                    <div class="chat-info">
-                        <div class="chat-top-row"><span class="chat-name">Family Group</span><span class="chat-time">11:30</span></div>
-                        <div class="chat-bottom-row"><span class="last-message">Mom: Don't forget dinner!</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Chat Workspace -->
-        <section class="chat-workspace" id="chat-workspace">
-            <header class="chat-header">
-                <button class="nav-icon-btn back-btn" onclick="closeChat()" aria-label="Back">
-                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-                </button>
-                <div class="chat-header-info">
-                    <div class="avatar" id="workspace-avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B); width: 40px; height: 40px; font-size: 14px;">JD</div>
-                    <div>
-                        <div class="chat-header-name" id="workspace-name">John Doe</div>
-                        <div class="chat-header-status" id="workspace-status">online</div>
-                    </div>
-                </div>
-            </header>
-
-            <div class="message-area" id="message-area">
-                <div class="date-separator"><span>Today</span></div>
-                <div class="message received"><div class="message-bubble"><p class="message-text">Hey! How are you doing?</p><span class="message-time">12:30</span></div></div>
-                <div class="message sent"><div class="message-bubble"><p class="message-text">I'm doing great, thanks! Just finishing up the frontend.</p><span class="message-time">12:32</span></div></div>
-            </div>
-
-            <footer class="message-input-bar">
-                <input type="file" id="file-input" hidden>
-                <button class="nav-icon-btn" id="btn-attach" aria-label="Attach">
-                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16.5 6v11.5a4 4 0 1 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"/></svg>
-                </button>
-                <div class="input-wrapper">
-                    <input type="text" class="message-input" id="message-input" placeholder="Message" onkeypress="handleKeyPress(event)">
-                </div>
-                <button class="send-btn" onclick="sendMessage()" aria-label="Send">
-                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                </button>
-            </footer>
-        </section>
+        </header>
+        <div class="messages-area" id="messages-area">
+            <div class="message-bubble message-received">Welcome to the family group!</div>
+            <div class="message-bubble message-sent">Thank you! Excited to be here.</div>
+        </div>
+        <div class="chat-input-bar">
+            <input type="file" id="chat-file-input" hidden>
+            <button class="nav-icon-btn" onclick="document.getElementById('chat-file-input').click()">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16.5 6v11.5a4 4 0 1 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"/></svg>
+            </button>
+            <input type="text" class="chat-input" id="chat-input" placeholder="Message" onkeypress="handleChatKeyPress(event)">
+            <button class="nav-icon-btn" onclick="sendMessage()">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="var(--accent-gold)" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+        </div>
     </div>
 
     <!-- Settings Modal -->
     <div class="modal-overlay" id="settings-modal">
         <div class="modal-content glass">
             <header class="modal-header">
-                <h2 class="modal-title" id="settings-title">Settings</h2>
-                <button class="nav-icon-btn" onclick="closeSettings()" aria-label="Close">
+                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;">Settings</h2>
+                <button class="nav-icon-btn" onclick="closeModal('settings-modal')">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>
             </header>
             <div class="modal-body">
                 <div class="settings-section">
-                    <div class="settings-section-title">Profile Details</div>
-                    <div class="settings-card profile-editor">
-                        <div class="profile-avatar">AU</div>
-                        <div style="flex: 1;">
-                            <input type="text" class="profile-input" value="Admin User" placeholder="Name">
-                            <input type="text" class="profile-input" value="+1 (555) 123-4567" placeholder="Phone">
-                        </div>
+                    <div class="settings-title">Profile</div>
+                    <div class="settings-item">
+                        <span>Edit Profile & Logout</span>
+                        <button class="nav-icon-btn" onclick="logout()">
+                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                        </button>
+                    </div>
+                    <div class="settings-item">
+                        <span>Update Bio & Username</span>
+                        <button class="nav-icon-btn" onclick="openModal('profile-modal')">
+                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                        </button>
                     </div>
                 </div>
 
                 <div class="settings-section">
-                    <div class="settings-section-title">Preferences</div>
-                    <div class="settings-card">
-                        <div class="settings-option">
-                            <div class="option-label">
-                                <span class="option-title">Language</span>
-                                <span class="option-desc">Select your preferred language</span>
-                            </div>
-                            <select class="dropdown" id="lang-select" onchange="changeLanguage(this.value)">
-                                <option value="en">English</option>
-                                <option value="ar">Arabic</option>
-                                <option value="am">Amharic</option>
-                            </select>
-                        </div>
-                        <div class="settings-option">
-                            <div class="option-label">
-                                <span class="option-title" id="dark-mode-text">Dark/Gold Luxury Mode</span>
-                                <span class="option-desc">Toggle between Dark and Light themes</span>
-                            </div>
-                            <label class="switch">
-                                <input type="checkbox" id="dark-mode-toggle" checked onchange="toggleDarkMode(this)">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
+                    <div class="settings-title">Setting</div>
+                    <div class="settings-item">
+                        <span>Language</span>
+                        <select class="form-select" style="width: auto; padding: 8px;" onchange="changeLanguage(this.value)">
+                            <option value="ar">Arabic</option>
+                            <option value="en">English</option>
+                            <option value="am">Amharic</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <span>Dark Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" checked onchange="toggleTheme(this.checked)">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <div class="settings-title">Chat Folders</div>
+                    <div class="settings-item">
+                        <span>Manage Folders</span>
+                        <button class="btn-gold" style="width: auto; padding: 8px 16px; margin: 0; font-size: 14px;">Create Folder</button>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <div class="settings-title">Accounts & Actions</div>
+                    <div class="settings-item">
+                        <span>News: Add Account</span>
+                        <button class="nav-icon-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
+                    </div>
+                    <div class="settings-item">
+                        <span>New Group</span>
+                        <button class="nav-icon-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/></svg></button>
+                    </div>
+                    <div class="settings-item">
+                        <span>New Channel</span>
+                        <button class="nav-icon-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M2 22h20V2L2 22zm18-2H6.83L20 6.83V20z"/></svg></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Install Banner -->
-    <button class="install-banner" id="install-banner">
-        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        📲 Install Telegram Gold App
-    </button>
+    <!-- Profile Edit Modal -->
+    <div class="modal-overlay" id="profile-modal">
+        <div class="modal-content glass">
+            <header class="modal-header">
+                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;">Edit Profile</h2>
+                <button class="nav-icon-btn" onclick="closeModal('profile-modal')">
+                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </header>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" value="Guest User">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-input" value="@guest">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bio</label>
+                    <input type="text" class="form-input" value="Family member">
+                </div>
+                <button class="btn-gold" onclick="closeModal('profile-modal')">Save Changes</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // =========================================
-        // 1. Service Worker Registration
-        // =========================================
+        // PWA Service Worker
         if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js');
-          });
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
         }
 
-        // =========================================
-        // 2. Sign In Flow Logic
-        // =========================================
-        function sendCode() {
-            const phone = document.getElementById('phone-input').value;
-            if (phone.length > 5) {
-                document.getElementById('auth-step-1').style.display = 'none';
-                document.getElementById('auth-step-2').style.display = 'block';
-                document.getElementById('auth-subtitle').textContent = 'Enter the code sent to your phone (Hint: 12345)';
-            } else {
-                alert('Please enter a valid phone number');
-            }
-        }
-
-        function login() {
-            const code = document.getElementById('code-input').value;
-            if (code === '12345') {
-                document.getElementById('auth-screen').classList.add('hidden');
-            } else {
-                alert('Invalid code. Use 12345 for demo.');
-            }
-        }
-
-        // =========================================
-        // 3. Navigation & Drawer Logic
-        // =========================================
-        const drawer = document.getElementById('side-drawer');
-        const drawerOverlay = document.getElementById('drawer-overlay');
-        const workspace = document.getElementById('chat-workspace');
-
-        document.getElementById('btn-menu').addEventListener('click', () => {
-            drawer.classList.add('open');
-            drawerOverlay.classList.add('open');
+        // PWA Install Prompt
+        let deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
         });
 
-        drawerOverlay.addEventListener('click', () => {
-            drawer.classList.remove('open');
-            drawerOverlay.classList.remove('open');
+        document.getElementById('drawer-install-btn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                await deferredPrompt.userChoice;
+                deferredPrompt = null;
+            } else {
+                alert('To install the app:\n\nChrome/Edge: Click the install icon in the address bar.\nSafari (iOS): Tap Share -> Add to Home Screen.');
+            }
         });
 
-        function switchFolder(element, folderName) {
+        // Auth Navigation
+        function goToPage(pageId) {
+            document.getElementById('auth-page-1').classList.add('hidden');
+            document.getElementById('auth-page-2').classList.remove('hidden');
+        }
+
+        function enterApp() {
+            const name = document.getElementById('fullname-input').value || 'Guest User';
+            const phone = document.getElementById('phone-input').value || '+1 555 000 0000';
+            
+            document.getElementById('drawer-name').textContent = name;
+            document.getElementById('drawer-phone').textContent = phone;
+            document.getElementById('drawer-avatar').textContent = name.charAt(0).toUpperCase();
+
+            document.getElementById('auth-page-2').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+        }
+
+        function logout() {
+            closeModal('settings-modal');
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('auth-page-1').classList.remove('hidden');
+        }
+
+        // Profile Pic Upload
+        document.getElementById('profile-pic-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                document.getElementById('profile-preview').style.backgroundImage = `url(${ev.target.result})`;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Navigation & Views
+        function toggleDrawer(state) {
+            document.getElementById('side-drawer').classList.toggle('open', state);
+            document.getElementById('drawer-overlay').classList.toggle('open', state);
+        }
+
+        function switchView(viewId, element) {
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            
             document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
             element.classList.add('active');
-            if (window.innerWidth <= 768) {
-                drawer.classList.remove('open');
-                drawerOverlay.classList.remove('open');
-            }
+            toggleDrawer(false);
         }
 
-        // =========================================
-        // 4. Settings Modal Logic
-        // =========================================
-        const settingsModal = document.getElementById('settings-modal');
-
-        document.getElementById('btn-settings').addEventListener('click', () => {
-            settingsModal.classList.add('open');
-        });
-
-        function closeSettings() {
-            settingsModal.classList.remove('open');
+        function switchTab(element) {
+            document.querySelectorAll('.folder-tab').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
         }
 
-        settingsModal.addEventListener('click', (e) => {
-            if (e.target === settingsModal) closeSettings();
-        });
-
-        // =========================================
-        // 5. Theme & Language Logic
-        // =========================================
-        function toggleDarkMode(checkbox) {
-            if (checkbox.checked) {
-                document.body.classList.remove('light-mode');
-            } else {
-                document.body.classList.add('light-mode');
-            }
-        }
-
-        function changeLanguage(lang) {
-            const translations = {
-                en: { search: 'Search Luxury Chats', message: 'Message', settings: 'Settings' },
-                ar: { search: 'بحث في الدردشات الفاخرة', message: 'رسالة', settings: 'الإعدادات' },
-                am: { search: 'የውበት ቻቶችን ይፈልጉ', message: 'መልዕክት', settings: 'ቅንብሮች' }
-            };
-            const dict = translations[lang] || translations.en;
-            document.getElementById('search-input').placeholder = dict.search;
-            document.getElementById('message-input').placeholder = dict.message;
-            document.getElementById('settings-title').textContent = dict.settings;
-        }
-
-        // =========================================
-        // 6. Chat System & File Uploading Logic
-        // =========================================
-        function switchChat(chatId, name, status, avatarText, avatarBg) {
-            document.querySelectorAll('.chat-item').forEach(item => item.classList.remove('active'));
-            const clickedChat = document.querySelector(`[onclick*="${chatId}"]`);
-            if (clickedChat) clickedChat.classList.add('active');
-
-            document.getElementById('workspace-name').textContent = name;
-            document.getElementById('workspace-status').textContent = status;
-            const workspaceAvatar = document.getElementById('workspace-avatar');
-            workspaceAvatar.textContent = avatarText;
-            workspaceAvatar.style.background = avatarBg;
-
-            if (window.innerWidth <= 768) {
-                workspace.classList.add('open');
-            }
-        }
-
-        function closeChat() {
-            workspace.classList.remove('open');
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('message-input');
-            const area = document.getElementById('message-area');
-            const text = input.value.trim();
-            if (text === '') return;
-
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'message sent';
-            const bubble = document.createElement('div');
-            bubble.className = 'message-bubble';
-            const para = document.createElement('p');
-            para.className = 'message-text';
-            para.textContent = text;
-            const time = document.createElement('span');
-            time.className = 'message-time';
-            time.textContent = `${new Date().getHours().toString().padStart(2, '0')}:${new Date().getMinutes().toString().padStart(2, '0')}`;
+        function switchTreeView(element, contentId) {
+            document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
             
-            bubble.appendChild(para);
-            bubble.appendChild(time);
-            msgDiv.appendChild(bubble);
-            area.appendChild(msgDiv);
-
-            input.value = '';
-            area.scrollTo({ top: area.scrollHeight, behavior: 'smooth' });
+            if (contentId === 'tree-content') {
+                document.getElementById('tree-content').classList.remove('hidden');
+                document.getElementById('stats-content').classList.add('hidden');
+            } else {
+                document.getElementById('tree-content').classList.add('hidden');
+                document.getElementById('stats-content').classList.remove('hidden');
+            }
         }
 
-        function handleKeyPress(event) {
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
+        // Modals
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('open');
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('open');
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+        }
+
+        // Language
+        function changeLanguage(lang) {
+            // Basic implementation for demonstration
+            console.log('Language changed to:', lang);
+        }
+
+        // Chat
+        function openChat() {
+            document.getElementById('chat-workspace').classList.add('open');
+        }
+        function closeChat() {
+            document.getElementById('chat-workspace').classList.remove('open');
+        }
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
                 sendMessage();
             }
         }
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
 
-        // File Upload Logic
-        const fileInput = document.getElementById('file-input');
-        document.getElementById('btn-attach').addEventListener('click', () => fileInput.click());
-
-        fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const area = document.getElementById('message-area');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'message sent';
+            const area = document.getElementById('messages-area');
             const bubble = document.createElement('div');
-            bubble.className = 'message-bubble';
+            bubble.className = 'message-bubble message-sent';
+            bubble.textContent = text;
+            area.appendChild(bubble);
             
-            const time = document.createElement('span');
-            time.className = 'message-time';
-            time.textContent = `${new Date().getHours().toString().padStart(2, '0')}:${new Date().getMinutes().toString().padStart(2, '0')}`;
-
-            if (file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.className = 'message-img';
-                    bubble.appendChild(img);
-                    bubble.appendChild(time);
-                    msgDiv.appendChild(bubble);
-                    area.appendChild(msgDiv);
-                    area.scrollTo({ top: area.scrollHeight, behavior: 'smooth' });
-                };
-                reader.readAsDataURL(file);
-            } else {
-                const fileBox = document.createElement('div');
-                fileBox.className = 'message-file';
-                fileBox.innerHTML = `
-                    <div class="file-icon">
-                        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                    </div>
-                    <span class="file-name">${file.name}</span>
-                `;
-                bubble.appendChild(fileBox);
-                bubble.appendChild(time);
-                msgDiv.appendChild(bubble);
-                area.appendChild(msgDiv);
-                area.scrollTo({ top: area.scrollHeight, behavior: 'smooth' });
-            }
-            fileInput.value = ''; // Reset input
-        });
-
-        // =========================================
-        // 7. PWA Install Logic
-        // =========================================
-        let deferredPrompt = null;
-        const installBanner = document.getElementById('install-banner');
-        const drawerInstallBtn = document.getElementById('drawer-install-btn');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent the default browser mini-infobar
-            e.preventDefault();
-            // Stash the event so it can be triggered later
-            deferredPrompt = e;
-            // Show the custom install banner
-            installBanner.classList.add('show');
-        });
-
-        async function triggerInstall() {
-            if (deferredPrompt) {
-                // Show the native install prompt
-                deferredPrompt.prompt();
-                // Wait for the user to respond to the prompt
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    installBanner.classList.remove('show');
-                }
-                // Clear the saved prompt as it can't be used again
-                deferredPrompt = null;
-            } else {
-                // Fallback alert for browsers (like iOS Safari) that don't support beforeinstallprompt
-                alert('To install the app:\n\nChrome/Edge: Click the install icon in the address bar.\nSafari (iOS): Tap Share -> Add to Home Screen.');
-            }
+            input.value = '';
+            area.scrollTop = area.scrollHeight;
         }
 
-        installBanner.addEventListener('click', triggerInstall);
-        drawerInstallBtn.addEventListener('click', triggerInstall);
+        // Chat File Upload
+        document.getElementById('chat-file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            const area = document.getElementById('messages-area');
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble message-sent';
 
-        window.addEventListener('appinstalled', () => {
-            installBanner.classList.remove('show');
+            reader.onload = (ev) => {
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = ev.target.result;
+                    img.className = 'message-img';
+                    bubble.appendChild(img);
+                } else {
+                    bubble.textContent = `📎 ${file.name}`;
+                }
+                area.appendChild(bubble);
+                area.scrollTop = area.scrollHeight;
+            };
+            reader.readAsDataURL(file);
+            e.target.value = '';
         });
-
     </script>
 </body>
 </html>
