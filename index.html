@@ -1099,3 +1099,27 @@
     </script>
 </body>
 </html>
+ADD THIS AUTO-UPDATE SCRIPT TO 'index.html':
+
+Ensure the Service Worker automatically detects server updates and reloads the page seamlessly when a new version is published to GitHub:
+
+```javascript
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then((reg) => {
+    // Check for updates on page load
+    reg.update();
+
+    reg.onupdatefound = () => {
+      const installingWorker = reg.installing;
+      installingWorker.onstatechange = () => {
+        if (installingWorker.state === 'installed') {
+          if (navigator.serviceWorker.controller) {
+            // New content available, reload automatically!
+            window.location.reload();
+          }
+        }
+      };
+    };
+  });
+}
+
