@@ -24,5 +24,5 @@ self.addEventListener('fetch', (event) => {
   // Always try network first to get the latest update from GitHub/Server
   event.respondWith(
     fetch(event.request).catch(() => caches.match(event.request))
-  );
+);
 });
