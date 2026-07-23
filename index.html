@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#000000">
-    <title>Telegram Gold</title>
     
-    <!-- PWA Manifest -->
-    <link rel="manifest" href='data:application/manifest+json,{"name":"Telegram Gold","short_name":"TG Gold","start_url":".","display":"standalone","background_color":"#000000","theme_color":"#D4AF37","icons":[{"src":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23000%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2270%22%20font-size%3D%2270%22%20text-anchor%3D%22middle%22%20fill%3D%22%23D4AF37%22%3EG%3C%2Ftext%3E%3C%2Fsvg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#D4AF37">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Telegram Gold</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -477,7 +477,16 @@
 
     <script>
         // =========================================
-        // 1. Sign In Flow Logic
+        // 1. Service Worker Registration
+        // =========================================
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js');
+          });
+        }
+
+        // =========================================
+        // 2. Sign In Flow Logic
         // =========================================
         function sendCode() {
             const phone = document.getElementById('phone-input').value;
@@ -500,7 +509,7 @@
         }
 
         // =========================================
-        // 2. Navigation & Drawer Logic
+        // 3. Navigation & Drawer Logic
         // =========================================
         const drawer = document.getElementById('side-drawer');
         const drawerOverlay = document.getElementById('drawer-overlay');
@@ -526,7 +535,7 @@
         }
 
         // =========================================
-        // 3. Settings Modal Logic
+        // 4. Settings Modal Logic
         // =========================================
         const settingsModal = document.getElementById('settings-modal');
 
@@ -543,7 +552,7 @@
         });
 
         // =========================================
-        // 4. Theme & Language Logic
+        // 5. Theme & Language Logic
         // =========================================
         function toggleDarkMode(checkbox) {
             if (checkbox.checked) {
@@ -566,7 +575,7 @@
         }
 
         // =========================================
-        // 5. Chat System & File Uploading Logic
+        // 6. Chat System & File Uploading Logic
         // =========================================
         function switchChat(chatId, name, status, avatarText, avatarBg) {
             document.querySelectorAll('.chat-item').forEach(item => item.classList.remove('active'));
@@ -671,27 +680,34 @@
         });
 
         // =========================================
-        // 6. PWA Install Logic
+        // 7. PWA Install Logic
         // =========================================
         let deferredPrompt = null;
         const installBanner = document.getElementById('install-banner');
         const drawerInstallBtn = document.getElementById('drawer-install-btn');
 
         window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the default browser mini-infobar
             e.preventDefault();
+            // Stash the event so it can be triggered later
             deferredPrompt = e;
+            // Show the custom install banner
             installBanner.classList.add('show');
         });
 
         async function triggerInstall() {
             if (deferredPrompt) {
+                // Show the native install prompt
                 deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === 'accepted') {
                     installBanner.classList.remove('show');
                 }
+                // Clear the saved prompt as it can't be used again
                 deferredPrompt = null;
             } else {
+                // Fallback alert for browsers (like iOS Safari) that don't support beforeinstallprompt
                 alert('To install the app:\n\nChrome/Edge: Click the install icon in the address bar.\nSafari (iOS): Tap Share -> Add to Home Screen.');
             }
         }
