@@ -10,7 +10,6 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,12 +19,11 @@
         :root {
             --bg-primary: #050505;
             --bg-secondary: #0a0a0a;
-            --glass-bg: rgba(15, 15, 15, 0.75);
+            --glass-bg: rgba(15, 15, 15, 0.8);
             --glass-border: rgba(212, 175, 55, 0.3);
             --glass-highlight: rgba(212, 175, 55, 0.1);
             --text-primary: #ffffff;
             --text-secondary: #b0b0b0;
-            --text-tertiary: #666666;
             --accent-gold: #D4AF37;
             --accent-gold-light: #F4D03F;
             --accent-gold-dark: #B8860B;
@@ -38,15 +36,11 @@
         body.light-mode {
             --bg-primary: #f5f5f5;
             --bg-secondary: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-bg: rgba(255, 255, 255, 0.8);
             --glass-border: rgba(183, 148, 44, 0.3);
             --glass-highlight: rgba(183, 148, 44, 0.1);
             --text-primary: #1c1c1e;
             --text-secondary: #555555;
-            --text-tertiary: #888888;
-            --accent-gold: #B7942C;
-            --accent-gold-light: #D4AF37;
-            --accent-gold-dark: #8A6D1B;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -71,7 +65,6 @@
                 linear-gradient(135deg, transparent 0%, transparent 40%, rgba(212, 175, 55, 0.05) 50%, transparent 60%),
                 linear-gradient(45deg, transparent 0%, transparent 30%, rgba(212, 175, 55, 0.03) 50%, transparent 70%);
         }
-        
         .bg-veins {
             position: fixed; inset: 0; z-index: -1; pointer-events: none;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0 50 L20 40 L40 60 L60 30 L80 70 L100 50" stroke="rgba(212,175,55,0.1)" fill="none" stroke-width="1"/><path d="M10 0 L30 20 L10 40 L30 60 L10 80 L30 100" stroke="rgba(212,175,55,0.05)" fill="none" stroke-width="2"/></svg>');
@@ -181,9 +174,7 @@
         .card-action-icon:hover { color: var(--accent-gold); }
         .card-action-icon.delete:hover { color: #e74c3c; }
 
-        /* Tree Lines */
         .tree-line-v { width: 2px; height: 40px; background: var(--accent-gold); margin: 0 auto; }
-        .tree-line-h { height: 2px; background: var(--accent-gold); position: absolute; top: -20px; left: 50%; transform: translateX(-50%); }
 
         /* Statistics */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px; }
@@ -196,7 +187,7 @@
         .gen-bar-item { margin-bottom: 15px; }
         .gen-bar-header { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px; }
         .progress-track { height: 8px; background: var(--glass-highlight); border-radius: 4px; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-gold-light), var(--accent-gold-dark)); border-radius: 4px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-gold-light), var(--accent-gold-dark)); border-radius: 4px; transition: width 1s ease; }
         
         .stat-controls { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
         .control-btn { width: 36px; height: 36px; border-radius: 8px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -254,7 +245,6 @@
                     <option value="sa">Saudi Arabia</option>
                     <option value="ae">UAE</option>
                     <option value="eg">Egypt</option>
-                    <option value="us">United States</option>
                 </select>
             </div>
 
@@ -268,7 +258,7 @@
                 <input type="text" class="form-input" id="code-input" placeholder="true verification code">
             </div>
 
-            <button class="btn-gold" onclick="goToPage('auth-page-2')">Verify & Continue</button>
+            <button class="btn-gold" onclick="verifyCode()">Verify & Continue</button>
         </div>
     </div>
 
@@ -292,18 +282,16 @@
                 <label class="form-label">Full Name</label>
                 <input type="text" class="form-input" id="fullname-input" placeholder="John Doe">
             </div>
-
             <div class="form-group">
                 <label class="form-label">Username</label>
                 <input type="text" class="form-input" id="username-input" placeholder="@johndoe">
             </div>
-
             <div class="form-group">
                 <label class="form-label">Bio</label>
                 <input type="text" class="form-input" id="bio-input" placeholder="Tell us about yourself">
             </div>
 
-            <button class="btn-gold" onclick="enterApp()">Continue to App</button>
+            <button class="btn-gold" onclick="setupProfile()">Continue to App</button>
         </div>
     </div>
 
@@ -332,27 +320,19 @@
         </nav>
 
         <div class="main-content">
-            <!-- View: Chat/Home -->
             <div class="view-container view-section active" id="view-home">
                 <div class="chat-list">
                     <div class="chat-item glass" onclick="openChat()">
                         <div class="chat-avatar">F</div>
-                        <div class="chat-info">
-                            <h4>Fatima Hassan</h4>
-                            <p>Welcome to the family group!</p>
-                        </div>
+                        <div class="chat-info"><h4>Fatima Hassan</h4><p>Welcome to the family group!</p></div>
                     </div>
                     <div class="chat-item glass" onclick="openChat()">
                         <div class="chat-avatar">O</div>
-                        <div class="chat-info">
-                            <h4>Omar Al-Rashid</h4>
-                            <p>See you at the gathering.</p>
-                        </div>
+                        <div class="chat-info"><h4>Omar Al-Rashid</h4><p>See you at the gathering.</p></div>
                     </div>
                 </div>
             </div>
 
-            <!-- View: Family Tree -->
             <div class="view-container view-section" id="view-tree">
                 <div class="family-header">
                     <div class="search-wrapper glass">
@@ -360,245 +340,34 @@
                         <input type="text" placeholder="Search members...">
                     </div>
                 </div>
-
                 <div class="view-toggle">
-                    <button class="toggle-btn active" onclick="switchTreeView(this, 'tree-content')">
-                        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2L8 8h3v6h2V8h3l-4-6zm-7 8v8h14v-8h-2v6H7v-6H5z"/></svg>
-                        🌳 Family Tree
-                    </button>
-                    <button class="toggle-btn" onclick="switchTreeView(this, 'stats-content')">
-                        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-                        📊 Statistics
-                    </button>
+                    <button class="toggle-btn active" onclick="switchTreeView(this, 'tree-content')"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2L8 8h3v6h2V8h3l-4-6z"/></svg> 🌳 Family Tree</button>
+                    <button class="toggle-btn" onclick="switchTreeView(this, 'stats-content')"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 13h2v-2H3v2zm0 4h2v-2H3v2z"/></svg> 📊 Statistics</button>
                 </div>
 
-                <!-- Tree Content -->
                 <div id="tree-content">
-                    <div class="tree-container">
-                        <!-- Gen 1 -->
-                        <div class="generation-row">
-                            <div class="member-card glass">
-                                <div class="member-header">
-                                    <div class="member-avatar male">♂</div>
-                                    <div>
-                                        <div class="member-name">Omar Al-Rashid</div>
-                                        <div class="member-relation">Grandfather</div>
-                                    </div>
-                                </div>
-                                <div class="member-actions">
-                                    <button class="action-btn">↑ Father</button>
-                                    <button class="action-btn">↑ Mother</button>
-                                    <button class="action-btn">← Brother</button>
-                                    <button class="action-btn">→ Sister</button>
-                                    <button class="action-btn">↓ Son</button>
-                                    <button class="action-btn">↓ Daughter</button>
-                                    <button class="action-btn">♥ Spouse</button>
-                                </div>
-                                <div class="card-actions">
-                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
-                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                                    <svg class="card-action-icon delete" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                                </div>
-                            </div>
-                            <div class="member-card glass">
-                                <div class="member-header">
-                                    <div class="member-avatar female">♀</div>
-                                    <div>
-                                        <div class="member-name">Aisha Omar</div>
-                                        <div class="member-relation">Grandmother</div>
-                                    </div>
-                                </div>
-                                <div class="member-actions">
-                                    <button class="action-btn">↑ Father</button>
-                                    <button class="action-btn">↑ Mother</button>
-                                    <button class="action-btn">← Brother</button>
-                                    <button class="action-btn">→ Sister</button>
-                                    <button class="action-btn">↓ Son</button>
-                                    <button class="action-btn">↓ Daughter</button>
-                                    <button class="action-btn">♥ Spouse</button>
-                                </div>
-                                <div class="card-actions">
-                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
-                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                                    <svg class="card-action-icon delete" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tree-line-v"></div>
-
-                        <!-- Gen 2 -->
-                        <div class="generation-row">
-                            <div class="member-card glass">
-                                <div class="member-header">
-                                    <div class="member-avatar male">♂</div>
-                                    <div>
-                                        <div class="member-name">Hassan Omar</div>
-                                        <div class="member-relation">Father</div>
-                                    </div>
-                                </div>
-                                <div class="member-actions">
-                                    <button class="action-btn">↑ Father</button>
-                                    <button class="action-btn">↑ Mother</button>
-                                    <button class="action-btn">← Brother</button>
-                                    <button class="action-btn">→ Sister</button>
-                                    <button class="action-btn">↓ Son</button>
-                                    <button class="action-btn">↓ Daughter</button>
-                                    <button class="action-btn">♥ Spouse</button>
-                                </div>
-                                <div class="card-actions">
-                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
-                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                                    <svg class="card-action-icon delete" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                                </div>
-                            </div>
-                            <div class="member-card glass">
-                                <div class="member-header">
-                                    <div class="member-avatar female">♀</div>
-                                    <div>
-                                        <div class="member-name">Fatima Hassan</div>
-                                        <div class="member-relation">Mother</div>
-                                    </div>
-                                </div>
-                                <div class="member-actions">
-                                    <button class="action-btn">↑ Father</button>
-                                    <button class="action-btn">↑ Mother</button>
-                                    <button class="action-btn">← Brother</button>
-                                    <button class="action-btn">→ Sister</button>
-                                    <button class="action-btn">↓ Son</button>
-                                    <button class="action-btn">↓ Daughter</button>
-                                    <button class="action-btn">♥ Spouse</button>
-                                </div>
-                                <div class="card-actions">
-                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
-                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                                    <svg class="card-action-icon delete" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="tree-line-v"></div>
-
-                        <!-- Gen 3 -->
-                        <div class="generation-row">
-                            <div class="member-card glass">
-                                <div class="member-header">
-                                    <div class="member-avatar male">♂</div>
-                                    <div>
-                                        <div class="member-name">Ali Hassan</div>
-                                        <div class="member-relation">Son</div>
-                                    </div>
-                                </div>
-                                <div class="member-actions">
-                                    <button class="action-btn">↑ Father</button>
-                                    <button class="action-btn">↑ Mother</button>
-                                    <button class="action-btn">← Brother</button>
-                                    <button class="action-btn">→ Sister</button>
-                                    <button class="action-btn">↓ Son</button>
-                                    <button class="action-btn">↓ Daughter</button>
-                                    <button class="action-btn">♥ Spouse</button>
-                                </div>
-                                <div class="card-actions">
-                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/></svg>
-                                    <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                                    <svg class="card-action-icon delete" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="tree-container" id="tree-container">
+                        <!-- Members rendered dynamically by JS -->
                     </div>
                 </div>
 
-                <!-- Statistics Content -->
                 <div id="stats-content" class="hidden">
                     <div class="stat-controls">
                         <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
                         <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13H5v-2h14v2z"/></svg></button>
-                        <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                        <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5z"/></svg></button>
                     </div>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card glass">
-                            <div class="stat-icon"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
-                            <div class="stat-value">7</div>
-                            <div class="stat-label">Members</div>
-                        </div>
-                        <div class="stat-card glass">
-                            <div class="stat-icon" style="color: var(--male-color);"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 9c-2.21 0-4 1.79-4 4v6h2v-6h2v6h6v-6c0-2.21-1.79-4-4-4H9zm6-7v2h3l-4 4 1.41 1.41L19 5.41V8h2V2h-6z"/></svg></div>
-                            <div class="stat-value">4</div>
-                            <div class="stat-label">Males</div>
-                        </div>
-                        <div class="stat-card glass">
-                            <div class="stat-icon" style="color: var(--female-color);"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2C8.69 2 6 4.69 6 8c0 2.97 2.16 5.43 5 5.91V17H9v2h2v2h2v-2h2v-2h-2v-3.09c2.84-.48 5-2.94 5-5.91 0-3.31-2.69-6-6-6z"/></svg></div>
-                            <div class="stat-value">3</div>
-                            <div class="stat-label">Females</div>
-                        </div>
-                        <div class="stat-card glass">
-                            <div class="stat-icon"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></div>
-                            <div class="stat-value">3</div>
-                            <div class="stat-label">Generations</div>
-                        </div>
-                        <div class="stat-card glass">
-                            <div class="stat-icon" style="color: var(--online-green);"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71 .33 1.47 .33 2.26 0 4.41-3.59 8-8 8z"/></svg></div>
-                            <div class="stat-value">5</div>
-                            <div class="stat-label">Living</div>
-                        </div>
-                        <div class="stat-card glass">
-                            <div class="stat-icon" style="color: #e74c3c;"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></div>
-                            <div class="stat-value">2</div>
-                            <div class="stat-label">Deceased</div>
-                        </div>
+                    <div class="stats-grid" id="stats-grid">
+                        <!-- Stats rendered dynamically -->
                     </div>
-
-                    <div class="gen-bars glass">
-                        <div class="gen-bar-item">
-                            <div class="gen-bar-header">
-                                <span>Generation 1</span>
-                                <span>2 Members</span>
-                            </div>
-                            <div class="progress-track">
-                                <div class="progress-fill" style="width: 28%;"></div>
-                            </div>
-                        </div>
-                        <div class="gen-bar-item">
-                            <div class="gen-bar-header">
-                                <span>Generation 2</span>
-                                <span>3 Members</span>
-                            </div>
-                            <div class="progress-track">
-                                <div class="progress-fill" style="width: 42%;"></div>
-                            </div>
-                        </div>
-                        <div class="gen-bar-item">
-                            <div class="gen-bar-header">
-                                <span>Generation 3</span>
-                                <span>2 Members</span>
-                            </div>
-                            <div class="progress-track">
-                                <div class="progress-fill" style="width: 28%;"></div>
-                            </div>
-                        </div>
+                    <div class="gen-bars glass" id="gen-bars">
+                        <!-- Generation bars rendered dynamically -->
                     </div>
-                </div>
-            </div>
-
-            <!-- View: Statistics (General) -->
-            <div class="view-container view-section" id="view-stats">
-                 <div class="stat-controls">
-                    <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
-                    <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13H5v-2h14v2z"/></svg></button>
-                    <button class="control-btn glass"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
-                </div>
-                <div class="stats-grid">
-                     <div class="stat-card glass"><div class="stat-icon"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><div class="stat-value">7</div><div class="stat-label">Members</div></div>
-                     <div class="stat-card glass"><div class="stat-icon" style="color: var(--male-color);"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 9c-2.21 0-4 1.79-4 4v6h2v-6h2v6h6v-6c0-2.21-1.79-4-4-4H9zm6-7v2h3l-4 4 1.41 1.41L19 5.41V8h2V2h-6z"/></svg></div><div class="stat-value">4</div><div class="stat-label">Males</div></div>
-                     <div class="stat-card glass"><div class="stat-icon" style="color: var(--female-color);"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2C8.69 2 6 4.69 6 8c0 2.97 2.16 5.43 5 5.91V17H9v2h2v2h2v-2h2v-2h-2v-3.09c2.84-.48 5-2.94 5-5.91 0-3.31-2.69-6-6-6z"/></svg></div><div class="stat-value">3</div><div class="stat-label">Females</div></div>
-                     <div class="stat-card glass"><div class="stat-icon"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></div><div class="stat-value">3</div><div class="stat-label">Generations</div></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Drawer -->
     <div class="drawer-overlay" id="drawer-overlay" onclick="toggleDrawer(false)"></div>
     <aside class="side-drawer glass" id="side-drawer">
         <div class="drawer-header">
@@ -609,40 +378,20 @@
             </div>
         </div>
         <nav class="drawer-menu">
-            <div class="drawer-item active" onclick="switchView('view-home', this)">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                Home
-            </div>
-            <div class="drawer-item" onclick="switchView('view-tree', this)">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L8 8h3v6h2V8h3l-4-6zm-7 8v8h14v-8h-2v6H7v-6H5z"/></svg>
-                Family Tree (شجرة العائلة)
-            </div>
-            <div class="drawer-item" onclick="switchView('view-stats', this)">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-                Statistics (الإحصائيات)
-            </div>
-            <div class="drawer-item" onclick="openModal('settings-modal')" style="margin-top: auto; color: var(--accent-gold);">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-                Settings
-            </div>
-            <div class="drawer-item" id="drawer-install-btn">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                Install App
-            </div>
+            <div class="drawer-item active" onclick="switchView('view-home', this)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Home</div>
+            <div class="drawer-item" onclick="switchView('view-tree', this)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L8 8h3v6h2V8h3l-4-6z"/></svg> Family Tree (شجرة العائلة)</div>
+            <div class="drawer-item" onclick="switchView('view-stats', this)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h2v-2H3v2z"/></svg> Statistics (الإحصائيات)</div>
+            <div class="drawer-item" onclick="openModal('settings-modal')" style="margin-top: auto; color: var(--accent-gold);"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg> Settings</div>
+            <div class="drawer-item" id="drawer-install-btn"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Install App</div>
         </nav>
     </aside>
 
     <!-- Chat Workspace -->
     <div class="chat-workspace glass" id="chat-workspace">
         <header class="chat-header glass">
-            <button class="nav-icon-btn" onclick="closeChat()">
-                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-            </button>
+            <button class="nav-icon-btn" onclick="closeChat()"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
             <div class="chat-avatar" style="width: 40px; height: 40px; font-size: 16px;">F</div>
-            <div style="flex: 1;">
-                <h4 style="font-size: 16px; font-weight: 600;">Fatima Hassan</h4>
-                <p style="font-size: 12px; color: var(--accent-gold);">online</p>
-            </div>
+            <div style="flex: 1;"><h4 style="font-size: 16px; font-weight: 600;">Fatima Hassan</h4><p style="font-size: 12px; color: var(--accent-gold);">online</p></div>
         </header>
         <div class="messages-area" id="messages-area">
             <div class="message-bubble message-received">Welcome to the family group!</div>
@@ -650,13 +399,9 @@
         </div>
         <div class="chat-input-bar">
             <input type="file" id="chat-file-input" hidden>
-            <button class="nav-icon-btn" onclick="document.getElementById('chat-file-input').click()">
-                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16.5 6v11.5a4 4 0 1 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"/></svg>
-            </button>
+            <button class="nav-icon-btn" onclick="document.getElementById('chat-file-input').click()"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16.5 6v11.5a4 4 0 1 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"/></svg></button>
             <input type="text" class="chat-input" id="chat-input" placeholder="Message" onkeypress="handleChatKeyPress(event)">
-            <button class="nav-icon-btn" onclick="sendMessage()">
-                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="var(--accent-gold)" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-            </button>
+            <button class="nav-icon-btn" onclick="sendMessage()"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="var(--accent-gold)" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
         </div>
     </div>
 
@@ -665,106 +410,36 @@
         <div class="modal-content glass">
             <header class="modal-header">
                 <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;">Settings</h2>
-                <button class="nav-icon-btn" onclick="closeModal('settings-modal')">
-                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                </button>
+                <button class="nav-icon-btn" onclick="closeModal('settings-modal')"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
             </header>
             <div class="modal-body">
                 <div class="settings-section">
                     <div class="settings-title">Profile</div>
-                    <div class="settings-item">
-                        <span>Edit Profile & Logout</span>
-                        <button class="nav-icon-btn" onclick="logout()">
-                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
-                        </button>
-                    </div>
-                    <div class="settings-item">
-                        <span>Update Bio & Username</span>
-                        <button class="nav-icon-btn" onclick="openModal('profile-modal')">
-                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                        </button>
-                    </div>
+                    <div class="settings-item"><span>Edit Profile & Logout</span><button class="nav-icon-btn" onclick="logout()"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg></button></div>
+                    <div class="settings-item"><span>Update Bio & Username</span><button class="nav-icon-btn" onclick="openModal('profile-modal')"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg></button></div>
                 </div>
-
                 <div class="settings-section">
                     <div class="settings-title">Setting</div>
-                    <div class="settings-item">
-                        <span>Language</span>
-                        <select class="form-select" style="width: auto; padding: 8px;" onchange="changeLanguage(this.value)">
-                            <option value="ar">Arabic</option>
-                            <option value="en">English</option>
-                            <option value="am">Amharic</option>
-                        </select>
-                    </div>
-                    <div class="settings-item">
-                        <span>Dark Mode</span>
-                        <label class="switch">
-                            <input type="checkbox" checked onchange="toggleTheme(this.checked)">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
+                    <div class="settings-item"><span>Language</span><select class="form-select" style="width: auto; padding: 8px;"><option>Arabic</option><option>English</option><option>Amharic</option></select></div>
+                    <div class="settings-item"><span>Dark Mode</span><label class="switch"><input type="checkbox" checked onchange="toggleTheme(this.checked)"><span class="slider"></span></label></div>
                 </div>
-
-                <div class="settings-section">
-                    <div class="settings-title">Chat Folders</div>
-                    <div class="settings-item">
-                        <span>Manage Folders</span>
-                        <button class="btn-gold" style="width: auto; padding: 8px 16px; margin: 0; font-size: 14px;">Create Folder</button>
-                    </div>
-                </div>
-
                 <div class="settings-section">
                     <div class="settings-title">Accounts & Actions</div>
-                    <div class="settings-item">
-                        <span>News: Add Account</span>
-                        <button class="nav-icon-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
-                    </div>
-                    <div class="settings-item">
-                        <span>New Group</span>
-                        <button class="nav-icon-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/></svg></button>
-                    </div>
-                    <div class="settings-item">
-                        <span>New Channel</span>
-                        <button class="nav-icon-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M2 22h20V2L2 22zm18-2H6.83L20 6.83V20z"/></svg></button>
-                    </div>
+                    <div class="settings-item"><span>Add New Account</span><button class="nav-icon-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button></div>
+                    <div class="settings-item"><span>New Group</span><button class="nav-icon-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg></button></div>
+                    <div class="settings-item"><span>New Channel</span><button class="nav-icon-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M2 22h20V2L2 22z"/></svg></button></div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Profile Edit Modal -->
-    <div class="modal-overlay" id="profile-modal">
-        <div class="modal-content glass">
-            <header class="modal-header">
-                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;">Edit Profile</h2>
-                <button class="nav-icon-btn" onclick="closeModal('profile-modal')">
-                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                </button>
-            </header>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" class="form-input" value="Guest User">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Username</label>
-                    <input type="text" class="form-input" value="@guest">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Bio</label>
-                    <input type="text" class="form-input" value="Family member">
-                </div>
-                <button class="btn-gold" onclick="closeModal('profile-modal')">Save Changes</button>
             </div>
         </div>
     </div>
 
     <script>
+        const API_BASE = 'http://localhost:3000';
+        let currentUser = null;
+
         // PWA Service Worker
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js');
-            });
+            window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
         }
 
         // PWA Install Prompt
@@ -780,46 +455,208 @@
                 await deferredPrompt.userChoice;
                 deferredPrompt = null;
             } else {
-                alert('To install the app:\n\nChrome/Edge: Click the install icon in the address bar.\nSafari (iOS): Tap Share -> Add to Home Screen.');
+                alert('To install: Chrome/Edge -> click install icon in address bar. iOS -> Share -> Add to Home Screen.');
             }
         });
 
-        // Auth Navigation
-        function goToPage(pageId) {
-            document.getElementById('auth-page-1').classList.add('hidden');
-            document.getElementById('auth-page-2').classList.remove('hidden');
+        // ==========================================
+        // AUTH & API LOGIC
+        // ==========================================
+        async function verifyCode() {
+            const phone = document.getElementById('phone-input').value;
+            const code = document.getElementById('code-input').value;
+            if (!phone || !code) return alert('Please enter phone and code (12345)');
+
+            try {
+                // Step 1: Send Code (Simulated)
+                await fetch(`${API_BASE}/api/auth/send-code`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone })
+                });
+
+                // Step 2: Verify Code
+                const res = await fetch(`${API_BASE}/api/auth/verify`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, code })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    currentUser = data.user;
+                    document.getElementById('auth-page-1').classList.add('hidden');
+                    document.getElementById('auth-page-2').classList.remove('hidden');
+                } else {
+                    alert(data.message);
+                }
+            } catch (err) {
+                alert('Error connecting to server. Ensure backend is running.');
+            }
         }
 
-        function enterApp() {
-            const name = document.getElementById('fullname-input').value || 'Guest User';
-            const phone = document.getElementById('phone-input').value || '+1 555 000 0000';
-            
-            document.getElementById('drawer-name').textContent = name;
-            document.getElementById('drawer-phone').textContent = phone;
-            document.getElementById('drawer-avatar').textContent = name.charAt(0).toUpperCase();
+        async function setupProfile() {
+            const fullName = document.getElementById('fullname-input').value;
+            const username = document.getElementById('username-input').value;
+            const bio = document.getElementById('bio-input').value;
 
-            document.getElementById('auth-page-2').classList.add('hidden');
-            document.getElementById('main-app').classList.remove('hidden');
+            try {
+                const res = await fetch(`${API_BASE}/api/user/profile`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone: currentUser.phone, fullName, username, bio })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    currentUser = data.user;
+                    document.getElementById('drawer-name').textContent = fullName || 'Guest User';
+                    document.getElementById('drawer-phone').textContent = currentUser.phone;
+                    document.getElementById('auth-page-2').classList.add('hidden');
+                    document.getElementById('main-app').classList.remove('hidden');
+                    
+                    // Load App Data
+                    fetchFamilyTree();
+                    fetchStats();
+                }
+            } catch (err) {
+                alert('Error saving profile.');
+            }
         }
 
         function logout() {
             closeModal('settings-modal');
+            currentUser = null;
             document.getElementById('main-app').classList.add('hidden');
             document.getElementById('auth-page-1').classList.remove('hidden');
         }
 
         // Profile Pic Upload
-        document.getElementById('profile-pic-input').addEventListener('change', (e) => {
+        document.getElementById('profile-pic-input').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                document.getElementById('profile-preview').style.backgroundImage = `url(${ev.target.result})`;
-            };
-            reader.readAsDataURL(file);
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch(`${API_BASE}/api/upload`, { method: 'POST', body: formData });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('profile-preview').style.backgroundImage = `url(${data.fileUrl})`;
+                }
+            } catch (err) {
+                console.error('Upload failed', err);
+            }
         });
 
-        // Navigation & Views
+        // ==========================================
+        // FAMILY TREE API LOGIC
+        // ==========================================
+        async function fetchFamilyTree() {
+            try {
+                const res = await fetch(`${API_BASE}/api/family-tree`);
+                const members = await res.json();
+                renderTree(members);
+            } catch (err) {
+                console.error('Failed to fetch tree', err);
+            }
+        }
+
+        function renderTree(members) {
+            const container = document.getElementById('tree-container');
+            container.innerHTML = '';
+            
+            const gens = {};
+            members.forEach(m => {
+                if (!gens[m.generation]) gens[m.generation] = [];
+                gens[m.generation].push(m);
+            });
+
+            Object.keys(gens).sort().forEach((genKey, idx) => {
+                if (idx > 0) {
+                    const line = document.createElement('div');
+                    line.className = 'tree-line-v';
+                    container.appendChild(line);
+                }
+
+                const row = document.createElement('div');
+                row.className = 'generation-row';
+
+                gens[genKey].forEach(m => {
+                    const card = document.createElement('div');
+                    card.className = 'member-card glass';
+                    card.innerHTML = `
+                        <div class="member-header">
+                            <div class="member-avatar ${m.gender === 'male' ? 'male' : 'female'}">${m.gender === 'male' ? '♂' : '♀'}</div>
+                            <div>
+                                <div class="member-name">${m.name}</div>
+                                <div class="member-relation">${m.relation} - Gen ${m.generation}</div>
+                            </div>
+                        </div>
+                        <div class="member-actions">
+                            <button class="action-btn">↑ Father</button>
+                            <button class="action-btn">↑ Mother</button>
+                            <button class="action-btn">← Brother</button>
+                            <button class="action-btn">→ Sister</button>
+                            <button class="action-btn">↓ Son</button>
+                            <button class="action-btn">↓ Daughter</button>
+                            <button class="action-btn">♥ Spouse</button>
+                        </div>
+                        <div class="card-actions">
+                            <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5z"/></svg>
+                            <svg class="card-action-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg>
+                            <svg class="card-action-icon delete" onclick="deleteMember('${m.id}')" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        </div>
+                    `;
+                    row.appendChild(card);
+                });
+                container.appendChild(row);
+            });
+        }
+
+        async function deleteMember(id) {
+            try {
+                await fetch(`${API_BASE}/api/family-tree/member/${id}`, { method: 'DELETE' });
+                fetchFamilyTree();
+                fetchStats();
+            } catch (err) {
+                console.error('Delete failed', err);
+            }
+        }
+
+        // ==========================================
+        // STATISTICS API LOGIC
+        // ==========================================
+        async function fetchStats() {
+            try {
+                const res = await fetch(`${API_BASE}/api/family-tree/stats`);
+                const stats = await res.json();
+                
+                document.getElementById('stats-grid').innerHTML = `
+                    <div class="stat-card glass"><div class="stat-icon">👥</div><div class="stat-value">${stats.members}</div><div class="stat-label">Members</div></div>
+                    <div class="stat-card glass"><div class="stat-icon" style="color:var(--male-color)">♂</div><div class="stat-value">${stats.males}</div><div class="stat-label">Males</div></div>
+                    <div class="stat-card glass"><div class="stat-icon" style="color:var(--female-color)">♀</div><div class="stat-value">${stats.females}</div><div class="stat-label">Females</div></div>
+                    <div class="stat-card glass"><div class="stat-icon">📊</div><div class="stat-value">${stats.generations}</div><div class="stat-label">Generations</div></div>
+                    <div class="stat-card glass"><div class="stat-icon">🟢</div><div class="stat-value">${stats.living}</div><div class="stat-label">Living</div></div>
+                    <div class="stat-card glass"><div class="stat-icon">🔴</div><div class="stat-value">${stats.deceased}</div><div class="stat-label">Deceased</div></div>
+                `;
+
+                const genBars = document.getElementById('gen-bars');
+                genBars.innerHTML = '';
+                for (const [gen, count] of Object.entries(stats.genBreakdown)) {
+                    const percentage = (count / stats.members) * 100;
+                    genBars.innerHTML += `
+                        <div class="gen-bar-item">
+                            <div class="gen-bar-header"><span>Generation ${gen}</span><span>${count} Members</span></div>
+                            <div class="progress-track"><div class="progress-fill" style="width:${percentage}%"></div></div>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                console.error('Failed to fetch stats', err);
+            }
+        }
+
+        // ==========================================
+        // UI NAVIGATION LOGIC
+        // ==========================================
         function toggleDrawer(state) {
             document.getElementById('side-drawer').classList.toggle('open', state);
             document.getElementById('drawer-overlay').classList.toggle('open', state);
@@ -828,7 +665,6 @@
         function switchView(viewId, element) {
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
-            
             document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
             element.classList.add('active');
             toggleDrawer(false);
@@ -842,7 +678,6 @@
         function switchTreeView(element, contentId) {
             document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
             element.classList.add('active');
-            
             if (contentId === 'tree-content') {
                 document.getElementById('tree-content').classList.remove('hidden');
                 document.getElementById('stats-content').classList.add('hidden');
@@ -852,74 +687,52 @@
             }
         }
 
-        // Modals
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('open');
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('open');
-        }
+        function openModal(modalId) { document.getElementById(modalId).classList.add('open'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('open'); }
+        function toggleTheme() { document.body.classList.toggle('light-mode'); }
 
-        // Theme Toggle
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-        }
-
-        // Language
-        function changeLanguage(lang) {
-            // Basic implementation for demonstration
-            console.log('Language changed to:', lang);
-        }
-
-        // Chat
-        function openChat() {
-            document.getElementById('chat-workspace').classList.add('open');
-        }
-        function closeChat() {
-            document.getElementById('chat-workspace').classList.remove('open');
-        }
-        function handleChatKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
+        function openChat() { document.getElementById('chat-workspace').classList.add('open'); }
+        function closeChat() { document.getElementById('chat-workspace').classList.remove('open'); }
+        function handleChatKeyPress(event) { if (event.key === 'Enter') sendMessage(); }
+        
         function sendMessage() {
             const input = document.getElementById('chat-input');
             const text = input.value.trim();
             if (!text) return;
-
             const area = document.getElementById('messages-area');
             const bubble = document.createElement('div');
             bubble.className = 'message-bubble message-sent';
             bubble.textContent = text;
             area.appendChild(bubble);
-            
             input.value = '';
             area.scrollTop = area.scrollHeight;
         }
 
         // Chat File Upload
-        document.getElementById('chat-file-input').addEventListener('change', (e) => {
+        document.getElementById('chat-file-input').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
-            const reader = new FileReader();
-            const area = document.getElementById('messages-area');
-            const bubble = document.createElement('div');
-            bubble.className = 'message-bubble message-sent';
+            const formData = new FormData();
+            formData.append('file', file);
 
-            reader.onload = (ev) => {
-                if (file.type.startsWith('image/')) {
-                    const img = document.createElement('img');
-                    img.src = ev.target.result;
-                    img.className = 'message-img';
-                    bubble.appendChild(img);
-                } else {
-                    bubble.textContent = `📎 ${file.name}`;
+            try {
+                const res = await fetch(`${API_BASE}/api/upload`, { method: 'POST', body: formData });
+                const data = await res.json();
+                if (data.success) {
+                    const area = document.getElementById('messages-area');
+                    const bubble = document.createElement('div');
+                    bubble.className = 'message-bubble message-sent';
+                    if (file.type.startsWith('image/')) {
+                        bubble.innerHTML = `<img src="${data.fileUrl}" class="message-img">`;
+                    } else {
+                        bubble.textContent = `📎 ${file.name}`;
+                    }
+                    area.appendChild(bubble);
+                    area.scrollTop = area.scrollHeight;
                 }
-                area.appendChild(bubble);
-                area.scrollTop = area.scrollHeight;
-            };
-            reader.readAsDataURL(file);
+            } catch (err) {
+                console.error('Upload failed', err);
+            }
             e.target.value = '';
         });
     </script>
