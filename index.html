@@ -1350,7 +1350,30 @@
       `<option value="${c.code}">${c.name} (${c.code})</option>`
     ).join('');
   }
-});
+}
+                    // Auth Method Toggles
+            const togglePhoneBtn = document.getElementById('toggle-phone-btn');
+            if (togglePhoneBtn) togglePhoneBtn.addEventListener('click', () => toggleAuthMethod('phone'));
+            
+            const toggleEmailBtn = document.getElementById('toggle-email-btn');
+            if (toggleEmailBtn) toggleEmailBtn.addEventListener('click', () => toggleAuthMethod('email'));
+
+            // Verify Buttons (Phone & Email)
+            const verifyTriggerBtn = document.getElementById('verify-trigger-btn');
+            if (verifyTriggerBtn) verifyTriggerBtn.addEventListener('click', sendVerificationCode);
+            
+            const verifyEmailBtn = document.getElementById('verify-email-btn');
+            if (verifyEmailBtn) verifyEmailBtn.addEventListener('click', sendVerificationCode);
+
+            // Verify Code Button
+            const verifyCodeBtn = document.getElementById('verify-code-btn');
+            if (verifyCodeBtn) verifyCodeBtn.addEventListener('click', verifyCode);
+
+            // Close OTP Modal Button
+            const closeOtpModalBtn = document.getElementById('close-otp-modal-btn');
+            if (closeOtpModalBtn) closeOtpModalBtn.addEventListener('click', () => {
+                document.getElementById('otp-modal').classList.remove('open');
+            });
     </script>
 </body>
 </html>
