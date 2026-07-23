@@ -4,15 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#000000">
-    <title>Lux Chat - Premium</title>
+    <title>Telegram Gold</title>
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href='data:application/manifest+json,{"name":"Telegram Gold","short_name":"TG Gold","start_url":".","display":"standalone","background_color":"#000000","theme_color":"#D4AF37","icons":[{"src":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23000%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2270%22%20font-size%3D%2270%22%20text-anchor%3D%22middle%22%20fill%3D%22%23D4AF37%22%3EG%3C%2Ftext%3E%3C%2Fsvg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg-primary: #000000;
             --bg-secondary: #0a0a0a;
             --bg-tertiary: #141414;
             --glass-bg: rgba(15, 15, 15, 0.65);
-            --glass-border: rgba(212, 175, 55, 0.2);
+            --glass-border: rgba(212, 175, 55, 0.25);
             --glass-highlight: rgba(212, 175, 55, 0.05);
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
@@ -21,9 +30,25 @@
             --accent-gold-light: #F4D03F;
             --accent-gold-dark: #B8860B;
             --accent-glow: rgba(212, 175, 55, 0.4);
-            --received-bubble: #1c1c1e;
-            --sent-bubble: linear-gradient(135deg, #F4D03F, #D4AF37);
+            --online-green: #4CAF50;
             --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --fracture-opacity: 0.15;
+        }
+
+        body.light-mode {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e9e9e9;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(183, 148, 44, 0.3);
+            --glass-highlight: rgba(183, 148, 44, 0.1);
+            --text-primary: #1c1c1e;
+            --text-secondary: #555555;
+            --text-tertiary: #888888;
+            --accent-gold: #B7942C;
+            --accent-gold-light: #D4AF37;
+            --accent-gold-dark: #8A6D1B;
+            --fracture-opacity: 0.3;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,34 +58,42 @@
             overflow: hidden;
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Luxury Geometric Fracture Background */
+        .bg-fracture {
+            position: fixed; inset: 0; z-index: -2;
+            background-color: var(--bg-primary);
+            background-image: 
+                linear-gradient(30deg, var(--bg-secondary) 12%, transparent 12.5%, transparent 87%, var(--bg-secondary) 87.5%, var(--bg-secondary)),
+                linear-gradient(150deg, var(--bg-secondary) 12%, transparent 12.5%, transparent 87%, var(--bg-secondary) 87.5%, var(--bg-secondary)),
+                linear-gradient(30deg, var(--bg-secondary) 12%, transparent 12.5%, transparent 87%, var(--bg-secondary) 87.5%, var(--bg-secondary)),
+                linear-gradient(150deg, var(--bg-secondary) 12%, transparent 12.5%, transparent 87%, var(--bg-secondary) 87.5%, var(--bg-secondary));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+        }
+
+        .bg-glow {
+            position: fixed; width: 600px; height: 600px; border-radius: 50%;
+            filter: blur(120px); z-index: -1; opacity: var(--fracture-opacity); pointer-events: none;
+            animation: float 20s infinite ease-in-out;
+        }
+        .glow-1 { background: var(--accent-gold); top: -200px; left: -150px; }
+        .glow-2 { background: var(--accent-gold-dark); bottom: -200px; right: -150px; animation-delay: 5s; }
+        .glow-3 { background: var(--accent-gold-light); top: 40%; left: 30%; width: 400px; height: 400px; opacity: 0.08; animation-delay: 10s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(60px, -40px) scale(1.1); }
+            66% { transform: translate(-40px, 50px) scale(0.9); }
         }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 10px; }
-
-        .bg-blur {
-            position: fixed; width: 500px; height: 500px; border-radius: 50%;
-            filter: blur(120px); z-index: -1; opacity: 0.15; pointer-events: none;
-            animation: float 20s infinite ease-in-out;
-        }
-        .bg-blur-1 { background: var(--accent-gold); top: -150px; left: -100px; }
-        .bg-blur-2 { background: var(--accent-gold-dark); bottom: -150px; right: -100px; animation-delay: 5s; }
-        .bg-blur-3 { background: var(--accent-gold-light); top: 50%; left: 40%; width: 300px; height: 300px; animation-delay: 10s; opacity: 0.08; }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(50px, -30px) scale(1.1); }
-            66% { transform: translate(-30px, 40px) scale(0.9); }
-        }
-
-        .app-container {
-            display: grid;
-            grid-template-columns: 80px 360px 1fr;
-            height: 100vh; width: 100%; overflow: hidden;
-        }
+        ::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 10px; }
 
         .glass {
             background: var(--glass-bg);
@@ -69,301 +102,314 @@
             border: 1px solid var(--glass-border);
         }
 
-        /* Sidebar */
-        .sidebar {
-            display: flex; flex-direction: column; align-items: center; padding: 20px 0;
-            border-right: 1px solid var(--glass-border);
+        /* Auth Screen */
+        .auth-screen {
+            position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center;
+            background: var(--bg-primary); transition: opacity 0.5s ease, visibility 0.5s ease;
         }
-        .sidebar-header, .sidebar-footer { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .folder-nav { flex: 1; width: 100%; margin-top: 20px; }
-        .folder-nav ul { list-style: none; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        
-        .folder-item {
-            width: 56px; height: 56px; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; border-radius: 16px;
-            color: var(--text-secondary); cursor: pointer; transition: all var(--transition-smooth); position: relative;
-        }
-        .folder-item:hover { background: var(--glass-highlight); color: var(--accent-gold); }
-        .folder-item.active { color: var(--accent-gold); background: rgba(212, 175, 55, 0.1); }
-        .folder-item.active::before {
-            content: ''; position: absolute; left: -12px; top: 50%; transform: translateY(-50%);
-            width: 4px; height: 30px; background: var(--accent-gold); border-radius: 0 4px 4px 0; box-shadow: 0 0 10px var(--accent-glow);
-        }
-        .folder-icon svg { width: 24px; height: 24px; }
-        .folder-name { font-size: 10px; margin-top: 4px; font-weight: 500; }
+        .auth-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .auth-card { width: 90%; max-width: 380px; padding: 40px; border-radius: 24px; text-align: center; }
+        .auth-logo { width: 100px; height: 100px; margin: 0 auto 20px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 48px; color: #000; font-family: 'Playfair Display', serif; font-weight: 700; box-shadow: 0 10px 30px var(--accent-glow); }
+        .auth-title { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--accent-gold); margin-bottom: 10px; }
+        .auth-subtitle { color: var(--text-secondary); margin-bottom: 30px; font-size: 14px; }
+        .auth-input { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-primary); font-size: 16px; text-align: center; letter-spacing: 2px; }
+        .auth-input:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 10px var(--accent-glow); }
+        .auth-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); color: #000; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.2s; }
+        .auth-btn:active { transform: scale(0.98); }
 
-        .icon-btn {
-            background: transparent; border: none; color: var(--text-secondary); cursor: pointer;
-            padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+        /* Top Navigation */
+        .top-nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 60px;
+            display: flex; align-items: center; padding: 0 20px; z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .nav-icon-btn {
+            background: transparent; border: none; color: var(--text-secondary);
+            cursor: pointer; padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
             transition: all var(--transition-smooth);
         }
-        .icon-btn:hover { background: var(--glass-highlight); color: var(--accent-gold); }
+        .nav-icon-btn:hover { background: var(--glass-highlight); color: var(--accent-gold); }
+        .nav-title { flex: 1; text-align: center; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--accent-gold); letter-spacing: 1px; }
 
-        /* Chat List */
-        .chat-list-panel { display: flex; flex-direction: column; border-right: 1px solid var(--glass-border); }
-        .panel-header { padding: 15px; border-bottom: 1px solid var(--glass-border); }
-        .search-bar {
-            display: flex; align-items: center; background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border); border-radius: 12px; padding: 8px 12px; transition: all var(--transition-smooth);
+        /* Sidebar Drawer */
+        .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; opacity: 0; visibility: hidden; transition: all var(--transition-smooth); }
+        .drawer-overlay.open { opacity: 1; visibility: visible; }
+        
+        .side-drawer {
+            position: fixed; top: 0; left: 0; width: 300px; height: 100%; z-index: 201;
+            background: var(--glass-bg); backdrop-filter: blur(30px);
+            border-right: 1px solid var(--glass-border);
+            transform: translateX(-100%); transition: transform var(--transition-smooth);
+            display: flex; flex-direction: column; padding: 20px;
         }
-        .search-bar:focus-within { background: rgba(212, 175, 55, 0.05); border-color: var(--accent-gold); }
-        .search-icon { color: var(--text-tertiary); margin-right: 10px; }
-        .search-input { background: transparent; border: none; outline: none; color: var(--text-primary); width: 100%; font-size: 15px; }
-        .search-input::placeholder { color: var(--text-tertiary); }
+        .side-drawer.open { transform: translateX(0); }
+        
+        .drawer-header { padding: 20px 0; border-bottom: 1px solid var(--glass-border); margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .drawer-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #000; font-family: 'Playfair Display', serif; }
+        .drawer-name { font-size: 18px; font-weight: 600; color: var(--text-primary); }
+        .drawer-phone { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+        
+        .drawer-menu { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+        .drawer-item { display: flex; align-items: center; gap: 15px; padding: 15px; border-radius: 12px; color: var(--text-primary); cursor: pointer; transition: all var(--transition-smooth); font-size: 16px; }
+        .drawer-item:hover { background: var(--glass-highlight); color: var(--accent-gold); }
+        .drawer-item svg { width: 24px; height: 24px; }
+        .drawer-item.active { background: rgba(212, 175, 55, 0.15); color: var(--accent-gold); border-left: 3px solid var(--accent-gold); }
+
+        /* Main Layout */
+        .app-container { display: grid; grid-template-columns: 360px 1fr; height: 100vh; padding-top: 60px; overflow: hidden; }
+
+        /* Chat List Panel */
+        .chat-list-panel { border-right: 1px solid var(--glass-border); display: flex; flex-direction: column; overflow: hidden; }
+        .search-bar { padding: 15px; border-bottom: 1px solid var(--glass-border); }
+        .search-input-wrapper { display: flex; align-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 10px 15px; }
+        body.light-mode .search-input-wrapper { background: rgba(0,0,0,0.05); }
+        .search-input-wrapper:focus-within { border-color: var(--accent-gold); box-shadow: 0 0 10px var(--accent-glow); }
+        .search-input-wrapper svg { margin-right: 10px; color: var(--text-tertiary); }
+        .search-input { background: transparent; border: none; outline: none; color: var(--text-primary); width: 100%; font-size: 15px; font-family: inherit; }
 
         .chat-list { flex: 1; overflow-y: auto; padding: 10px; }
-        .chat-item {
-            display: flex; align-items: center; padding: 12px; border-radius: 14px; cursor: pointer;
-            margin-bottom: 5px; transition: background var(--transition-smooth); border: 1px solid transparent;
-        }
+        .chat-item { display: flex; align-items: center; padding: 15px; border-radius: 16px; cursor: pointer; margin-bottom: 5px; transition: all var(--transition-smooth); border: 1px solid transparent; }
         .chat-item:hover { background: var(--glass-highlight); }
-        .chat-item.active { background: rgba(212, 175, 55, 0.08); border-color: var(--glass-border); }
+        .chat-item.active { background: rgba(212, 175, 55, 0.1); border-color: var(--glass-border); }
 
-        .avatar {
-            width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-weight: 600; color: #000; margin-right: 12px; flex-shrink: 0; text-transform: uppercase; font-size: 18px;
-            font-family: 'Playfair Display', serif; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        .avatar.small { width: 40px; height: 40px; font-size: 14px; margin-right: 0; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #000; margin-right: 15px; flex-shrink: 0; text-transform: uppercase; font-size: 18px; font-family: 'Playfair Display', serif; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; }
+        .status-dot { position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--bg-primary); }
+        .status-online { background: var(--online-green); box-shadow: 0 0 5px var(--online-green); }
+        .status-offline { background: #666; }
 
         .chat-info { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .chat-top-row, .chat-bottom-row { display: flex; justify-content: space-between; align-items: center; }
+        .chat-top-row { display: flex; justify-content: space-between; align-items: center; }
         .chat-name { font-size: 16px; font-weight: 500; color: var(--text-primary); }
-        .chat-time { font-size: 12px; color: var(--text-tertiary); margin-left: 10px; }
-        .chat-item.active .chat-time { color: var(--accent-gold); }
-        .last-message { font-size: 14px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; }
-        
-        .unread-badge {
-            background: var(--accent-gold); color: #000; border-radius: 50%; min-width: 20px; height: 20px; font-size: 11px;
-            display: flex; align-items: center; justify-content: center; margin-left: 10px; margin-top: 4px; font-weight: 700; box-shadow: 0 0 12px var(--accent-glow);
-        }
+        .chat-time { font-size: 12px; color: var(--text-tertiary); }
+        .chat-bottom-row { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+        .last-message { font-size: 14px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .unread-badge { background: var(--accent-gold); color: #000; border-radius: 50%; min-width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; margin-left: 10px; font-weight: 700; box-shadow: 0 0 8px var(--accent-glow); }
 
-        /* Chat Window */
-        .chat-window { display: flex; flex-direction: column; position: relative; }
-        .chat-header {
-            display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--glass-border);
-            background: rgba(0, 0, 0, 0.4); z-index: 10;
-        }
-        .back-btn { display: none; margin-right: 10px; }
-        .chat-header-info { display: flex; align-items: center; flex: 1; cursor: pointer; gap: 12px; }
-        .chat-title { font-size: 18px; font-weight: 600; color: var(--text-primary); font-family: 'Playfair Display', serif; }
-        .chat-status { font-size: 13px; color: var(--accent-gold); }
-        .chat-header-actions { display: flex; gap: 10px; }
+        /* Chat Workspace */
+        .chat-workspace { display: flex; flex-direction: column; overflow: hidden; }
+        .chat-header { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--glass-border); background: var(--glass-bg); gap: 15px; }
+        .back-btn { display: none; }
+        .chat-header-info { display: flex; align-items: center; gap: 15px; flex: 1; }
+        .chat-header-name { font-size: 18px; font-weight: 600; color: var(--text-primary); font-family: 'Playfair Display', serif; }
+        .chat-header-status { font-size: 13px; color: var(--accent-gold); }
 
-        .message-area {
-            flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px;
-            background: linear-gradient(180deg, rgba(212, 175, 55, 0.02) 0%, rgba(0,0,0,0) 100%);
-        }
+        .message-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
         .date-separator { text-align: center; margin: 10px 0; }
-        .date-separator span {
-            background: rgba(212, 175, 55, 0.1); backdrop-filter: blur(10px); color: var(--accent-gold);
-            padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; border: 1px solid var(--glass-border);
-        }
+        .date-separator span { background: var(--glass-bg); backdrop-filter: blur(10px); color: var(--accent-gold); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; border: 1px solid var(--glass-border); }
 
-        .message { max-width: 65%; display: flex; flex-direction: column; animation: fadeIn 0.3s ease-out; }
+        .message { max-width: 70%; display: flex; flex-direction: column; animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .message.sent { align-self: flex-end; }
-        .message.received { align-self: flex-left; }
-        .message-bubble { padding: 12px 16px; border-radius: 18px; position: relative; word-wrap: break-word; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .message.sent .message-bubble { background: var(--sent-bubble); color: #000; border-bottom-right-radius: 4px; }
-        .message.received .message-bubble { background: var(--received-bubble); color: var(--text-primary); border: 1px solid var(--glass-border); border-bottom-left-radius: 4px; }
-        .message-bubble p { font-size: 15px; line-height: 1.4; margin-bottom: 4px; }
-        .message-time { font-size: 11px; float: right; margin-left: 10px; margin-top: 5px; display: inline-flex; align-items: center; gap: 3px; opacity: 0.8; }
+        .message.received { align-self: flex-start; }
+        
+        .message-bubble { padding: 12px 16px; border-radius: 18px; position: relative; word-wrap: break-word; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .message.sent .message-bubble { background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold)); color: #000; border-bottom-right-radius: 4px; }
+        .message.received .message-bubble { background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--glass-border); border-bottom-left-radius: 4px; }
+        .message-text { font-size: 15px; line-height: 1.4; margin-bottom: 4px; white-space: pre-wrap; }
+        .message-time { font-size: 11px; float: right; margin-left: 10px; margin-top: 5px; opacity: 0.8; }
+        .message-img { max-width: 100%; border-radius: 12px; margin-bottom: 5px; display: block; }
+        .message-file { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px; text-decoration: none; color: inherit; }
+        body.light-mode .message.sent .message-file { background: rgba(255,255,255,0.2); color: #000; }
+        .message.sent .message-file { color: #000; background: rgba(0,0,0,0.2); }
+        .file-icon { width: 40px; height: 40px; background: var(--bg-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        body.light-mode .file-icon { background: #ddd; }
+        .message.sent .file-icon { background: rgba(0,0,0,0.3); }
+        .file-name { font-weight: 600; font-size: 14px; word-break: break-all; }
 
-        .message-input-bar {
-            display: flex; align-items: center; padding: 15px 20px; gap: 10px;
-            border-top: 1px solid var(--glass-border); background: rgba(0, 0, 0, 0.4);
-        }
-        .input-wrapper {
-            flex: 1; display: flex; align-items: center; background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border); border-radius: 22px; padding: 5px 5px 5px 15px; transition: all var(--transition-smooth);
-        }
-        .input-wrapper:focus-within { background: rgba(212, 175, 55, 0.05); border-color: var(--accent-gold); }
-        .input-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); font-size: 15px; padding: 10px 0; font-family: inherit; }
-        .input-wrapper input::placeholder { color: var(--text-tertiary); }
-
-        .send-btn {
-            background: var(--accent-gold); color: #000; padding: 12px; border-radius: 50%; width: 44px; height: 44px;
-            box-shadow: 0 4px 20px var(--accent-glow); transition: all var(--transition-smooth); border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .message-input-bar { display: flex; align-items: center; padding: 15px 20px; gap: 10px; border-top: 1px solid var(--glass-border); background: var(--glass-bg); }
+        .input-wrapper { flex: 1; display: flex; align-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 22px; padding: 5px 5px 5px 15px; transition: all var(--transition-smooth); }
+        body.light-mode .input-wrapper { background: rgba(0,0,0,0.05); }
+        .input-wrapper:focus-within { border-color: var(--accent-gold); box-shadow: 0 0 10px var(--accent-glow); }
+        .message-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); font-size: 15px; padding: 10px 0; font-family: inherit; }
+        
+        .send-btn { background: var(--accent-gold); color: #000; padding: 12px; border-radius: 50%; width: 44px; height: 44px; box-shadow: 0 4px 20px var(--accent-glow); transition: all var(--transition-smooth); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .send-btn:hover { background: var(--accent-gold-light); transform: scale(1.05); }
-        .send-btn svg { transform: translateX(1px); }
+        .send-btn:active { transform: scale(0.95); }
 
         /* Settings Modal */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 100;
-            opacity: 1; visibility: visible; transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .modal-content {
-            width: 90%; max-width: 450px; max-height: 90vh; border-radius: 24px; border: 1px solid var(--accent-gold);
-            background: var(--bg-secondary); box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(212, 175, 55, 0.1);
-            display: flex; flex-direction: column; overflow: hidden; transform: scale(1); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .modal-overlay.hidden .modal-content { transform: scale(0.95); }
-        .modal-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 20px 24px;
-            border-bottom: 1px solid var(--glass-border); background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, rgba(0,0,0,0) 100%);
-        }
-        .modal-header h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--accent-gold); font-weight: 700; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 300; opacity: 0; visibility: hidden; transition: all var(--transition-smooth); }
+        .modal-overlay.open { opacity: 1; visibility: visible; }
+        .modal-content { width: 90%; max-width: 500px; max-height: 90vh; border-radius: 24px; border: 1px solid var(--accent-gold); background: var(--bg-secondary); box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(212, 175, 55, 0.1); display: flex; flex-direction: column; overflow: hidden; transform: scale(0.95); transition: transform var(--transition-smooth); }
+        .modal-overlay.open .modal-content { transform: scale(1); }
+        
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--glass-border); }
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--accent-gold); font-weight: 700; }
         .modal-body { padding: 24px; overflow-y: auto; }
-        .settings-section { margin-bottom: 32px; }
-        .settings-section:last-child { margin-bottom: 0; }
+        
+        .settings-section { margin-bottom: 25px; }
         .settings-section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-tertiary); margin-bottom: 12px; font-weight: 600; }
-        .settings-account { display: flex; align-items: center; background: rgba(255, 255, 255, 0.03); padding: 16px; border-radius: 16px; border: 1px solid var(--glass-border); }
-        .account-info { display: flex; flex-direction: column; margin-left: 16px; }
-        .account-name { font-size: 18px; font-weight: 600; color: var(--text-primary); font-family: 'Playfair Display', serif; }
-        .account-phone { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
-        .settings-option { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.03); padding: 16px; border-radius: 16px; margin-bottom: 10px; border: 1px solid var(--glass-border); }
-        .option-label { display: flex; flex-direction: column; }
-        .option-label span:first-child { font-size: 16px; color: var(--text-primary); font-weight: 500; }
-        .option-description { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+        .settings-card { background: rgba(255, 255, 255, 0.03); padding: 16px; border-radius: 16px; border: 1px solid var(--glass-border); }
+        body.light-mode .settings-card { background: rgba(0,0,0,0.03); }
+        
+        .profile-editor { display: flex; align-items: center; gap: 15px; }
+        .profile-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #000; }
+        .profile-input { background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 8px; padding: 8px 12px; color: var(--text-primary); font-family: inherit; width: 100%; margin-bottom: 8px; }
+        body.light-mode .profile-input { background: rgba(255,255,255,0.5); }
+        .profile-input:focus { outline: none; border-color: var(--accent-gold); }
 
-        .switch { position: relative; display: inline-block; width: 52px; height: 28px; flex-shrink: 0; }
+        .settings-option { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        body.light-mode .settings-option { border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .settings-option:last-child { border-bottom: none; }
+        .option-label { display: flex; flex-direction: column; }
+        .option-title { font-size: 16px; color: var(--text-primary); font-weight: 500; }
+        .option-desc { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+
+        /* Toggle Switch */
+        .switch { position: relative; display: inline-block; width: 50px; height: 28px; flex-shrink: 0; }
         .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #2c2c2c; transition: 0.4s; border-radius: 28px; border: 1px solid var(--glass-border); }
+        .slider { position: absolute; cursor: pointer; inset: 0; background-color: #2c2c2c; transition: 0.4s; border-radius: 28px; border: 1px solid var(--glass-border); }
         .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: #666; transition: 0.4s; border-radius: 50%; }
         input:checked + .slider { background-color: var(--accent-gold); border-color: var(--accent-gold); box-shadow: 0 0 15px var(--accent-glow); }
-        input:checked + .slider:before { transform: translateX(24px); background-color: #000; }
+        input:checked + .slider:before { transform: translateX(22px); background-color: #000; }
 
-        .dropdown-select {
-            background: var(--bg-tertiary); color: var(--accent-gold); border: 1px solid var(--accent-gold); border-radius: 8px;
-            padding: 8px 12px; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; outline: none;
-        }
-        .dropdown-select option { background: var(--bg-secondary); color: var(--text-primary); }
+        /* Dropdown */
+        .dropdown { background: rgba(0,0,0,0.3); color: var(--accent-gold); border: 1px solid var(--accent-gold); border-radius: 8px; padding: 8px 12px; font-family: inherit; font-size: 14px; cursor: pointer; outline: none; }
+        .dropdown option { background: var(--bg-secondary); color: var(--text-primary); }
 
-        /* Mobile */
+        /* PWA Install Banner */
+        .install-banner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(150%); background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); color: #000; padding: 12px 24px; border-radius: 30px; font-weight: 700; font-family: 'Inter', sans-serif; font-size: 14px; cursor: pointer; box-shadow: 0 4px 20px var(--accent-glow); z-index: 400; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; gap: 10px; border: none; }
+        .install-banner.show { transform: translateX(-50%) translateY(0); }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .app-container { grid-template-columns: 1fr; position: relative; }
-            .sidebar { position: fixed; left: 0; top: 0; height: 100%; z-index: 20; transform: translateX(-100%); transition: transform 0.3s ease; width: 80px; background: rgba(10, 10, 10, 0.95); }
-            .app-container.sidebar-open .sidebar { transform: translateX(0); }
-            .chat-list-panel { width: 100%; border-right: none; }
-            .chat-window { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(0, 0, 0, 0.95); }
-            .app-container.chat-open .chat-window { transform: translateX(0); }
-            .app-container.chat-open .chat-list-panel { opacity: 0; pointer-events: none; }
-            .back-btn { display: flex !important; }
+            .app-container { grid-template-columns: 1fr; }
+            .chat-workspace { position: fixed; top: 60px; left: 0; right: 0; bottom: 0; z-index: 50; transform: translateX(100%); transition: transform var(--transition-smooth); background: var(--bg-primary); }
+            .chat-workspace.open { transform: translateX(0); }
+            .back-btn { display: flex; }
             .message { max-width: 85%; }
-            .message-input-bar { padding: 10px 12px; }
-            .modal-content { width: 95%; max-height: 85vh; }
         }
     </style>
 </head>
-<body class="dark-mode">
+<body>
 
-    <div class="bg-blur bg-blur-1"></div>
-    <div class="bg-blur bg-blur-2"></div>
-    <div class="bg-blur bg-blur-3"></div>
+    <!-- Backgrounds -->
+    <div class="bg-fracture"></div>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+    <div class="bg-glow glow-3"></div>
 
-    <div class="app-container" id="appContainer">
-        
-        <aside class="sidebar glass">
-            <div class="sidebar-header">
-                <button class="icon-btn menu-btn" onclick="toggleSidebar()" aria-label="Menu">
-                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-                </button>
+    <!-- Sign In Screen -->
+    <div class="auth-screen" id="auth-screen">
+        <div class="auth-card glass">
+            <div class="auth-logo">TG</div>
+            <h1 class="auth-title">Telegram Gold</h1>
+            <p class="auth-subtitle" id="auth-subtitle">Enter your phone number to continue</p>
+            
+            <div id="auth-step-1">
+                <input type="tel" class="auth-input" id="phone-input" placeholder="+1 555 123 4567">
+                <button class="auth-btn" onclick="sendCode()">Next</button>
             </div>
-            <nav class="folder-nav">
-                <ul>
-                    <li class="folder-item active" id="folder-all" onclick="switchFolder('folder-all')">
-                        <span class="folder-icon"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path fill="currentColor" d="M12 6a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/></svg></span>
-                        <span class="folder-name">All</span>
-                    </li>
-                    <li class="folder-item" id="folder-work" onclick="switchFolder('folder-work')">
-                        <span class="folder-icon"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 6h-4V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM10 4h4v2h-4z"/></svg></span>
-                        <span class="folder-name">Work</span>
-                    </li>
-                    <li class="folder-item" id="folder-family" onclick="switchFolder('folder-family')">
-                        <span class="folder-icon"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></span>
-                        <span class="folder-name">Family</span>
-                    </li>
-                    <li class="folder-item" id="folder-saved" onclick="switchFolder('folder-saved')">
-                        <span class="folder-icon"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg></span>
-                        <span class="folder-name">Saved</span>
-                    </li>
-                </ul>
-            </nav>
-            <div class="sidebar-footer">
-                <button class="icon-btn settings-btn" onclick="openSettings()" aria-label="Settings">
-                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-                </button>
-            </div>
-        </aside>
 
-        <section class="chat-list-panel glass">
-            <header class="panel-header">
-                <div class="search-bar">
-                    <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5L20.49 19l-5-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
-                    <input type="text" placeholder="Search" class="search-input" id="search-input">
+            <div id="auth-step-2" style="display: none;">
+                <input type="text" class="auth-input" id="code-input" placeholder="Enter Code (12345)" maxlength="5">
+                <button class="auth-btn" onclick="login()">Sign In</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <button class="nav-icon-btn" id="btn-menu" aria-label="Menu">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+        </button>
+        <h1 class="nav-title">Telegram Gold</h1>
+        <button class="nav-icon-btn" id="btn-settings" aria-label="Settings">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+        </button>
+    </header>
+
+    <!-- Side Drawer -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <aside class="side-drawer" id="side-drawer">
+        <div class="drawer-header">
+            <div class="drawer-avatar">AU</div>
+            <div>
+                <div class="drawer-name">Admin User</div>
+                <div class="drawer-phone">+1 (555) 123-4567</div>
+            </div>
+        </div>
+        <nav class="drawer-menu">
+            <div class="drawer-item active" onclick="switchFolder(this, 'All')">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg>
+                All Chats
+            </div>
+            <div class="drawer-item" onclick="switchFolder(this, 'Work')">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 6h-4V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM10 4h4v2h-4z"/></svg>
+                Work
+            </div>
+            <div class="drawer-item" onclick="switchFolder(this, 'Family')">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                Family
+            </div>
+            <div class="drawer-item" onclick="switchFolder(this, 'Channels')">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+                Channels
+            </div>
+            <div class="drawer-item" id="drawer-install-btn" style="margin-top: auto; color: var(--accent-gold);">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                Install App
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Chat List -->
+        <section class="chat-list-panel">
+            <div class="search-bar">
+                <div class="search-input-wrapper">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5L20.49 19l-5-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+                    <input type="text" class="search-input" id="search-input" placeholder="Search Luxury Chats">
                 </div>
-            </header>
-            <div class="chat-list">
-                <div class="chat-item active" id="chat-item-1" onclick="switchChat('chat-item-1')">
-                    <div class="avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B);">JD</div>
+            </div>
+            <div class="chat-list" id="chat-list">
+                <div class="chat-item active" onclick="switchChat('chat-1', 'John Doe', 'online', 'JD', 'linear-gradient(135deg, #FFD700, #B8860B)')">
+                    <div class="avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B);">JD<span class="status-dot status-online"></span></div>
                     <div class="chat-info">
                         <div class="chat-top-row"><span class="chat-name">John Doe</span><span class="chat-time">12:45</span></div>
-                        <div class="chat-bottom-row"><span class="last-message">Hey, did you see the files?</span><span class="unread-badge">2</span></div>
+                        <div class="chat-bottom-row"><span class="last-message">Did you see the gold files?</span><span class="unread-badge">2</span></div>
                     </div>
                 </div>
-                <div class="chat-item" id="chat-item-2" onclick="switchChat('chat-item-2')">
-                    <div class="avatar" style="background: linear-gradient(135deg, #F0E68C, #DAA520);">F</div>
+                <div class="chat-item" onclick="switchChat('chat-2', 'Family Group', '3 members', 'F', 'linear-gradient(135deg, #F0E68C, #DAA520)')">
+                    <div class="avatar" style="background: linear-gradient(135deg, #F0E68C, #DAA520);">F<span class="status-dot status-offline"></span></div>
                     <div class="chat-info">
                         <div class="chat-top-row"><span class="chat-name">Family Group</span><span class="chat-time">11:30</span></div>
                         <div class="chat-bottom-row"><span class="last-message">Mom: Don't forget dinner!</span></div>
                     </div>
                 </div>
-                <div class="chat-item" id="chat-item-3" onclick="switchChat('chat-item-3')">
-                    <div class="avatar" style="background: linear-gradient(135deg, #FFD700, #FF8C00);">S</div>
-                    <div class="chat-info">
-                        <div class="chat-top-row"><span class="chat-name">Sarah Smith</span><span class="chat-time">Yesterday</span></div>
-                        <div class="chat-bottom-row"><span class="last-message">Sounds good to me.</span></div>
-                    </div>
-                </div>
             </div>
         </section>
 
-        <section class="chat-window glass">
+        <!-- Chat Workspace -->
+        <section class="chat-workspace" id="chat-workspace">
             <header class="chat-header">
-                <button class="icon-btn back-btn" onclick="closeChat()" aria-label="Back">
+                <button class="nav-icon-btn back-btn" onclick="closeChat()" aria-label="Back">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                 </button>
                 <div class="chat-header-info">
-                    <div class="avatar small" id="chat-header-avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B);">JD</div>
+                    <div class="avatar" id="workspace-avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B); width: 40px; height: 40px; font-size: 14px;">JD</div>
                     <div>
-                        <h3 class="chat-title" id="chat-header-name">John Doe</h3>
-                        <span class="chat-status">online</span>
+                        <div class="chat-header-name" id="workspace-name">John Doe</div>
+                        <div class="chat-header-status" id="workspace-status">online</div>
                     </div>
-                </div>
-                <div class="chat-header-actions">
-                    <button class="icon-btn" aria-label="Call">
-                        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    </button>
                 </div>
             </header>
 
-            <main class="message-area" id="message-area">
+            <div class="message-area" id="message-area">
                 <div class="date-separator"><span>Today</span></div>
-                <div class="message received">
-                    <div class="message-bubble"><p>Hey! How are you doing?</p><span class="message-time">12:30</span></div>
-                </div>
-                <div class="message sent">
-                    <div class="message-bubble"><p>I'm doing great, thanks! Just finishing up the frontend.</p><span class="message-time">12:32</span></div>
-                </div>
-                <div class="message received">
-                    <div class="message-bubble"><p>That's awesome to hear. Can you send me the files when you're done?</p><span class="message-time">12:45</span></div>
-                </div>
-            </main>
+                <div class="message received"><div class="message-bubble"><p class="message-text">Hey! How are you doing?</p><span class="message-time">12:30</span></div></div>
+                <div class="message sent"><div class="message-bubble"><p class="message-text">I'm doing great, thanks! Just finishing up the frontend.</p><span class="message-time">12:32</span></div></div>
+            </div>
 
             <footer class="message-input-bar">
-                <button class="icon-btn" aria-label="Attach">
+                <input type="file" id="file-input" hidden>
+                <button class="nav-icon-btn" id="btn-attach" aria-label="Attach">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16.5 6v11.5a4 4 0 1 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"/></svg>
                 </button>
                 <div class="input-wrapper">
-                    <input type="text" id="message-input" placeholder="Message" onkeypress="handleKeyPress(event)" autocomplete="off">
-                    <button class="icon-btn" aria-label="Emoji">
-                        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
-                    </button>
+                    <input type="text" class="message-input" id="message-input" placeholder="Message" onkeypress="handleKeyPress(event)">
                 </div>
                 <button class="send-btn" onclick="sendMessage()" aria-label="Send">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
@@ -372,176 +418,197 @@
         </section>
     </div>
 
-    <div class="modal-overlay hidden" id="settings-modal" onclick="handleOverlayClick(event)">
-        <div class="modal-content glass premium-theme">
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal-content glass">
             <header class="modal-header">
-                <h2 id="settings-title">Settings</h2>
-                <button class="icon-btn" onclick="closeSettings()" aria-label="Close">
+                <h2 class="modal-title" id="settings-title">Settings</h2>
+                <button class="nav-icon-btn" onclick="closeSettings()" aria-label="Close">
                     <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>
             </header>
             <div class="modal-body">
                 <div class="settings-section">
-                    <h3 class="settings-section-title">Account</h3>
-                    <div class="settings-account">
-                        <div class="avatar" style="background: linear-gradient(135deg, #FFD700, #B8860B);">AU</div>
-                        <div class="account-info">
-                            <span class="account-name">Admin User</span>
-                            <span class="account-phone">+1 (555) 123-4567</span>
+                    <div class="settings-section-title">Profile Details</div>
+                    <div class="settings-card profile-editor">
+                        <div class="profile-avatar">AU</div>
+                        <div style="flex: 1;">
+                            <input type="text" class="profile-input" value="Admin User" placeholder="Name">
+                            <input type="text" class="profile-input" value="+1 (555) 123-4567" placeholder="Phone">
                         </div>
                     </div>
                 </div>
+
                 <div class="settings-section">
-                    <h3 class="settings-section-title">Preferences</h3>
-                    <div class="settings-option">
-                        <div class="option-label">
-                            <span>Dark Mode</span>
-                            <span class="option-description">OLED Black & Gold Theme</span>
+                    <div class="settings-section-title">Preferences</div>
+                    <div class="settings-card">
+                        <div class="settings-option">
+                            <div class="option-label">
+                                <span class="option-title">Language</span>
+                                <span class="option-desc">Select your preferred language</span>
+                            </div>
+                            <select class="dropdown" id="lang-select" onchange="changeLanguage(this.value)">
+                                <option value="en">English</option>
+                                <option value="ar">Arabic</option>
+                                <option value="am">Amharic</option>
+                            </select>
                         </div>
-                        <label class="switch">
-                            <input type="checkbox" id="dark-mode-toggle" checked onchange="toggleDarkMode(this)">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="settings-option">
-                        <div class="option-label">
-                            <span>Language</span>
-                            <span class="option-description">Select your preferred language</span>
+                        <div class="settings-option">
+                            <div class="option-label">
+                                <span class="option-title" id="dark-mode-text">Dark/Gold Luxury Mode</span>
+                                <span class="option-desc">Toggle between Dark and Light themes</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="dark-mode-toggle" checked onchange="toggleDarkMode(this)">
+                                <span class="slider"></span>
+                            </label>
                         </div>
-                        <select class="dropdown-select" id="language-select" onchange="changeLanguage(this.value)">
-                            <option value="en">English</option>
-                            <option value="es">Español</option>
-                            <option value="fr">Français</option>
-                        </select>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Install Banner -->
+    <button class="install-banner" id="install-banner">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        📲 Install Telegram Gold App
+    </button>
+
     <script>
-        // 1. Settings Modal Controls
-        function openSettings() {
-            const modal = document.getElementById('settings-modal');
-            if (modal) modal.classList.remove('hidden');
+        // =========================================
+        // 1. Sign In Flow Logic
+        // =========================================
+        function sendCode() {
+            const phone = document.getElementById('phone-input').value;
+            if (phone.length > 5) {
+                document.getElementById('auth-step-1').style.display = 'none';
+                document.getElementById('auth-step-2').style.display = 'block';
+                document.getElementById('auth-subtitle').textContent = 'Enter the code sent to your phone (Hint: 12345)';
+            } else {
+                alert('Please enter a valid phone number');
+            }
         }
+
+        function login() {
+            const code = document.getElementById('code-input').value;
+            if (code === '12345') {
+                document.getElementById('auth-screen').classList.add('hidden');
+            } else {
+                alert('Invalid code. Use 12345 for demo.');
+            }
+        }
+
+        // =========================================
+        // 2. Navigation & Drawer Logic
+        // =========================================
+        const drawer = document.getElementById('side-drawer');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+        const workspace = document.getElementById('chat-workspace');
+
+        document.getElementById('btn-menu').addEventListener('click', () => {
+            drawer.classList.add('open');
+            drawerOverlay.classList.add('open');
+        });
+
+        drawerOverlay.addEventListener('click', () => {
+            drawer.classList.remove('open');
+            drawerOverlay.classList.remove('open');
+        });
+
+        function switchFolder(element, folderName) {
+            document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            if (window.innerWidth <= 768) {
+                drawer.classList.remove('open');
+                drawerOverlay.classList.remove('open');
+            }
+        }
+
+        // =========================================
+        // 3. Settings Modal Logic
+        // =========================================
+        const settingsModal = document.getElementById('settings-modal');
+
+        document.getElementById('btn-settings').addEventListener('click', () => {
+            settingsModal.classList.add('open');
+        });
 
         function closeSettings() {
-            const modal = document.getElementById('settings-modal');
-            if (modal) modal.classList.add('hidden');
+            settingsModal.classList.remove('open');
         }
 
-        function handleOverlayClick(event) {
-            if (event.target.id === 'settings-modal') {
-                closeSettings();
-            }
-        }
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) closeSettings();
+        });
 
-        // 2. Dark Mode Toggle
+        // =========================================
+        // 4. Theme & Language Logic
+        // =========================================
         function toggleDarkMode(checkbox) {
             if (checkbox.checked) {
-                document.body.classList.add('dark-mode');
+                document.body.classList.remove('light-mode');
             } else {
-                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
             }
         }
 
-        // 3. Language Switcher
         function changeLanguage(lang) {
             const translations = {
-                en: { search: 'Search', message: 'Message', settings: 'Settings' },
-                es: { search: 'Buscar', message: 'Mensaje', settings: 'Ajustes' },
-                fr: { search: 'Rechercher', message: 'Message', settings: 'Paramètres' }
+                en: { search: 'Search Luxury Chats', message: 'Message', settings: 'Settings' },
+                ar: { search: 'بحث في الدردشات الفاخرة', message: 'رسالة', settings: 'الإعدادات' },
+                am: { search: 'የውበት ቻቶችን ይፈልጉ', message: 'መልዕክት', settings: 'ቅንብሮች' }
             };
             const dict = translations[lang] || translations.en;
-            
-            const searchInput = document.getElementById('search-input');
-            const messageInput = document.getElementById('message-input');
-            const settingsTitle = document.getElementById('settings-title');
-            
-            if (searchInput) searchInput.placeholder = dict.search;
-            if (messageInput) messageInput.placeholder = dict.message;
-            if (settingsTitle) settingsTitle.textContent = dict.settings;
+            document.getElementById('search-input').placeholder = dict.search;
+            document.getElementById('message-input').placeholder = dict.message;
+            document.getElementById('settings-title').textContent = dict.settings;
         }
 
-        // 4. Chat Navigation
-        function switchChat(chatId) {
-            // Remove active from all
+        // =========================================
+        // 5. Chat System & File Uploading Logic
+        // =========================================
+        function switchChat(chatId, name, status, avatarText, avatarBg) {
             document.querySelectorAll('.chat-item').forEach(item => item.classList.remove('active'));
-            
-            // Add active to clicked
-            const clickedChat = document.getElementById(chatId);
-            if (clickedChat) {
-                clickedChat.classList.add('active');
-                
-                // Update header
-                const chatName = clickedChat.querySelector('.chat-name').textContent;
-                const chatAvatar = clickedChat.querySelector('.avatar').cloneNode(true);
-                chatAvatar.classList.add('small');
-                chatAvatar.id = 'chat-header-avatar';
-                
-                document.getElementById('chat-header-name').textContent = chatName;
-                const oldAvatar = document.getElementById('chat-header-avatar');
-                oldAvatar.replaceWith(chatAvatar);
-            }
+            const clickedChat = document.querySelector(`[onclick*="${chatId}"]`);
+            if (clickedChat) clickedChat.classList.add('active');
 
-            // Mobile view: open chat window
-            const appContainer = document.getElementById('appContainer');
-            if (window.innerWidth <= 768 && appContainer) {
-                appContainer.classList.add('chat-open');
+            document.getElementById('workspace-name').textContent = name;
+            document.getElementById('workspace-status').textContent = status;
+            const workspaceAvatar = document.getElementById('workspace-avatar');
+            workspaceAvatar.textContent = avatarText;
+            workspaceAvatar.style.background = avatarBg;
+
+            if (window.innerWidth <= 768) {
+                workspace.classList.add('open');
             }
         }
 
         function closeChat() {
-            const appContainer = document.getElementById('appContainer');
-            if (appContainer) appContainer.classList.remove('chat-open');
+            workspace.classList.remove('open');
         }
 
-        // 5. Folder Navigation
-        function switchFolder(folderId) {
-            document.querySelectorAll('.folder-item').forEach(folder => folder.classList.remove('active'));
-            const clickedFolder = document.getElementById(folderId);
-            if (clickedFolder) {
-                clickedFolder.classList.add('active');
-            }
-        }
-
-        // 6. Sidebar Toggle (Mobile)
-        function toggleSidebar() {
-            const appContainer = document.getElementById('appContainer');
-            if (appContainer) appContainer.classList.toggle('sidebar-open');
-        }
-
-        // 7. Message Sending
         function sendMessage() {
             const input = document.getElementById('message-input');
             const area = document.getElementById('message-area');
-            
-            if (!input || !area) return;
-            
             const text = input.value.trim();
             if (text === '') return;
 
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message sent';
-
-            const bubbleDiv = document.createElement('div');
-            bubbleDiv.className = 'message-bubble';
-
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message sent';
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
             const para = document.createElement('p');
+            para.className = 'message-text';
             para.textContent = text;
-
-            const timeSpan = document.createElement('span');
-            timeSpan.className = 'message-time';
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            timeSpan.textContent = `${hours}:${minutes}`;
-
-            bubbleDiv.appendChild(para);
-            bubbleDiv.appendChild(timeSpan);
-            messageDiv.appendChild(bubbleDiv);
-            area.appendChild(messageDiv);
+            const time = document.createElement('span');
+            time.className = 'message-time';
+            time.textContent = `${new Date().getHours().toString().padStart(2, '0')}:${new Date().getMinutes().toString().padStart(2, '0')}`;
+            
+            bubble.appendChild(para);
+            bubble.appendChild(time);
+            msgDiv.appendChild(bubble);
+            area.appendChild(msgDiv);
 
             input.value = '';
             area.scrollTo({ top: area.scrollHeight, behavior: 'smooth' });
@@ -554,40 +621,88 @@
             }
         }
 
-        // 8. PWA Install Logic
+        // File Upload Logic
+        const fileInput = document.getElementById('file-input');
+        document.getElementById('btn-attach').addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const area = document.getElementById('message-area');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message sent';
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            
+            const time = document.createElement('span');
+            time.className = 'message-time';
+            time.textContent = `${new Date().getHours().toString().padStart(2, '0')}:${new Date().getMinutes().toString().padStart(2, '0')}`;
+
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'message-img';
+                    bubble.appendChild(img);
+                    bubble.appendChild(time);
+                    msgDiv.appendChild(bubble);
+                    area.appendChild(msgDiv);
+                    area.scrollTo({ top: area.scrollHeight, behavior: 'smooth' });
+                };
+                reader.readAsDataURL(file);
+            } else {
+                const fileBox = document.createElement('div');
+                fileBox.className = 'message-file';
+                fileBox.innerHTML = `
+                    <div class="file-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <span class="file-name">${file.name}</span>
+                `;
+                bubble.appendChild(fileBox);
+                bubble.appendChild(time);
+                msgDiv.appendChild(bubble);
+                area.appendChild(msgDiv);
+                area.scrollTo({ top: area.scrollHeight, behavior: 'smooth' });
+            }
+            fileInput.value = ''; // Reset input
+        });
+
+        // =========================================
+        // 6. PWA Install Logic
+        // =========================================
         let deferredPrompt = null;
+        const installBanner = document.getElementById('install-banner');
+        const drawerInstallBtn = document.getElementById('drawer-install-btn');
+
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            showInstallPromotion();
+            installBanner.classList.add('show');
         });
 
-        function showInstallPromotion() {
-            if (document.getElementById('pwa-install-btn')) return;
-            
-            const installBtn = document.createElement('button');
-            installBtn.id = 'pwa-install-btn';
-            installBtn.innerHTML = '⬇ Install App';
-            installBtn.style.cssText = `
-                position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-                background: linear-gradient(135deg, #F4D03F, #D4AF37); color: #000; border: none;
-                padding: 12px 24px; border-radius: 30px; font-weight: 700; font-family: 'Inter', sans-serif;
-                font-size: 14px; cursor: pointer; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.5);
-                z-index: 9999; transition: transform 0.3s ease, box-shadow 0.3s ease;
-            `;
-            
-            document.body.appendChild(installBtn);
-
-            installBtn.addEventListener('click', async () => {
-                installBtn.style.display = 'none';
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    deferredPrompt = null;
-                    installBtn.remove();
+        async function triggerInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installBanner.classList.remove('show');
                 }
-            });
+                deferredPrompt = null;
+            } else {
+                alert('To install the app:\n\nChrome/Edge: Click the install icon in the address bar.\nSafari (iOS): Tap Share -> Add to Home Screen.');
+            }
         }
+
+        installBanner.addEventListener('click', triggerInstall);
+        drawerInstallBtn.addEventListener('click', triggerInstall);
+
+        window.addEventListener('appinstalled', () => {
+            installBanner.classList.remove('show');
+        });
+
     </script>
 </body>
 </html>
