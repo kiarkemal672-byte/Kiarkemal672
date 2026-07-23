@@ -278,22 +278,28 @@
 
     <!-- Toast Container -->
     <div class="toast-container" id="toast-container"></div>
-
     <!-- Auth Page 1: Verification -->
     <div class="auth-container glass" id="auth-page-1">
         <div class="auth-card glass">
             <div class="logo-badge">ك</div>
             <h1 class="auth-title">خيار (Khiyar)</h1>
-            <p class="auth-subtitle">Enter your phone number to continue</p>
+            <p class="auth-subtitle">Enter your Phone or Email to continue</p>
             
-            <div class="form-group">
+            <!-- Auth Method Toggle -->
+            <div class="auth-toggle" style="display: flex; gap: 5px; margin-bottom: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 12px; padding: 5px;">
+                <button id="toggle-phone-btn" style="flex: 1; padding: 10px; border-radius: 8px; border: none; background: var(--accent-gold); color: #000; font-weight: 700; cursor: pointer; transition: all 0.3s;">Phone</button>
+                <button id="toggle-email-btn" style="flex: 1; padding: 10px; border-radius: 8px; border: none; background: transparent; color: var(--text-secondary); font-weight: 700; cursor: pointer; transition: all 0.3s;">Email</button>
+            </div>
+
+            <!-- Phone Input Group -->
+            <div class="form-group" id="phone-input-group">
                 <label class="form-label">Country</label>
-                <select class="form-select" id="country-select">
+                <select class="form-select" id="country-select" disabled>
                     <!-- Populated dynamically by JS -->
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="phone-number-group">
                 <label class="form-label">Phone Number</label>
                 <div class="phone-wrapper">
                     <span class="country-code glass" id="country-code-display">+1</span>
@@ -302,6 +308,16 @@
                 </div>
             </div>
 
+            <!-- Email Input Group -->
+            <div class="form-group hidden" id="email-input-group">
+                <label class="form-label">Email Address</label>
+                <div class="phone-wrapper">
+                    <input type="email" class="form-input" id="email-input" placeholder="user@example.com" style="flex: 1;">
+                    <button class="verify-btn-inline" id="verify-email-btn">VERIFY</button>
+                </div>
+            </div>
+
+            <!-- Verification Code Input -->
             <div class="form-group hidden" id="code-verify-group">
                 <label class="form-label">Verification Code</label>
                 <input type="text" class="form-input" id="code-input" placeholder="Enter 4-digit code">
@@ -310,7 +326,19 @@
             </div>
         </div>
     </div>
-
+    <!-- OTP Popup Modal -->
+    <div class="modal-overlay" id="otp-modal">
+        <div class="modal-content glass" style="max-width: 350px; text-align: center;">
+            <header class="modal-header" style="border:none; justify-content: center;">
+                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;">Your OTP Code</h2>
+            </header>
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">Use this code to verify your account:</p>
+                <div id="otp-display" style="font-size: 42px; font-weight: 800; color: var(--accent-gold); letter-spacing: 10px; margin-bottom: 20px; padding: 15px; border: 1px dashed var(--glass-border); border-radius: 12px; background: rgba(0,0,0,0.3);">1234</div>
+                <button class="btn-gold" id="close-otp-modal-btn">Got it</button>
+            </div>
+        </div>
+    </div>
     <!-- Auth Page 2: Profile Setup -->
     <div class="auth-container glass hidden" id="auth-page-2">
         <div class="auth-card glass">
