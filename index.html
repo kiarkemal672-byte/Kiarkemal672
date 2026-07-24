@@ -63,17 +63,22 @@
         .bg-marble {
             position: fixed; inset: 0; z-index: -2;
             background-color: var(--bg-primary);
-            background-image: 
-                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 25%),
-                radial-gradient(circle at 85% 80%, rgba(184, 134, 11, 0.1) 0%, transparent 30%),
-                linear-gradient(135deg, transparent 0%, transparent 40%, rgba(212, 175, 55, 0.05) 50%, transparent 60%),
-                linear-gradient(45deg, transparent 0%, transparent 30%, rgba(212, 175, 55, 0.03) 50%, transparent 70%);
+            background-image: url('https://z-cdn-media.chatglm.cn/files/6cdfd5ce-cc4f-4b19-91c4-a6594aa2842f.jpg?auth_key=1884864971-70cb32af1061497eb86a55735ccc3eb9-0-8f009eafd8c51adf16f8d2a875fc751b');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
-        .bg-veins {
+        
+        body.light-mode .bg-marble {
+            background-image: none;
+            background-color: #f0f2f5;
+        }
+
+        .bg-overlay {
             position: fixed; inset: 0; z-index: -1; pointer-events: none;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0 50 L20 40 L40 60 L60 30 L80 70 L100 50" stroke="rgba(212,175,55,0.1)" fill="none" stroke-width="1"/><path d="M10 0 L30 20 L10 40 L30 60 L10 80 L30 100" stroke="rgba(212,175,55,0.05)" fill="none" stroke-width="2"/></svg>');
-            opacity: 0.6;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay to make text readable over the image */
         }
+        body.light-mode .bg-overlay { background: rgba(255, 255, 255, 0.7); }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -131,6 +136,10 @@
         .btn-gold { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); color: #000; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.2s; margin-top: 10px; }
         .btn-gold:active { transform: scale(0.98); }
 
+        .auth-toggle { display: flex; gap: 5px; margin-bottom: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 12px; padding: 5px; }
+        .auth-toggle button { flex: 1; padding: 10px; border-radius: 8px; border: none; background: transparent; color: var(--text-secondary); font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .auth-toggle button.active { background: var(--accent-gold); color: #000; }
+
         /* Main App Layout */
         .app-container { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
@@ -141,23 +150,20 @@
         .nav-logo-small { width: 32px; height: 32px; font-size: 18px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); display: flex; align-items: center; justify-content: center; color: #000; border: 1px solid var(--accent-gold); }
         .nav-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-secondary) center/cover; border: 1px solid var(--accent-gold); cursor: pointer; }
 
-        .folder-tabs { display: flex; gap: 10px; padding: 15px 20px; overflow-x: auto; border-bottom: 1px solid var(--glass-border); flex-shrink: 0; }
-        .folder-tab { padding: 8px 16px; border-radius: 20px; background: transparent; border: 1px solid var(--glass-border); color: var(--text-secondary); cursor: pointer; white-space: nowrap; transition: all 0.3s; font-size: 14px; }
-        .folder-tab.active { background: var(--accent-gold); color: #000; border-color: var(--accent-gold); }
-
         .main-content { flex: 1; display: flex; overflow: hidden; position: relative; }
         
         /* Side Drawer */
         .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; opacity: 0; visibility: hidden; transition: all 0.3s; }
         .drawer-overlay.open { opacity: 1; visibility: visible; }
-        .side-drawer { position: fixed; top: 0; left: 0; width: 280px; height: 100%; z-index: 201; transform: translateX(-100%); transition: transform 0.3s; display: flex; flex-direction: column; padding: 20px; }
+        .side-drawer { position: fixed; top: 0; left: 0; width: 300px; height: 100%; z-index: 201; transform: translateX(-100%); transition: transform 0.3s; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
         .side-drawer.open { transform: translateX(0); }
         .drawer-header { padding: 20px 0; border-bottom: 1px solid var(--glass-border); margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
         .drawer-avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--bg-secondary) center/cover; border: 1px solid var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--accent-gold); }
         .drawer-menu { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-        .drawer-item { display: flex; align-items: center; gap: 15px; padding: 15px; border-radius: 12px; color: var(--text-primary); cursor: pointer; transition: all 0.3s; font-size: 16px; }
+        .drawer-section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-tertiary); margin: 15px 0 5px; }
+        .drawer-item { display: flex; align-items: center; gap: 15px; padding: 12px 15px; border-radius: 12px; color: var(--text-primary); cursor: pointer; transition: all 0.3s; font-size: 15px; }
         .drawer-item:hover, .drawer-item.active { background: var(--glass-highlight); color: var(--accent-gold); }
-        .drawer-item svg { width: 24px; height: 24px; }
+        .drawer-item svg { width: 22px; height: 22px; }
 
         /* Views */
         .view-container { flex: 1; overflow-y: auto; padding: 20px; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: transparent; }
@@ -268,16 +274,16 @@
         .toast.fade-out { animation: toastOut 0.3s ease forwards; }
         @keyframes toastOut { to { transform: translateY(20px); opacity: 0; } }
 
-        /* Countdown Timer UI */
         .timer-text { color: var(--accent-gold); font-weight: 600; margin-top: 10px; font-size: 14px; }
     </style>
 </head>
 <body>
     <div class="bg-marble"></div>
-    <div class="bg-veins"></div>
+    <div class="bg-overlay"></div>
 
     <!-- Toast Container -->
     <div class="toast-container" id="toast-container"></div>
+
     <!-- Auth Page 1: Verification -->
     <div class="auth-container glass" id="auth-page-1">
         <div class="auth-card glass">
@@ -285,18 +291,14 @@
             <h1 class="auth-title">خيار (Khiyar)</h1>
             <p class="auth-subtitle">Enter your Phone or Email to continue</p>
             
-            <!-- Auth Method Toggle -->
-            <div class="auth-toggle" style="display: flex; gap: 5px; margin-bottom: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 12px; padding: 5px;">
-                <button id="toggle-phone-btn" style="flex: 1; padding: 10px; border-radius: 8px; border: none; background: var(--accent-gold); color: #000; font-weight: 700; cursor: pointer; transition: all 0.3s;">Phone</button>
-                <button id="toggle-email-btn" style="flex: 1; padding: 10px; border-radius: 8px; border: none; background: transparent; color: var(--text-secondary); font-weight: 700; cursor: pointer; transition: all 0.3s;">Email</button>
+            <div class="auth-toggle">
+                <button id="toggle-phone-btn" class="active">Phone</button>
+                <button id="toggle-email-btn">Email</button>
             </div>
 
-            <!-- Phone Input Group -->
             <div class="form-group" id="phone-input-group">
                 <label class="form-label">Country</label>
-                <select class="form-select" id="country-select" disabled>
-                    <!-- Populated dynamically by JS -->
-                </select>
+                <select class="form-select" id="country-select"></select>
             </div>
 
             <div class="form-group" id="phone-number-group">
@@ -308,7 +310,6 @@
                 </div>
             </div>
 
-            <!-- Email Input Group -->
             <div class="form-group hidden" id="email-input-group">
                 <label class="form-label">Email Address</label>
                 <div class="phone-wrapper">
@@ -317,7 +318,6 @@
                 </div>
             </div>
 
-            <!-- Verification Code Input -->
             <div class="form-group hidden" id="code-verify-group">
                 <label class="form-label">Verification Code</label>
                 <input type="text" class="form-input" id="code-input" placeholder="Enter 4-digit code">
@@ -326,6 +326,7 @@
             </div>
         </div>
     </div>
+
     <!-- OTP Popup Modal -->
     <div class="modal-overlay" id="otp-modal">
         <div class="modal-content glass" style="max-width: 350px; text-align: center;">
@@ -339,6 +340,7 @@
             </div>
         </div>
     </div>
+
     <!-- Auth Page 2: Profile Setup -->
     <div class="auth-container glass hidden" id="auth-page-2">
         <div class="auth-card glass">
@@ -391,27 +393,9 @@
             <div class="nav-avatar" id="nav-avatar" style="background-image: url('https://via.placeholder.com/32?text=Img');"></div>
         </header>
 
-        <nav class="folder-tabs" id="folder-tabs">
-            <button class="folder-tab active">All</button>
-            <button class="folder-tab">Channel</button>
-            <button class="folder-tab">Group</button>
-            <button class="folder-tab">Personal</button>
-            <button class="folder-tab">Family</button>
-            <button class="folder-tab">Work</button>
-        </nav>
-
         <div class="main-content">
             <div class="view-container view-section active" id="view-home">
-                <div class="chat-list">
-                    <div class="chat-item glass" onclick="openChat()">
-                        <div class="chat-avatar">F</div>
-                        <div class="chat-info"><h4>Fatima Hassan</h4><p>Welcome to the family group!</p></div>
-                    </div>
-                    <div class="chat-item glass" onclick="openChat()">
-                        <div class="chat-avatar">O</div>
-                        <div class="chat-info"><h4>Omar Al-Rashid</h4><p>See you at the gathering.</p></div>
-                    </div>
-                </div>
+                <div class="chat-list" id="chat-list-container"></div>
             </div>
 
             <div class="view-container view-section" id="view-tree">
@@ -451,10 +435,19 @@
             </div>
         </div>
         <nav class="drawer-menu">
+            <div class="drawer-section-title">Menu</div>
             <div class="drawer-item active" data-view="view-home"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Home</div>
             <div class="drawer-item" data-view="view-tree"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L8 8h3v6h2V8h3l-4-6z"/></svg> Family Tree (شجرة العائلة)</div>
             <div class="drawer-item" id="menu-stats"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h2v-2H3v2z"/></svg> Statistics (الإحصائيات)</div>
-            <div class="drawer-item" id="menu-settings" style="margin-top: auto; color: var(--accent-gold);"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg> Settings</div>
+            
+            <div class="drawer-section-title">Folders</div>
+            <div class="drawer-item active" data-folder="all"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg> All Chats</div>
+            <div class="drawer-item" data-folder="personal"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> Personal</div>
+            <div class="drawer-item" data-folder="group"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg> Groups</div>
+            <div class="drawer-item" data-folder="channel"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 22h20V2L2 22z"/></svg> Channels</div>
+
+            <div class="drawer-section-title">Account</div>
+            <div class="drawer-item" id="menu-settings"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg> Settings</div>
             <div class="drawer-item" id="drawer-install-btn"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Install App</div>
         </nav>
     </aside>
@@ -463,13 +456,10 @@
     <div class="chat-workspace glass" id="chat-workspace">
         <header class="chat-header glass">
             <button class="nav-icon-btn" id="close-chat-btn"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
-            <div class="chat-avatar" style="width: 40px; height: 40px; font-size: 16px;">F</div>
-            <div style="flex: 1;"><h4 style="font-size: 16px; font-weight: 600;">Fatima Hassan</h4><p style="font-size: 12px; color: var(--accent-gold);">online</p></div>
+            <div class="chat-avatar" id="workspace-avatar" style="width: 40px; height: 40px; font-size: 16px;">F</div>
+            <div style="flex: 1;"><h4 style="font-size: 16px; font-weight: 600;" id="workspace-name">Chat</h4><p style="font-size: 12px; color: var(--accent-gold);">online</p></div>
         </header>
-        <div class="messages-area" id="messages-area">
-            <div class="message-bubble message-received" data-id="msg-1">Welcome to the family group! Long press me.</div>
-            <div class="message-bubble message-sent" data-id="msg-2">Thank you! Excited to be here. Long press me.</div>
-        </div>
+        <div class="messages-area" id="messages-area"></div>
         <div class="chat-input-bar">
             <input type="file" id="chat-file-input" hidden>
             <button class="nav-icon-btn" id="attach-btn"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16.5 6v11.5a4 4 0 1 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6z"/></svg></button>
@@ -497,14 +487,10 @@
                     <div class="settings-item"><span>Dark Mode</span><label class="switch"><input type="checkbox" id="dark-mode-toggle" checked><span class="slider"></span></label></div>
                 </div>
                 <div class="settings-section">
-                    <div class="settings-title">Chat Folders</div>
-                    <div class="settings-item"><span>Manage Folders</span><button class="btn-gold" id="create-folder-btn" style="width: auto; padding: 8px 16px; margin: 0; font-size: 14px;">Create Folder</button></div>
-                </div>
-                <div class="settings-section">
-                    <div class="settings-title">Accounts & Actions</div>
+                    <div class="settings-title">Actions</div>
+                    <div class="settings-item"><span>New Group</span><button class="btn-gold" id="new-group-btn" style="width: auto; padding: 8px 16px; margin: 0; font-size: 14px;">Create</button></div>
+                    <div class="settings-item"><span>New Channel</span><button class="btn-gold" id="new-channel-btn" style="width: auto; padding: 8px 16px; margin: 0; font-size: 14px;">Create</button></div>
                     <div class="settings-item"><span>Add New Account</span><button class="nav-icon-btn" id="add-account-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button></div>
-                    <div class="settings-item"><span>New Group</span><button class="nav-icon-btn" id="new-group-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg></button></div>
-                    <div class="settings-item"><span>New Channel</span><button class="nav-icon-btn" id="new-channel-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M2 22h20V2L2 22z"/></svg></button></div>
                 </div>
             </div>
         </div>
@@ -551,6 +537,27 @@
         </div>
     </div>
 
+    <!-- Create Chat Modal (Group/Channel) -->
+    <div class="modal-overlay" id="create-chat-modal">
+        <div class="modal-content glass">
+            <header class="modal-header">
+                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;" id="create-chat-title">New Group</h2>
+                <button class="nav-icon-btn" data-close-modal="create-chat-modal"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+            </header>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-input" id="create-chat-name" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description (Optional)</label>
+                    <input type="text" class="form-input" id="create-chat-desc" placeholder="Enter description">
+                </div>
+                <button class="btn-gold" id="confirm-create-chat-btn">Create</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Family Member Add/Edit Modal -->
     <div class="modal-overlay" id="member-modal">
         <div class="modal-content glass">
@@ -593,11 +600,18 @@
             { id: '5', name: 'Ali Hassan', gender: 'male', relation: 'Son', generation: 3, status: 'living' },
             { id: '6', name: 'Sara Al-Rashid', gender: 'female', relation: 'Daughter', generation: 3, status: 'living' }
         ];
+        let chats = JSON.parse(localStorage.getItem('khiyar_chats')) || [
+            { id: 'c1', name: 'Fatima Hassan', type: 'personal', lastMessage: 'Welcome to the family group!', avatar: 'F' },
+            { id: 'c2', name: 'Omar Al-Rashid', type: 'personal', lastMessage: 'See you at the gathering.', avatar: 'O' },
+            { id: 'c3', name: 'Family Group', type: 'group', lastMessage: 'Mom: Don\'t forget dinner!', avatar: 'FG' },
+            { id: 'c4', name: 'News Channel', type: 'channel', lastMessage: 'Updates at 8PM', avatar: 'NC' }
+        ];
+        let activeChatFilter = 'all';
         let activeContextMessageId = null;
         let generatedCode = null;
         let countdownInterval = null;
+        let activeChatType = 'group'; // Used for the Create Chat modal
 
-        // Comprehensive Country List
         const countries = [
             { name: "United States", code: "+1" }, { name: "United Kingdom", code: "+44" }, { name: "Ethiopia", code: "+251" },
             { name: "Saudi Arabia", code: "+966" }, { name: "Egypt", code: "+20" }, { name: "United Arab Emirates", code: "+971" },
@@ -641,59 +655,48 @@
             }
             renderTree();
             renderStats();
-            attachContextMenuListeners();
+            renderChats();
         });
 
         function bindEventListeners() {
             // Auth Events
-            const countrySelect = document.getElementById('country-select');
-            if (countrySelect) {
-                // FIX: Explicit addEventListener is far more reliable on mobile than inline onchange
-                countrySelect.addEventListener('change', updateCountryCode);
-            }
+            document.getElementById('country-select').addEventListener('change', updateCountryCode);
+            document.getElementById('toggle-phone-btn').addEventListener('click', () => toggleAuthMethod('phone'));
+            document.getElementById('toggle-email-btn').addEventListener('click', () => toggleAuthMethod('email'));
+            document.getElementById('verify-trigger-btn').addEventListener('click', sendVerificationCode);
+            document.getElementById('verify-email-btn').addEventListener('click', sendVerificationCode);
+            document.getElementById('verify-code-btn').addEventListener('click', verifyCode);
+            document.getElementById('close-otp-modal-btn').addEventListener('click', () => closeModal('otp-modal'));
             
-            const verifyTriggerBtn = document.getElementById('verify-trigger-btn');
-            if (verifyTriggerBtn) verifyTriggerBtn.addEventListener('click', sendVerificationCode);
-
-            const verifyCodeBtn = document.getElementById('verify-code-btn');
-            if (verifyCodeBtn) verifyCodeBtn.addEventListener('click', verifyCode);
-
             const uploadPicBtn = document.getElementById('upload-pic-btn');
             const profilePicInput = document.getElementById('profile-pic-input');
-            if (uploadPicBtn && profilePicInput) {
-                uploadPicBtn.addEventListener('click', () => profilePicInput.click());
-                profilePicInput.addEventListener('change', handleProfilePicUpload);
-            }
-
-            const setupProfileBtn = document.getElementById('setup-profile-btn');
-            if (setupProfileBtn) setupProfileBtn.addEventListener('click', setupProfile);
+            uploadPicBtn.addEventListener('click', () => profilePicInput.click());
+            profilePicInput.addEventListener('change', handleProfilePicUpload);
+            document.getElementById('setup-profile-btn').addEventListener('click', setupProfile);
 
             // Main App Events
-            const menuBtn = document.getElementById('menu-btn');
-            if (menuBtn) menuBtn.addEventListener('click', () => toggleDrawer(true));
-            
-            const drawerOverlay = document.getElementById('drawer-overlay');
-            if (drawerOverlay) drawerOverlay.addEventListener('click', () => toggleDrawer(false));
+            document.getElementById('menu-btn').addEventListener('click', () => toggleDrawer(true));
+            document.getElementById('drawer-overlay').addEventListener('click', () => toggleDrawer(false));
 
-            const drawerItems = document.querySelectorAll('.drawer-item[data-view]');
-            drawerItems.forEach(item => {
+            document.querySelectorAll('.drawer-item[data-view]').forEach(item => {
                 item.addEventListener('click', () => switchView(item.dataset.view, item));
             });
 
-            const menuStats = document.getElementById('menu-stats');
-            if (menuStats) menuStats.addEventListener('click', () => {
-                switchView('view-tree', menuStats);
+            document.querySelectorAll('.drawer-item[data-folder]').forEach(item => {
+                item.addEventListener('click', () => filterChats(item.dataset.folder, item));
+            });
+
+            document.getElementById('menu-stats').addEventListener('click', () => {
+                switchView('view-tree', document.getElementById('menu-stats'));
                 switchTreeView(document.getElementById('tab-stats'), 'stats-content');
             });
 
-            const menuSettings = document.getElementById('menu-settings');
-            if (menuSettings) menuSettings.addEventListener('click', () => {
+            document.getElementById('menu-settings').addEventListener('click', () => {
                 toggleDrawer(false);
                 openModal('settings-modal');
             });
 
-            const drawerInstallBtn = document.getElementById('drawer-install-btn');
-            if (drawerInstallBtn) drawerInstallBtn.addEventListener('click', async () => {
+            document.getElementById('drawer-install-btn').addEventListener('click', async () => {
                 if (deferredPrompt) {
                     deferredPrompt.prompt();
                     await deferredPrompt.userChoice;
@@ -703,110 +706,72 @@
                 }
             });
 
-            const folderTabs = document.querySelectorAll('.folder-tab');
-            folderTabs.forEach(tab => {
-                tab.addEventListener('click', () => switchTab(tab));
-            });
-
-            const themeBtn = document.getElementById('theme-btn');
-            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
-
-            const settingsBtn = document.getElementById('settings-btn');
-            if (settingsBtn) settingsBtn.addEventListener('click', () => openModal('settings-modal'));
-
-            const navAvatar = document.getElementById('nav-avatar');
-            if (navAvatar) navAvatar.addEventListener('click', () => openModal('profile-modal'));
+            document.getElementById('theme-btn').addEventListener('click', toggleTheme);
+            document.getElementById('settings-btn').addEventListener('click', () => openModal('settings-modal'));
+            document.getElementById('nav-avatar').addEventListener('click', () => openModal('profile-modal'));
 
             // View Toggle
-            const tabTree = document.getElementById('tab-tree');
-            if (tabTree) tabTree.addEventListener('click', () => switchTreeView(tabTree, 'tree-content'));
-            const tabStats = document.getElementById('tab-stats');
-            if (tabStats) tabStats.addEventListener('click', () => switchTreeView(tabStats, 'stats-content'));
+            document.getElementById('tab-tree').addEventListener('click', () => switchTreeView(document.getElementById('tab-tree'), 'tree-content'));
+            document.getElementById('tab-stats').addEventListener('click', () => switchTreeView(document.getElementById('tab-stats'), 'stats-content'));
 
             // Family Tree
-            const treeSearch = document.getElementById('tree-search');
-            if (treeSearch) treeSearch.addEventListener('input', renderTree);
-
-            const addMemberBtn = document.getElementById('add-member-btn');
-            if (addMemberBtn) addMemberBtn.addEventListener('click', () => openMemberModal());
+            document.getElementById('tree-search').addEventListener('input', renderTree);
+            document.getElementById('add-member-btn').addEventListener('click', () => openMemberModal());
 
             // Chat Events
-            const closeChatBtn = document.getElementById('close-chat-btn');
-            if (closeChatBtn) closeChatBtn.addEventListener('click', closeChat);
+            document.getElementById('close-chat-btn').addEventListener('click', closeChat);
+            document.getElementById('chat-input').addEventListener('keypress', handleChatKeyPress);
+            document.getElementById('send-msg-btn').addEventListener('click', sendMessage);
             
-            const chatInput = document.getElementById('chat-input');
-            if (chatInput) chatInput.addEventListener('keypress', handleChatKeyPress);
-            
-            const sendMsgBtn = document.getElementById('send-msg-btn');
-            if (sendMsgBtn) sendMsgBtn.addEventListener('click', sendMessage);
-
             const attachBtn = document.getElementById('attach-btn');
             const chatFileInput = document.getElementById('chat-file-input');
-            if (attachBtn && chatFileInput) {
-                attachBtn.addEventListener('click', () => chatFileInput.click());
-                chatFileInput.addEventListener('change', handleChatFileUpload);
-            }
+            attachBtn.addEventListener('click', () => chatFileInput.click());
+            chatFileInput.addEventListener('change', handleChatFileUpload);
 
-            // Modal Events
-            bindModalEvents('settings-modal');
-            bindModalEvents('profile-modal');
-            bindModalEvents('logout-modal');
-            bindModalEvents('member-modal');
+            // Modals Generic Close
+            ['settings-modal', 'profile-modal', 'logout-modal', 'member-modal', 'create-chat-modal', 'otp-modal'].forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                modal.querySelectorAll('[data-close-modal]').forEach(btn => {
+                    btn.addEventListener('click', () => closeModal(btn.dataset.closeModal));
+                });
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modalId);
+                });
+            });
 
-            const goToProfile = document.getElementById('go-to-profile');
-            if (goToProfile) goToProfile.addEventListener('click', () => {
+            // Settings Actions
+            document.getElementById('go-to-profile').addEventListener('click', () => {
                 closeModal('settings-modal');
                 openModal('profile-modal');
             });
-
-            const goToLogout = document.getElementById('go-to-logout');
-            if (goToLogout) goToLogout.addEventListener('click', () => {
+            document.getElementById('go-to-logout').addEventListener('click', () => {
                 closeModal('settings-modal');
                 openModal('logout-modal');
             });
+            document.getElementById('confirm-logout-btn').addEventListener('click', logout);
+            document.getElementById('add-account-btn').addEventListener('click', addAccount);
+            document.getElementById('lang-select').addEventListener('change', () => showToast('Language Updated'));
+            document.getElementById('dark-mode-toggle').addEventListener('change', toggleTheme);
 
-            const confirmLogoutBtn = document.getElementById('confirm-logout-btn');
-            if (confirmLogoutBtn) confirmLogoutBtn.addEventListener('click', logout);
-
-            const addAccountBtn = document.getElementById('add-account-btn');
-            if (addAccountBtn) addAccountBtn.addEventListener('click', addAccount);
-
-            const langSelect = document.getElementById('lang-select');
-            if (langSelect) langSelect.addEventListener('change', () => showToast('Language Updated'));
-
-            const darkModeToggle = document.getElementById('dark-mode-toggle');
-            if (darkModeToggle) darkModeToggle.addEventListener('change', toggleTheme);
-
-            const createFolderBtn = document.getElementById('create-folder-btn');
-            if (createFolderBtn) createFolderBtn.addEventListener('click', () => showToast('Folder Manager Opened'));
-
-            const newGroupBtn = document.getElementById('new-group-btn');
-            if (newGroupBtn) newGroupBtn.addEventListener('click', () => showToast('Group Creation Started'));
-
-            const newChannelBtn = document.getElementById('new-channel-btn');
-            if (newChannelBtn) newChannelBtn.addEventListener('click', () => showToast('Channel Creation Started'));
+            // Create Chat Actions (Group / Channel)
+            document.getElementById('new-group-btn').addEventListener('click', () => openCreateChatModal('group'));
+            document.getElementById('new-channel-btn').addEventListener('click', () => openCreateChatModal('channel'));
+            document.getElementById('confirm-create-chat-btn').addEventListener('click', createNewChat);
 
             // Profile Edit
             const editUploadPicBtn = document.getElementById('edit-upload-pic-btn');
             const editProfilePicInput = document.getElementById('edit-profile-pic-input');
-            if (editUploadPicBtn && editProfilePicInput) {
-                editUploadPicBtn.addEventListener('click', () => editProfilePicInput.click());
-                editProfilePicInput.addEventListener('change', handleEditProfilePicUpload);
-            }
-            const saveProfileBtn = document.getElementById('save-profile-btn');
-            if (saveProfileBtn) saveProfileBtn.addEventListener('click', saveProfile);
+            editUploadPicBtn.addEventListener('click', () => editProfilePicInput.click());
+            editProfilePicInput.addEventListener('change', handleEditProfilePicUpload);
+            document.getElementById('save-profile-btn').addEventListener('click', saveProfile);
 
             // Member Modal
-            const saveMemberBtn = document.getElementById('save-member-btn');
-            if (saveMemberBtn) saveMemberBtn.addEventListener('click', saveMember);
+            document.getElementById('save-member-btn').addEventListener('click', saveMember);
 
-            // Context Menu Items
-            const ctxItems = document.querySelectorAll('.ctx-item');
-            ctxItems.forEach(item => {
+            // Context Menu
+            document.querySelectorAll('.ctx-item').forEach(item => {
                 item.addEventListener('click', () => ctxAction(item.dataset.action));
             });
-
-            // Global click to close context menu
             document.addEventListener('click', (e) => {
                 const menu = document.getElementById('context-menu');
                 if (menu && !e.target.closest('#context-menu') && !e.target.closest('.message-bubble')) {
@@ -815,21 +780,8 @@
             });
         }
 
-        function bindModalEvents(modalId) {
-            const modal = document.getElementById(modalId);
-            if (!modal) return;
-            const closeBtns = modal.querySelectorAll('[data-close-modal]');
-            closeBtns.forEach(btn => {
-                btn.addEventListener('click', () => closeModal(btn.dataset.closeModal));
-            });
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModal(modalId);
-            });
-        }
-
         function populateCountries() {
             const select = document.getElementById('country-select');
-            if (!select) return;
             select.innerHTML = '';
             countries.forEach(c => {
                 const opt = document.createElement('option');
@@ -841,26 +793,56 @@
         }
 
         function updateCountryCode() {
-            const select = document.getElementById('country-select');
-            const display = document.getElementById('country-code-display');
-            if (select && display) {
-                display.textContent = select.value;
-            }
+            document.getElementById('country-code-display').textContent = document.getElementById('country-select').value;
         }
 
         // ==========================================
         // AUTH LOGIC
         // ==========================================
+        function toggleAuthMethod(method) {
+            const phoneGroup = document.getElementById('phone-input-group');
+            const phoneNumGroup = document.getElementById('phone-number-group');
+            const emailGroup = document.getElementById('email-input-group');
+            const countrySelect = document.getElementById('country-select');
+            const togglePhoneBtn = document.getElementById('toggle-phone-btn');
+            const toggleEmailBtn = document.getElementById('toggle-email-btn');
+
+            if (method === 'phone') {
+                phoneGroup.classList.remove('hidden');
+                phoneNumGroup.classList.remove('hidden');
+                emailGroup.classList.add('hidden');
+                countrySelect.disabled = false;
+                togglePhoneBtn.classList.add('active');
+                toggleEmailBtn.classList.remove('active');
+            } else {
+                phoneGroup.classList.add('hidden');
+                phoneNumGroup.classList.add('hidden');
+                emailGroup.classList.remove('hidden');
+                countrySelect.disabled = true;
+                toggleEmailBtn.classList.add('active');
+                togglePhoneBtn.classList.remove('active');
+            }
+        }
+
         function sendVerificationCode() {
-            const phone = document.getElementById('phone-input').value;
-            if (!phone) return showToast('Please enter phone number');
+            let userInput = '';
+            const isPhoneVisible = !document.getElementById('phone-input-group').classList.contains('hidden');
+            
+            if (isPhoneVisible) {
+                userInput = document.getElementById('phone-input').value;
+                if (!userInput) return showToast('Please enter phone number');
+            } else {
+                userInput = document.getElementById('email-input').value;
+                if (!userInput || !userInput.includes('@')) return showToast('Please enter a valid email');
+            }
             
             generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
-            console.log("Generated Code:", generatedCode); // For testing
-            showToast(`Verification code sent: ${generatedCode}`);
-
+            document.getElementById('otp-display').textContent = generatedCode;
+            document.getElementById('otp-modal').classList.add('open');
+            
             document.getElementById('code-verify-group').classList.remove('hidden');
             document.getElementById('verify-trigger-btn').disabled = true;
+            document.getElementById('verify-email-btn').disabled = true;
 
             let timeLeft = 60;
             const timerEl = document.getElementById('countdown-timer');
@@ -874,17 +856,19 @@
                     clearInterval(countdownInterval);
                     timerEl.textContent = '';
                     document.getElementById('verify-trigger-btn').disabled = false;
+                    document.getElementById('verify-email-btn').disabled = false;
                 }
             }, 1000);
         }
 
         function verifyCode() {
-            const phone = document.getElementById('phone-input').value;
             const code = document.getElementById('code-input').value;
-            if (!phone || !code) return showToast('Please enter phone and code');
+            if (!code) return showToast('Please enter the verification code');
             if (code !== generatedCode) return showToast('Invalid verification code');
 
             clearInterval(countdownInterval);
+            document.getElementById('otp-modal').classList.remove('open');
+            
             document.getElementById('auth-page-1').style.transform = 'translateX(-100%)';
             document.getElementById('auth-page-1').style.opacity = '0';
             setTimeout(() => {
@@ -898,7 +882,7 @@
             const fullName = document.getElementById('fullname-input').value || 'Guest User';
             const username = document.getElementById('username-input').value || '@guest';
             const bio = document.getElementById('bio-input').value || 'Family member';
-            const phone = document.getElementById('phone-input').value;
+            const phone = document.getElementById('phone-input').value || document.getElementById('email-input').value;
             const pic = document.getElementById('profile-preview').style.backgroundImage;
             
             currentUser = { fullName, username, bio, phone, pic };
@@ -989,12 +973,6 @@
             toggleDrawer(false);
         }
 
-        function switchTab(element) {
-            document.querySelectorAll('.folder-tab').forEach(t => t.classList.remove('active'));
-            element.classList.add('active');
-            showToast(`Filter: ${element.textContent}`);
-        }
-
         function switchTreeView(element, contentId) {
             document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
             element.classList.add('active');
@@ -1012,12 +990,129 @@
         function toggleTheme() { document.body.classList.toggle('light-mode'); showToast('Theme Toggled'); }
 
         // ==========================================
+        // CHAT LOGIC & FILTERING
+        // ==========================================
+        function filterChats(folder, element) {
+            activeChatFilter = folder;
+            document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
+            if (element) element.classList.add('active');
+            switchView('view-home', element);
+            renderChats();
+        }
+
+        function renderChats() {
+            const container = document.getElementById('chat-list-container');
+            container.innerHTML = '';
+            
+            const filteredChats = chats.filter(c => activeChatFilter === 'all' || c.type === activeChatFilter);
+            if (filteredChats.length === 0) {
+                container.innerHTML = `<div style="text-align: center; color: var(--text-tertiary); margin-top: 50px;">No chats found. Create a new one from Settings.</div>`;
+                return;
+            }
+
+            filteredChats.forEach(chat => {
+                const item = document.createElement('div');
+                item.className = 'chat-item glass';
+                item.innerHTML = `
+                    <div class="chat-avatar">${chat.avatar}</div>
+                    <div class="chat-info"><h4>${chat.name}</h4><p>${chat.lastMessage}</p></div>
+                `;
+                item.addEventListener('click', () => openChat(chat));
+                container.appendChild(item);
+            });
+        }
+
+        function openChat(chat) {
+            document.getElementById('workspace-name').textContent = chat.name;
+            document.getElementById('workspace-avatar').textContent = chat.avatar;
+            document.getElementById('messages-area').innerHTML = `
+                <div class="message-bubble message-received" data-id="msg-1">Welcome to ${chat.name}!</div>
+            `;
+            document.getElementById('chat-workspace').classList.add('open');
+            attachContextMenuListeners();
+        }
+
+        function closeChat() { document.getElementById('chat-workspace').classList.remove('open'); }
+        function handleChatKeyPress(event) { if (event.key === 'Enter') sendMessage(); }
+        
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+            const area = document.getElementById('messages-area');
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble message-sent';
+            bubble.textContent = text;
+            bubble.dataset.id = 'msg-' + Date.now();
+            area.appendChild(bubble);
+            input.value = '';
+            area.scrollTop = area.scrollHeight;
+            attachContextMenuListeners();
+        }
+
+        function handleChatFileUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const area = document.getElementById('messages-area');
+                const bubble = document.createElement('div');
+                bubble.className = 'message-bubble message-sent';
+                bubble.dataset.id = 'msg-' + Date.now();
+                if (file.type.startsWith('image/')) {
+                    bubble.innerHTML = `<img src="${ev.target.result}" class="message-img">`;
+                } else {
+                    bubble.textContent = `📎 ${file.name}`;
+                }
+                area.appendChild(bubble);
+                area.scrollTop = area.scrollHeight;
+                attachContextMenuListeners();
+                showToast('File Attached');
+            };
+            reader.readAsDataURL(file);
+            e.target.value = '';
+        }
+
+        function openCreateChatModal(type) {
+            activeChatType = type;
+            document.getElementById('create-chat-title').textContent = type === 'group' ? 'New Group' : 'New Channel';
+            document.getElementById('create-chat-name').value = '';
+            document.getElementById('create-chat-desc').value = '';
+            openModal('create-chat-modal');
+        }
+
+        function createNewChat() {
+            const name = document.getElementById('create-chat-name').value;
+            if (!name) return showToast('Please enter a name');
+            
+            const newChat = {
+                id: 'c' + Date.now(),
+                name: name,
+                type: activeChatType,
+                lastMessage: 'Tap to start chatting',
+                avatar: name.substring(0, 2).toUpperCase()
+            };
+            
+            chats.unshift(newChat);
+            localStorage.setItem('khiyar_chats', JSON.stringify(chats));
+            
+            closeModal('create-chat-modal');
+            activeChatFilter = activeChatType;
+            document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
+            const folderBtn = document.querySelector(`.drawer-item[data-folder="${activeChatType}"]`);
+            if (folderBtn) folderBtn.classList.add('active');
+            
+            switchView('view-home', folderBtn);
+            renderChats();
+            showToast(`${activeChatType === 'group' ? 'Group' : 'Channel'} created successfully!`);
+        }
+
+        // ==========================================
         // FAMILY TREE LOGIC
         // ==========================================
         function renderTree() {
             localStorage.setItem('khiyar_family', JSON.stringify(familyMembers));
             const container = document.getElementById('tree-container');
-            if (!container) return;
             container.innerHTML = '';
             
             const searchQuery = document.getElementById('tree-search').value.toLowerCase();
@@ -1070,7 +1165,6 @@
                 container.appendChild(row);
             });
 
-            // Bind events for newly created tree buttons
             container.querySelectorAll('.action-btn').forEach(btn => {
                 btn.addEventListener('click', () => openMemberModal('', btn.dataset.target, btn.dataset.rel));
             });
@@ -1170,76 +1264,26 @@
             });
             const genCount = Object.keys(gens).length;
 
-            const statsGrid = document.getElementById('stats-grid');
-            if (statsGrid) {
-                statsGrid.innerHTML = `
-                    <div class="stat-card glass"><div class="stat-icon">👥</div><div class="stat-value">${total}</div><div class="stat-label">Members</div></div>
-                    <div class="stat-card glass"><div class="stat-icon" style="color:var(--male-color)">♂</div><div class="stat-value">${males}</div><div class="stat-label">Males</div></div>
-                    <div class="stat-card glass"><div class="stat-icon" style="color:var(--female-color)">♀</div><div class="stat-value">${females}</div><div class="stat-label">Females</div></div>
-                    <div class="stat-card glass"><div class="stat-icon">📊</div><div class="stat-value">${genCount}</div><div class="stat-label">Generations</div></div>
-                    <div class="stat-card glass"><div class="stat-icon">🟢</div><div class="stat-value">${living}</div><div class="stat-label">Living</div></div>
-                    <div class="stat-card glass"><div class="stat-icon">🔴</div><div class="stat-value">${deceased}</div><div class="stat-label">Deceased</div></div>
-                `;
-            }
+            document.getElementById('stats-grid').innerHTML = `
+                <div class="stat-card glass"><div class="stat-icon">👥</div><div class="stat-value">${total}</div><div class="stat-label">Members</div></div>
+                <div class="stat-card glass"><div class="stat-icon" style="color:var(--male-color)">♂</div><div class="stat-value">${males}</div><div class="stat-label">Males</div></div>
+                <div class="stat-card glass"><div class="stat-icon" style="color:var(--female-color)">♀</div><div class="stat-value">${females}</div><div class="stat-label">Females</div></div>
+                <div class="stat-card glass"><div class="stat-icon">📊</div><div class="stat-value">${genCount}</div><div class="stat-label">Generations</div></div>
+                <div class="stat-card glass"><div class="stat-icon">🟢</div><div class="stat-value">${living}</div><div class="stat-label">Living</div></div>
+                <div class="stat-card glass"><div class="stat-icon">🔴</div><div class="stat-value">${deceased}</div><div class="stat-label">Deceased</div></div>
+            `;
 
             const genBars = document.getElementById('gen-bars');
-            if (genBars) {
-                genBars.innerHTML = '';
-                for (const [gen, count] of Object.entries(gens)) {
-                    const percentage = total > 0 ? (count / total) * 100 : 0;
-                    genBars.innerHTML += `
-                        <div class="gen-bar-item">
-                            <div class="gen-bar-header"><span>Generation ${gen}</span><span>${count} Members</span></div>
-                            <div class="progress-track"><div class="progress-fill" style="width:${percentage}%"></div></div>
-                        </div>
-                    `;
-                }
+            genBars.innerHTML = '';
+            for (const [gen, count] of Object.entries(gens)) {
+                const percentage = total > 0 ? (count / total) * 100 : 0;
+                genBars.innerHTML += `
+                    <div class="gen-bar-item">
+                        <div class="gen-bar-header"><span>Generation ${gen}</span><span>${count} Members</span></div>
+                        <div class="progress-track"><div class="progress-fill" style="width:${percentage}%"></div></div>
+                    </div>
+                `;
             }
-        }
-
-        // ==========================================
-        // CHAT LOGIC
-        // ==========================================
-        function openChat() { document.getElementById('chat-workspace').classList.add('open'); }
-        function closeChat() { document.getElementById('chat-workspace').classList.remove('open'); }
-        function handleChatKeyPress(event) { if (event.key === 'Enter') sendMessage(); }
-        
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const text = input.value.trim();
-            if (!text) return;
-            const area = document.getElementById('messages-area');
-            const bubble = document.createElement('div');
-            bubble.className = 'message-bubble message-sent';
-            bubble.textContent = text;
-            bubble.dataset.id = 'msg-' + Date.now();
-            area.appendChild(bubble);
-            input.value = '';
-            area.scrollTop = area.scrollHeight;
-            attachContextMenuListeners();
-        }
-
-        function handleChatFileUpload(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                const area = document.getElementById('messages-area');
-                const bubble = document.createElement('div');
-                bubble.className = 'message-bubble message-sent';
-                bubble.dataset.id = 'msg-' + Date.now();
-                if (file.type.startsWith('image/')) {
-                    bubble.innerHTML = `<img src="${ev.target.result}" class="message-img">`;
-                } else {
-                    bubble.textContent = `📎 ${file.name}`;
-                }
-                area.appendChild(bubble);
-                area.scrollTop = area.scrollHeight;
-                attachContextMenuListeners();
-                showToast('File Attached');
-            };
-            reader.readAsDataURL(file);
-            e.target.value = '';
         }
 
         // ==========================================
@@ -1248,7 +1292,6 @@
         function attachContextMenuListeners() {
             const messages = document.querySelectorAll('.message-bubble');
             messages.forEach(msg => {
-                // Prevent duplicate listeners
                 if (msg.dataset.contextBound) return;
                 msg.dataset.contextBound = 'true';
 
@@ -1324,7 +1367,6 @@
         // ==========================================
         function showToast(message) {
             const container = document.getElementById('toast-container');
-            if (!container) return;
             const toast = document.createElement('div');
             toast.className = 'toast';
             toast.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> ${message}`;
@@ -1334,46 +1376,6 @@
                 setTimeout(() => toast.remove(), 300);
             }, 2000);
         }
-        document.addEventListener('DOMContentLoaded', () => {
-  const countrySelect = document.getElementById('country-select');
-  if (countrySelect) {
-    const countries = [
-      { name: "Ethiopia", code: "+251" },
-      { name: "Saudi Arabia", code: "+966" },
-      { name: "Egypt", code: "+20" },
-      { name: "UAE", code: "+971" },
-      { name: "USA", code: "+1" },
-      { name: "UK", code: "+44" }
-    ];
-    
-    countrySelect.innerHTML = countries.map(c => 
-      `<option value="${c.code}">${c.name} (${c.code})</option>`
-    ).join('');
-  }
-}
-                    // Auth Method Toggles
-            const togglePhoneBtn = document.getElementById('toggle-phone-btn');
-            if (togglePhoneBtn) togglePhoneBtn.addEventListener('click', () => toggleAuthMethod('phone'));
-            
-            const toggleEmailBtn = document.getElementById('toggle-email-btn');
-            if (toggleEmailBtn) toggleEmailBtn.addEventListener('click', () => toggleAuthMethod('email'));
-
-            // Verify Buttons (Phone & Email)
-            const verifyTriggerBtn = document.getElementById('verify-trigger-btn');
-            if (verifyTriggerBtn) verifyTriggerBtn.addEventListener('click', sendVerificationCode);
-            
-            const verifyEmailBtn = document.getElementById('verify-email-btn');
-            if (verifyEmailBtn) verifyEmailBtn.addEventListener('click', sendVerificationCode);
-
-            // Verify Code Button
-            const verifyCodeBtn = document.getElementById('verify-code-btn');
-            if (verifyCodeBtn) verifyCodeBtn.addEventListener('click', verifyCode);
-
-            // Close OTP Modal Button
-            const closeOtpModalBtn = document.getElementById('close-otp-modal-btn');
-            if (closeOtpModalBtn) closeOtpModalBtn.addEventListener('click', () => {
-                document.getElementById('otp-modal').classList.remove('open');
-            });
     </script>
 </body>
 </html>
