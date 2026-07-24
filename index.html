@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#000000">
-    <title>Kiyar</title>
+    <title>Kiyar - Family Network</title>
     
     <!-- PWA Configuration -->
     <link rel="manifest" href="/manifest.json">
@@ -37,7 +37,6 @@
             --danger: #e74c3c;
             --success: #2ecc71;
             --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --kiyar-logo-url: url('https://z-cdn-media.chatglm.cn/files/47a1ba18-2ae1-4295-9a8f-11a9422adccd.png?auth_key=1884868195-6b412570c7e248ddb4f1a2a023d863e8-0-d656119463a940a4bd32ff49e1aef4f9');
         }
 
         body.light-mode {
@@ -63,7 +62,6 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Luxury Black & Gold Marble Fracture Background */
         .bg-marble {
             position: fixed; inset: 0; z-index: -2;
             background-color: var(--bg-primary);
@@ -72,16 +70,8 @@
             background-position: center;
             background-repeat: no-repeat;
         }
-        
-        body.light-mode .bg-marble {
-            background-image: none;
-            background-color: #f0f2f5;
-        }
-
-        .bg-overlay {
-            position: fixed; inset: 0; z-index: -1; pointer-events: none;
-            background: rgba(0, 0, 0, 0.6); 
-        }
+        body.light-mode .bg-marble { background-image: none; background-color: #f0f2f5; }
+        .bg-overlay { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: rgba(0, 0, 0, 0.6); }
         body.light-mode .bg-overlay { background: rgba(255, 255, 255, 0.7); }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -95,26 +85,12 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
         }
-
         .hidden { display: none !important; }
 
-        /* Logo Badge */
-        .logo-badge {
-            width: 100px; height: 100px; margin: 0 auto 20px;
-            border-radius: 50%; 
-            background-image: var(--kiyar-logo-url);
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 0 20px var(--accent-glow);
-            border: 3px solid var(--accent-gold);
-        }
-
-        /* Auth Screens */
-        .auth-container {
-            position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-            padding: 20px; z-index: 1000; transition: transform 0.4s ease, opacity 0.4s ease;
-        }
+        /* Auth Screen */
+        .auth-container { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 1000; }
         .auth-card { width: 100%; max-width: 420px; padding: 40px; border-radius: 24px; text-align: center; }
+        .logo-badge { width: 100px; height: 100px; margin: 0 auto 20px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 40px; color: #000; font-family: 'Amiri', serif; font-weight: 700; box-shadow: 0 0 20px var(--accent-glow); border: 3px solid var(--accent-gold); }
         .auth-title { font-family: 'Amiri', serif; font-size: 36px; color: var(--accent-gold); margin-bottom: 10px; }
         .auth-subtitle { color: var(--text-secondary); margin-bottom: 30px; font-size: 14px; }
         
@@ -125,34 +101,25 @@
         .form-input:focus, .form-select:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 10px var(--accent-glow); }
         .form-select option { background: var(--bg-secondary); color: var(--text-primary); }
 
-        .phone-wrapper { display: flex; gap: 10px; align-items: center; }
-        .country-code { padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--accent-gold); font-weight: 700; min-width: 70px; text-align: center; }
-        body.light-mode .country-code { background: rgba(0,0,0,0.05); }
-        
-        .verify-btn-inline { padding: 15px; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); color: #000; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: transform 0.2s; }
-        .verify-btn-inline:active { transform: scale(0.95); }
-        .verify-btn-inline:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .file-upload-wrapper { display: flex; align-items: center; gap: 15px; }
-        .file-upload-btn { padding: 10px 15px; background: var(--glass-highlight); border: 1px solid var(--accent-gold); color: var(--accent-gold); border-radius: 8px; cursor: pointer; font-size: 14px; white-space: nowrap; }
-        .file-preview { width: 80px; height: 80px; border-radius: 50%; background: var(--bg-secondary) var(--kiyar-logo-url) center/cover; border: 1px solid var(--glass-border); }
+        .auth-tabs { display: flex; gap: 5px; margin-bottom: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 12px; padding: 5px; }
+        .auth-tabs button { flex: 1; padding: 10px; border-radius: 8px; border: none; background: transparent; color: var(--text-secondary); font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .auth-tabs button.active { background: var(--accent-gold); color: #000; }
 
         .btn-gold { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); color: #000; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.2s; margin-top: 10px; }
         .btn-gold:active { transform: scale(0.98); }
-
-        .auth-toggle { display: flex; gap: 5px; margin-bottom: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 12px; padding: 5px; }
-        .auth-toggle button { flex: 1; padding: 10px; border-radius: 8px; border: none; background: transparent; color: var(--text-secondary); font-weight: 700; cursor: pointer; transition: all 0.3s; }
-        .auth-toggle button.active { background: var(--accent-gold); color: #000; }
+        .link-text { color: var(--accent-gold); cursor: pointer; font-size: 14px; text-decoration: underline; margin-top: 10px; display: inline-block; }
 
         /* Main App Layout */
         .app-container { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-
-        .top-nav { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--glass-border); z-index: 100; flex-shrink: 0; }
+        .top-nav { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--glass-border); z-index: 100; flex-shrink: 0; gap: 15px; }
         .nav-icon-btn { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
         .nav-icon-btn:hover { background: var(--glass-highlight); color: var(--accent-gold); }
-        .nav-title { flex: 1; text-align: center; font-family: 'Amiri', serif; font-size: 24px; font-weight: 700; color: var(--accent-gold); display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .nav-logo-small { width: 32px; height: 32px; border-radius: 50%; background: var(--kiyar-logo-url) center/cover; border: 1px solid var(--accent-gold); }
-        .nav-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-secondary) var(--kiyar-logo-url) center/cover; border: 1px solid var(--accent-gold); cursor: pointer; }
+        .nav-title { flex: 1; text-align: center; font-family: 'Amiri', serif; font-size: 24px; font-weight: 700; color: var(--accent-gold); }
+        .nav-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-secondary) center/cover; border: 1px solid var(--accent-gold); cursor: pointer; }
+
+        .top-tabs { display: flex; gap: 10px; padding: 15px 20px; overflow-x: auto; border-bottom: 1px solid var(--glass-border); flex-shrink: 0; }
+        .top-tab { padding: 8px 16px; border-radius: 20px; background: transparent; border: 1px solid var(--glass-border); color: var(--text-secondary); cursor: pointer; white-space: nowrap; transition: all 0.3s; font-size: 14px; }
+        .top-tab.active { background: var(--accent-gold); color: #000; border-color: var(--accent-gold); }
 
         .main-content { flex: 1; display: flex; overflow: hidden; position: relative; }
         
@@ -162,7 +129,7 @@
         .side-drawer { position: fixed; top: 0; left: 0; width: 300px; height: 100%; z-index: 201; transform: translateX(-100%); transition: transform 0.3s; display: flex; flex-direction: column; padding: 20px; overflow-y: auto; }
         .side-drawer.open { transform: translateX(0); }
         .drawer-header { padding: 20px 0; border-bottom: 1px solid var(--glass-border); margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
-        .drawer-avatar { width: 60px; height: 60px; border-radius: 50%; background: var(--bg-secondary) var(--kiyar-logo-url) center/cover; border: 2px solid var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--accent-gold); }
+        .drawer-avatar { width: 60px; height: 60px; border-radius: 50%; background: var(--bg-secondary) center/cover; border: 2px solid var(--accent-gold); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--accent-gold); }
         .drawer-menu { flex: 1; display: flex; flex-direction: column; gap: 5px; }
         .drawer-section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-tertiary); margin: 15px 0 5px; }
         .drawer-item { display: flex; align-items: center; gap: 15px; padding: 12px 15px; border-radius: 12px; color: var(--text-primary); cursor: pointer; transition: all 0.3s; font-size: 15px; }
@@ -176,24 +143,20 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Chat List */
+        .search-wrapper { display: flex; align-items: center; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 8px 15px; margin-bottom: 20px; }
+        .search-wrapper input { background: transparent; border: none; outline: none; color: var(--text-primary); width: 100%; margin-left: 10px; }
         .chat-list { display: flex; flex-direction: column; gap: 10px; }
-        .chat-item { display: flex; align-items: center; padding: 15px; border-radius: 16px; cursor: pointer; transition: all 0.3s; }
+        .chat-item { display: flex; align-items: center; padding: 15px; border-radius: 16px; cursor: pointer; transition: all 0.3s; position: relative; }
         .chat-item:hover, .chat-item.active { background: var(--glass-highlight); }
-        .chat-avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #000; margin-right: 15px; flex-shrink: 0; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); }
+        .chat-avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #000; margin-right: 15px; flex-shrink: 0; background: var(--bg-secondary) center/cover; border: 1px solid var(--accent-gold); }
+        .chat-info { flex: 1; overflow: hidden; }
         .chat-info h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-        .chat-info p { font-size: 14px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+        .chat-info p { font-size: 14px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .unread-badge { position: absolute; top: 15px; right: 15px; background: var(--accent-gold); color: #000; border-radius: 50%; min-width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 700; box-shadow: 0 0 8px var(--accent-glow); }
 
         /* Family Tree */
-        .family-header { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; }
-        .search-wrapper { flex: 1; display: flex; align-items: center; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 8px 15px; }
-        .search-wrapper input { background: transparent; border: none; outline: none; color: var(--text-primary); width: 100%; margin-left: 10px; }
-        .view-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
-        .toggle-btn { flex: 1; padding: 12px; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-primary); cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .toggle-btn.active { background: var(--accent-gold); color: #000; border-color: var(--accent-gold); }
-
         .tree-container { position: relative; display: flex; flex-direction: column; align-items: center; gap: 50px; padding: 20px 0 80px; }
         .generation-row { display: flex; justify-content: center; gap: 20px; position: relative; flex-wrap: wrap; width: 100%; }
-        
         .member-card { width: 240px; padding: 20px; border-radius: 16px; position: relative; z-index: 2; }
         .member-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
         .member-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; font-size: 18px; border: 2px solid var(--accent-gold); }
@@ -208,11 +171,8 @@
         .card-action-icon { color: var(--text-secondary); cursor: pointer; transition: color 0.3s; width: 16px; height: 16px; }
         .card-action-icon:hover { color: var(--accent-gold); }
         .card-action-icon.delete:hover { color: var(--danger); }
-
         .tree-line-v { width: 2px; height: 40px; background: var(--accent-gold); margin: 0 auto; }
-
-        /* Floating Add Button */
-        .fab { position: absolute; bottom: 20px; right: 20px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); color: #000; border: none; font-size: 24px; cursor: pointer; box-shadow: 0 4px 15px var(--accent-glow); z-index: 10; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        .fab { position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); color: #000; border: none; font-size: 24px; cursor: pointer; box-shadow: 0 4px 15px var(--accent-glow); z-index: 10; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
         .fab:active { transform: scale(0.9); }
 
         /* Statistics */
@@ -222,12 +182,6 @@
         .stat-value { font-size: 28px; font-weight: 700; color: var(--text-primary); }
         .stat-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; }
 
-        .gen-bars { padding: 20px; border-radius: 16px; margin-bottom: 20px; }
-        .gen-bar-item { margin-bottom: 15px; }
-        .gen-bar-header { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px; }
-        .progress-track { height: 8px; background: var(--glass-highlight); border-radius: 4px; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-gold-light), var(--accent-gold-dark)); border-radius: 4px; transition: width 1s ease; }
-
         /* Modals */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 300; opacity: 0; visibility: hidden; transition: all 0.3s; }
         .modal-overlay.open { opacity: 1; visibility: visible; }
@@ -235,8 +189,6 @@
         .modal-overlay.open .modal-content { transform: scale(1); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid var(--glass-border); }
         .modal-body { padding: 20px; overflow-y: auto; }
-        .settings-section { margin-bottom: 25px; }
-        .settings-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 10px; }
         .settings-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
         .settings-item:last-child { border-bottom: none; }
         .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
@@ -254,7 +206,7 @@
         .message-bubble { max-width: 75%; padding: 12px 16px; border-radius: 18px; font-size: 15px; word-wrap: break-word; position: relative; user-select: text; }
         .message-sent { align-self: flex-end; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold)); color: #000; border-bottom-right-radius: 4px; }
         .message-received { align-self: flex-start; background: var(--bg-secondary); border: 1px solid var(--glass-border); border-bottom-left-radius: 4px; }
-        .message-img { max-width: 100%; border-radius: 12px; margin-bottom: 5px; display: block; }
+        .message-img { max-width: 100%; border-radius: 12px; margin-bottom: 5px; display: block; cursor: pointer; }
         .chat-input-bar { display: flex; align-items: center; padding: 15px; gap: 10px; border-top: 1px solid var(--glass-border); }
         .chat-input { flex: 1; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 22px; padding: 12px 15px; color: var(--text-primary); outline: none; }
         
@@ -262,7 +214,7 @@
             .chat-workspace { position: relative; flex: 1; transform: translateX(0); border-left: 1px solid var(--glass-border); }
         }
 
-        /* Context Menu */
+        /* Context Menu & Image Viewer */
         .context-menu { position: fixed; z-index: 500; min-width: 160px; padding: 8px 0; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none; }
         .context-menu.active { display: block; animation: scaleIn 0.2s ease; }
         @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -271,110 +223,79 @@
         .ctx-item.danger:hover { color: var(--danger); }
         .ctx-item svg { width: 16px; height: 16px; }
 
+        .image-viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 600; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .image-viewer.active { display: flex; }
+        .image-viewer img { max-width: 100%; max-height: 100%; border-radius: 12px; }
+        .image-viewer .close-btn { position: absolute; top: 20px; right: 20px; background: var(--glass-bg); border-radius: 50%; padding: 10px; cursor: pointer; color: #fff; }
+
         /* Toast Notifications */
         .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; align-items: center; pointer-events: none; }
         .toast { padding: 12px 24px; border-radius: 12px; color: #000; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 10px; animation: toastIn 0.3s ease; background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark)); }
         @keyframes toastIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .toast.fade-out { animation: toastOut 0.3s ease forwards; }
         @keyframes toastOut { to { transform: translateY(20px); opacity: 0; } }
-
-        .timer-text { color: var(--accent-gold); font-weight: 600; margin-top: 10px; font-size: 14px; }
     </style>
 </head>
 <body>
     <div class="bg-marble"></div>
     <div class="bg-overlay"></div>
 
-    <!-- Toast Container -->
     <div class="toast-container" id="toast-container"></div>
 
-    <!-- Auth Page 1: Verification -->
-    <div class="auth-container glass" id="auth-page-1">
+    <!-- Image Viewer -->
+    <div class="image-viewer" id="image-viewer">
+        <div class="close-btn" onclick="closeImageViewer()">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </div>
+        <img id="viewer-img-src" src="">
+    </div>
+
+    <!-- Auth Screen -->
+    <div class="auth-container glass" id="auth-container">
         <div class="auth-card glass">
-            <div class="logo-badge"></div>
+            <div class="logo-badge">ك</div>
             <h1 class="auth-title">Kiyar</h1>
-            <p class="auth-subtitle">Enter your Phone or Email to continue</p>
+            <p class="auth-subtitle">Family Network & Tree</p>
             
-            <div class="auth-toggle">
-                <button id="toggle-phone-btn" class="active">Phone</button>
-                <button id="toggle-email-btn">Email</button>
+            <div class="auth-tabs">
+                <button id="tab-signin" class="active" onclick="switchAuthTab('signin')">Sign In</button>
+                <button id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
             </div>
 
-            <div class="form-group" id="phone-input-group">
-                <label class="form-label">Country</label>
-                <select class="form-select" id="country-select"></select>
-            </div>
-
-            <div class="form-group" id="phone-number-group">
-                <label class="form-label">Phone Number</label>
-                <div class="phone-wrapper">
-                    <span class="country-code glass" id="country-code-display">+1</span>
-                    <input type="tel" class="form-input" id="phone-input" placeholder="555 123 4567" style="flex: 1;">
-                    <button class="verify-btn-inline" id="verify-trigger-btn">VERIFY</button>
+            <!-- Sign In Form -->
+            <div id="form-signin">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-input" id="signin-username" placeholder="Enter username">
                 </div>
-            </div>
-
-            <div class="form-group hidden" id="email-input-group">
-                <label class="form-label">Email Address</label>
-                <div class="phone-wrapper">
-                    <input type="email" class="form-input" id="email-input" placeholder="user@example.com" style="flex: 1;">
-                    <button class="verify-btn-inline" id="verify-email-btn">VERIFY</button>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="signin-password" placeholder="Enter password">
+                    <span class="link-text" onclick="openModal('forgot-modal')" style="float: right;">Forgot Password?</span>
                 </div>
+                <button class="btn-gold" onclick="signIn()">Sign In</button>
             </div>
 
-            <div class="form-group hidden" id="code-verify-group">
-                <label class="form-label">Verification Code</label>
-                <input type="text" class="form-input" id="code-input" placeholder="Enter 4-digit code">
-                <p class="timer-text" id="countdown-timer"></p>
-                <button class="btn-gold" id="verify-code-btn">Verify & Continue</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- OTP Popup Modal (Used for Phone fallback) -->
-    <div class="modal-overlay" id="otp-modal">
-        <div class="modal-content glass" style="max-width: 350px; text-align: center;">
-            <header class="modal-header" style="border:none; justify-content: center;">
-                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;">Your OTP Code</h2>
-            </header>
-            <div class="modal-body">
-                <p style="color: var(--text-secondary); margin-bottom: 15px;">Use this code to verify your account:</p>
-                <div id="otp-display" style="font-size: 42px; font-weight: 800; color: var(--accent-gold); letter-spacing: 10px; margin-bottom: 20px; padding: 15px; border: 1px dashed var(--glass-border); border-radius: 12px; background: rgba(0,0,0,0.3);">1234</div>
-                <button class="btn-gold" id="close-otp-modal-btn">Got it</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Auth Page 2: Profile Setup -->
-    <div class="auth-container glass hidden" id="auth-page-2">
-        <div class="auth-card glass">
-            <div class="logo-badge"></div>
-            <h1 class="auth-title">Setup Profile</h1>
-            <p class="auth-subtitle">Enter your details to continue</p>
-
-            <div class="form-group">
-                <label class="form-label">Profile Picture</label>
-                <div class="file-upload-wrapper">
-                    <div class="file-preview" id="profile-preview"></div>
-                    <input type="file" id="profile-pic-input" hidden accept="image/*">
-                    <button class="file-upload-btn" id="upload-pic-btn">Upload Photo</button>
+            <!-- Sign Up Form -->
+            <div id="form-signup" class="hidden">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" id="signup-fullname" placeholder="John Doe">
                 </div>
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-input" id="signup-username" placeholder="@johndoe">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="signup-password" placeholder="Create password">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email (For Recovery)</label>
+                    <input type="email" class="form-input" id="signup-email" placeholder="user@example.com">
+                </div>
+                <button class="btn-gold" onclick="signUp()">Create Account</button>
             </div>
-
-            <div class="form-group">
-                <label class="form-label">Full Name</label>
-                <input type="text" class="form-input" id="fullname-input" placeholder="John Doe">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Username</label>
-                <input type="text" class="form-input" id="username-input" placeholder="@johndoe">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Bio</label>
-                <input type="text" class="form-input" id="bio-input" placeholder="Tell us about yourself">
-            </div>
-
-            <button class="btn-gold" id="setup-profile-btn">Continue to App</button>
         </div>
     </div>
 
@@ -384,46 +305,42 @@
             <button class="nav-icon-btn" id="menu-btn">
                 <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
             </button>
-            <h1 class="nav-title">
-                <span class="nav-logo-small"></span>
-                Kiyar
-            </h1>
-            <button class="nav-icon-btn" id="settings-btn">
-                <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-            </button>
+            <h1 class="nav-title">Kiyar</h1>
             <button class="nav-icon-btn" id="theme-btn">
                 <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 3v2m0 14v2M5.6 5.6l1.4 1.4m10 10l1.4 1.4M3 12h2m14 0h2M5.6 18.4l1.4-1.4m10-10l1.4-1.4M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>
             </button>
             <div class="nav-avatar" id="nav-avatar"></div>
         </header>
 
+        <nav class="top-tabs" id="top-tabs">
+            <button class="top-tab active" data-filter="all">All Chats</button>
+            <button class="top-tab" data-filter="personal">Personal</button>
+            <button class="top-tab" data-filter="group">Groups</button>
+            <button class="top-tab" data-filter="channel">Channels</button>
+        </nav>
+
         <div class="main-content">
             <div class="view-container view-section active" id="view-home">
+                <div class="search-wrapper glass">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5L20.49 19l-5-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+                    <input type="text" id="global-search" placeholder="Search users, groups, channels...">
+                </div>
                 <div class="chat-list" id="chat-list-container"></div>
             </div>
 
             <div class="view-container view-section" id="view-tree">
-                <div class="family-header">
-                    <div class="search-wrapper glass">
-                        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5L20.49 19l-5-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
-                        <input type="text" id="tree-search" placeholder="Search members...">
-                    </div>
+                <div class="view-toggle" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <button class="top-tab active" id="tab-tree-content" onclick="switchTreeView('tree-content')">Family Tree</button>
+                    <button class="top-tab" id="tab-stats-content" onclick="switchTreeView('stats-content')">Statistics</button>
                 </div>
-                <div class="view-toggle">
-                    <button class="toggle-btn active" id="tab-tree"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2L8 8h3v6h2V8h3l-4-6z"/></svg> 🌳 Family Tree</button>
-                    <button class="toggle-btn" id="tab-stats"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 13h2v-2H3v2z"/></svg> 📊 Statistics</button>
-                </div>
-
                 <div id="tree-content">
                     <div class="tree-container" id="tree-container"></div>
-                    <button class="fab" id="add-member-btn">
+                    <button class="fab" id="add-member-btn" style="display: none;">
                         <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
                     </button>
                 </div>
-
                 <div id="stats-content" class="hidden">
                     <div class="stats-grid" id="stats-grid"></div>
-                    <div class="gen-bars glass" id="gen-bars"></div>
                 </div>
             </div>
         </div>
@@ -435,23 +352,17 @@
             <div class="drawer-avatar" id="drawer-avatar"></div>
             <div>
                 <div style="font-weight: 600;" id="drawer-name">Guest User</div>
-                <div style="font-size: 14px; color: var(--text-secondary);" id="drawer-phone">+1 555 123 4567</div>
+                <div style="font-size: 14px; color: var(--text-secondary);" id="drawer-username">@guest</div>
             </div>
         </div>
         <nav class="drawer-menu">
             <div class="drawer-section-title">Menu</div>
             <div class="drawer-item active" data-view="view-home"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Home</div>
             <div class="drawer-item" data-view="view-tree"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L8 8h3v6h2V8h3l-4-6z"/></svg> Family Tree</div>
-            <div class="drawer-item" id="menu-stats"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h2v-2H3v2z"/></svg> Statistics</div>
             
-            <div class="drawer-section-title">Folders</div>
-            <div class="drawer-item active" data-folder="all"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg> All Chats</div>
-            <div class="drawer-item" data-folder="personal"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> Personal</div>
-            <div class="drawer-item" data-folder="group"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg> Groups</div>
-            <div class="drawer-item" data-folder="channel"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 22h20V2L2 22z"/></svg> Channels</div>
-
             <div class="drawer-section-title">Account</div>
             <div class="drawer-item" id="menu-settings"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg> Settings</div>
+            <div class="drawer-item" id="menu-admin" style="display: none; color: var(--accent-gold);"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.2L19.5 8 12 11.8 4.5 8 12 4.2z"/></svg> Admin Panel</div>
             <div class="drawer-item" id="drawer-install-btn"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Install App</div>
         </nav>
     </aside>
@@ -460,8 +371,8 @@
     <div class="chat-workspace glass" id="chat-workspace">
         <header class="chat-header glass">
             <button class="nav-icon-btn" id="close-chat-btn"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
-            <div class="chat-avatar" id="workspace-avatar" style="width: 40px; height: 40px; font-size: 16px;">F</div>
-            <div style="flex: 1;"><h4 style="font-size: 16px; font-weight: 600;" id="workspace-name">Chat</h4><p style="font-size: 12px; color: var(--accent-gold);">online</p></div>
+            <div class="chat-avatar" id="workspace-avatar"></div>
+            <div style="flex: 1;"><h4 style="font-size: 16px; font-weight: 600;" id="workspace-name">Chat</h4><p style="font-size: 12px; color: var(--accent-gold);" id="workspace-status">online</p></div>
         </header>
         <div class="messages-area" id="messages-area"></div>
         <div class="chat-input-bar">
@@ -472,101 +383,81 @@
         </div>
     </div>
 
-    <!-- Settings Modal -->
+    <!-- Modals -->
     <div class="modal-overlay" id="settings-modal">
         <div class="modal-content glass">
             <header class="modal-header">
-                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;">Settings</h2>
+                <h2 style="color: var(--accent-gold);">Settings</h2>
                 <button class="nav-icon-btn" data-close-modal="settings-modal"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
             </header>
             <div class="modal-body">
-                <div class="settings-section">
-                    <div class="settings-title">Profile</div>
-                    <div class="settings-item"><span>Edit Profile</span><button class="nav-icon-btn" id="go-to-profile"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg></button></div>
-                    <div class="settings-item"><span>Logout</span><button class="nav-icon-btn" id="go-to-logout"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg></button></div>
-                </div>
-                <div class="settings-section">
-                    <div class="settings-title">Setting</div>
-                    <div class="settings-item"><span>Language</span><select class="form-select" id="lang-select" style="width: auto; padding: 8px;"><option>Arabic</option><option>English</option><option>Amharic</option></select></div>
-                    <div class="settings-item"><span>Dark Mode</span><label class="switch"><input type="checkbox" id="dark-mode-toggle" checked><span class="slider"></span></label></div>
-                </div>
-                <div class="settings-section">
-                    <div class="settings-title">Actions</div>
-                    <div class="settings-item"><span>New Group</span><button class="btn-gold" id="new-group-btn" style="width: auto; padding: 8px 16px; margin: 0; font-size: 14px;">Create</button></div>
-                    <div class="settings-item"><span>New Channel</span><button class="btn-gold" id="new-channel-btn" style="width: auto; padding: 8px 16px; margin: 0; font-size: 14px;">Create</button></div>
-                    <div class="settings-item"><span>Add New Account</span><button class="nav-icon-btn" id="add-account-btn"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button></div>
-                </div>
+                <div class="settings-item"><span>Edit Profile</span><button class="nav-icon-btn" id="go-to-profile"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg></button></div>
+                <div class="settings-item"><span>Dark Mode</span><label class="switch"><input type="checkbox" id="dark-mode-toggle" checked><span class="slider"></span></label></div>
+                <div class="settings-item"><span>Create Group</span><button class="btn-gold" id="new-group-btn" style="width: auto; padding: 8px 16px; margin: 0; font-size: 14px;">Create</button></div>
+                <div class="settings-item"><span>Create Channel</span><button class="btn-gold" id="new-channel-btn" style="width: auto; padding: 8px 16px; margin: 0; font-size: 14px;">Create</button></div>
+                <div class="settings-item"><span>Logout</span><button class="nav-icon-btn" id="go-to-logout"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg></button></div>
             </div>
         </div>
     </div>
 
-    <!-- Profile Edit Modal -->
     <div class="modal-overlay" id="profile-modal">
         <div class="modal-content glass">
             <header class="modal-header">
-                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;">Edit Profile</h2>
+                <h2 style="color: var(--accent-gold);">Edit Profile</h2>
                 <button class="nav-icon-btn" data-close-modal="profile-modal"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
             </header>
             <div class="modal-body">
                 <div class="form-group">
                     <label class="form-label">Profile Picture</label>
-                    <div class="file-upload-wrapper">
-                        <div class="file-preview" id="edit-profile-preview"></div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="drawer-avatar" id="edit-profile-preview" style="width: 80px; height: 80px;"></div>
                         <input type="file" id="edit-profile-pic-input" hidden accept="image/*">
-                        <button class="file-upload-btn" id="edit-upload-pic-btn">Change Photo</button>
+                        <button class="btn-gold" id="edit-upload-pic-btn" style="width: auto; padding: 10px;">Change Photo</button>
                     </div>
                 </div>
                 <div class="form-group"><label class="form-label">Full Name</label><input type="text" class="form-input" id="edit-name"></div>
-                <div class="form-group"><label class="form-label">Username</label><input type="text" class="form-input" id="edit-username"></div>
                 <div class="form-group"><label class="form-label">Bio</label><input type="text" class="form-input" id="edit-bio"></div>
                 <button class="btn-gold" id="save-profile-btn">Save Changes</button>
             </div>
         </div>
     </div>
 
-    <!-- Logout Modal -->
     <div class="modal-overlay" id="logout-modal">
         <div class="modal-content glass" style="max-width: 350px;">
-            <header class="modal-header" style="border:none;">
-                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;">Logout</h2>
-                <button class="nav-icon-btn" data-close-modal="logout-modal"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
-            </header>
+            <header class="modal-header" style="border:none;"><h2 style="color: var(--accent-gold);">Logout</h2><button class="nav-icon-btn" data-close-modal="logout-modal"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button></header>
             <div class="modal-body" style="text-align: center;">
                 <p style="margin-bottom: 20px; color: var(--text-secondary);">Are you sure you want to logout?</p>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn-gold" style="background: transparent; border: 1px solid var(--glass-border); color: var(--text-primary);" data-close-modal="logout-modal">Cancel</button>
-                    <button class="btn-gold" style="background: linear-gradient(135deg, #e74c3c, #c0392b);" id="confirm-logout-btn">Logout</button>
-                </div>
+                <button class="btn-gold" style="background: linear-gradient(135deg, #e74c3c, #c0392b);" id="confirm-logout-btn">Logout</button>
             </div>
         </div>
     </div>
 
-    <!-- Create Chat Modal (Group/Channel) -->
     <div class="modal-overlay" id="create-chat-modal">
         <div class="modal-content glass">
             <header class="modal-header">
-                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;" id="create-chat-title">New Group</h2>
+                <h2 style="color: var(--accent-gold);" id="create-chat-title">New Group</h2>
                 <button class="nav-icon-btn" data-close-modal="create-chat-modal"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
             </header>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-input" id="create-chat-name" placeholder="Enter name">
+                    <label class="form-label">Profile Picture</label>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="drawer-avatar" id="create-chat-pic-preview" style="width: 80px; height: 80px;"></div>
+                        <input type="file" id="create-chat-pic-input" hidden accept="image/*">
+                        <button class="btn-gold" id="create-chat-pic-btn" style="width: auto; padding: 10px;">Upload</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Description (Optional)</label>
-                    <input type="text" class="form-input" id="create-chat-desc" placeholder="Enter description">
-                </div>
+                <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" id="create-chat-name" placeholder="Enter name"></div>
+                <div class="form-group"><label class="form-label">Username</label><input type="text" class="form-input" id="create-chat-username" placeholder="@username"></div>
                 <button class="btn-gold" id="confirm-create-chat-btn">Create</button>
             </div>
         </div>
     </div>
 
-    <!-- Family Member Add/Edit Modal -->
     <div class="modal-overlay" id="member-modal">
         <div class="modal-content glass">
             <header class="modal-header">
-                <h2 style="color: var(--accent-gold); font-family: 'Amiri', serif;" id="member-modal-title">Add Member</h2>
+                <h2 style="color: var(--accent-gold);" id="member-modal-title">Add Member</h2>
                 <button class="nav-icon-btn" data-close-modal="member-modal"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
             </header>
             <div class="modal-body">
@@ -575,72 +466,120 @@
                 <div class="form-group"><label class="form-label">Gender</label><select class="form-select" id="member-gender"><option value="male">Male</option><option value="female">Female</option></select></div>
                 <div class="form-group"><label class="form-label">Relation</label><input type="text" class="form-input" id="member-relation" placeholder="e.g., Father, Son"></div>
                 <div class="form-group"><label class="form-label">Generation</label><input type="number" class="form-input" id="member-gen" value="1"></div>
-                <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="member-status"><option value="living">Living</option><option value="deceased">Deceased</option></select></div>
                 <button class="btn-gold" id="save-member-btn">Save Member</button>
             </div>
         </div>
     </div>
 
-    <!-- Context Menu -->
-    <div class="context-menu glass" id="context-menu">
+    <!-- Forgot Password Modal -->
+    <div class="modal-overlay" id="forgot-modal">
+        <div class="modal-content glass">
+            <header class="modal-header">
+                <h2 style="color: var(--accent-gold);">Reset Password</h2>
+                <button class="nav-icon-btn" data-close-modal="forgot-modal"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+            </header>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Your Account Email</label>
+                    <input type="email" class="form-input" id="forgot-email" placeholder="user@example.com">
+                </div>
+                <button class="btn-gold" id="send-otp-btn">Send OTP</button>
+                <div class="form-group hidden" id="reset-otp-group" style="margin-top: 20px;">
+                    <label class="form-label">Enter OTP</label>
+                    <input type="text" class="form-input" id="reset-otp" placeholder="4-digit code">
+                    <label class="form-label" style="margin-top: 10px;">New Password</label>
+                    <input type="password" class="form-input" id="reset-new-pass" placeholder="New password">
+                    <button class="btn-gold" id="confirm-reset-btn" style="margin-top: 10px;">Reset Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div class="modal-overlay" id="admin-modal">
+        <div class="modal-content glass">
+            <header class="modal-header">
+                <h2 style="color: var(--accent-gold);">Amir Admin Panel</h2>
+                <button class="nav-icon-btn" data-close-modal="admin-modal"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+            </header>
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">Manually create credentials for a new user to allow them to Sign In directly.</p>
+                <div class="form-group"><label class="form-label">Full Name</label><input type="text" class="form-input" id="admin-fullname" placeholder="John Doe"></div>
+                <div class="form-group"><label class="form-label">Username</label><input type="text" class="form-input" id="admin-username" placeholder="@johndoe"></div>
+                <div class="form-group"><label class="form-label">Temporary Password</label><input type="text" class="form-input" id="admin-password" placeholder="temp123"></div>
+                <button class="btn-gold" id="admin-create-btn">Generate Credentials</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menus -->
+    <div class="context-menu glass" id="message-context-menu">
         <div class="ctx-item" data-action="copy"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copy</div>
         <div class="ctx-item" data-action="reply"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg> Reply</div>
-        <div class="ctx-item" data-action="edit"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</div>
         <div class="ctx-item" data-action="forward"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M14 9V5l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11z"/></svg> Forward</div>
+        <div class="ctx-item" data-action="pin"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M16 9V4l1-1H7l1 1v5L6 12v2h12v-2l-2-3zm-5 0V4h2v5h-2z"/></svg> Pin</div>
         <div class="ctx-item" data-action="save"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg> Save</div>
         <div class="ctx-item danger" data-action="delete"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</div>
     </div>
 
+    <div class="context-menu glass" id="chat-context-menu">
+        <div class="ctx-item" data-action="pin_chat"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M16 9V4l1-1H7l1 1v5L6 12v2h12v-2l-2-3z"/></svg> Pin</div>
+        <div class="ctx-item" data-action="mute_chat"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg> Mute</div>
+        <div class="ctx-item danger" data-action="delete_chat"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</div>
+    </div>
+
     <script>
         // ==========================================
-        // EMAILJS INITIALIZATION
+        // INITIALIZATION & STATE
         // ==========================================
-        (function() {
-            if (typeof emailjs !== 'undefined') {
-                emailjs.init("RVFFdHn5xRXW26Dbu");
-            } else {
-                console.error("EmailJS SDK not loaded!");
-            }
-        })();
+        emailjs.init("RVFFdHn5xRXW26Dbu");
 
-        // ==========================================
-        // STATE & DATA
-        // ==========================================
-        let currentUser = JSON.parse(localStorage.getItem('kiyar_user')) || null;
-        let familyMembers = JSON.parse(localStorage.getItem('kiyar_family')) || [
-            { id: '1', name: 'Omar Al-Rashid', gender: 'male', relation: 'Grandfather', generation: 1, status: 'deceased' },
-            { id: '2', name: 'Aisha Omar', gender: 'female', relation: 'Grandmother', generation: 1, status: 'deceased' },
-            { id: '3', name: 'Hassan Omar', gender: 'male', relation: 'Father', generation: 2, status: 'living' },
-            { id: '4', name: 'Fatima Hassan', gender: 'female', relation: 'Mother', generation: 2, status: 'living' },
-            { id: '5', name: 'Ali Hassan', gender: 'male', relation: 'Son', generation: 3, status: 'living' },
-            { id: '6', name: 'Sara Al-Rashid', gender: 'female', relation: 'Daughter', generation: 3, status: 'living' }
-        ];
-        let chats = JSON.parse(localStorage.getItem('kiyar_chats')) || [
-            { id: 'c1', name: 'Fatima Hassan', type: 'personal', lastMessage: 'Welcome to Kiyar!', avatar: 'F' },
-            { id: 'c2', name: 'Omar Al-Rashid', type: 'personal', lastMessage: 'See you at the gathering.', avatar: 'O' },
-            { id: 'c3', name: 'Family Group', type: 'group', lastMessage: 'Mom: Don\'t forget dinner!', avatar: 'FG' },
-            { id: 'c4', name: 'News Channel', type: 'channel', lastMessage: 'Updates at 8PM', avatar: 'NC' }
-        ];
+        let db;
+        const request = indexedDB.open("KiyarMediaDB", 1);
+        request.onupgradeneeded = function(event) {
+            db = event.target.result;
+            if (!db.objectStoreNames.contains("messages")) {
+                db.createObjectStore("messages", { keyPath: "id" });
+            }
+        };
+        request.onsuccess = function(event) {
+            db = event.target.result;
+        };
+
+        let currentUser = JSON.parse(localStorage.getItem('kiyar_current_user')) || null;
+        let usersDB = JSON.parse(localStorage.getItem('kiyar_users')) || {};
+        let familyTree = JSON.parse(localStorage.getItem('kiyar_family_tree')) || [];
         let activeChatFilter = 'all';
         let activeContextMessageId = null;
-        let generatedCode = null;
-        let countdownInterval = null;
-        let activeChatType = 'group'; 
+        let activeContextChatId = null;
+        let activeChatType = 'group';
+        let resetOTP = null;
 
-        const countries = [
-            { name: "United States", code: "+1" }, { name: "United Kingdom", code: "+44" }, { name: "Ethiopia", code: "+251" },
-            { name: "Saudi Arabia", code: "+966" }, { name: "Egypt", code: "+20" }, { name: "United Arab Emirates", code: "+971" },
-            { name: "Canada", code: "+1" }, { name: "Australia", code: "+61" }, { name: "India", code: "+91" },
-            { name: "Pakistan", code: "+92" }, { name: "Bangladesh", code: "+880" }, { name: "Nigeria", code: "+234" },
-            { name: "South Africa", code: "+27" }, { name: "Kenya", code: "+254" }, { name: "Germany", code: "+49" },
-            { name: "France", code: "+33" }, { name: "Italy", code: "+39" }, { name: "Spain", code: "+34" },
-            { name: "Russia", code: "+7" }, { name: "China", code: "+86" }, { name: "Japan", code: "+81" },
-            { name: "South Korea", code: "+82" }, { name: "Brazil", code: "+55" }, { name: "Mexico", code: "+52" }
-        ];
+        // Purge dummy data on first load
+        if (!localStorage.getItem('kiyar_purged')) {
+            usersDB = {};
+            familyTree = [];
+            localStorage.setItem('kiyar_users', JSON.stringify(usersDB));
+            localStorage.setItem('kiyar_family_tree', JSON.stringify(familyTree));
+            localStorage.setItem('kiyar_purged', 'true');
+        }
 
-        // ==========================================
-        // PWA LOGIC
-        // ==========================================
+        // Seed Admin Account
+        if (!usersDB['Amir']) {
+            usersDB['Amir'] = {
+                fullName: 'Amir (Admin)',
+                username: 'Amir',
+                password: 'Amir123',
+                bio: 'System Administrator',
+                email: 'admin@kiyar.com',
+                pic: '',
+                role: 'admin',
+                chats: [{ id: 'saved_messages', name: 'Saved Messages', type: 'personal', username: 'saved', pic: '', lastMessage: 'Saved items here.' }]
+            };
+            localStorage.setItem('kiyar_users', JSON.stringify(usersDB));
+        }
+
+        // PWA Logic
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
         }
@@ -651,50 +590,23 @@
         });
 
         // ==========================================
-        // INITIALIZATION & EVENT BINDING
+        // EVENT BINDING
         // ==========================================
         window.addEventListener('load', () => {
-            populateCountries();
-            bindEventListeners();
             if (currentUser) {
                 enterApp();
             }
-            renderTree();
-            renderStats();
-            renderChats();
+            bindEventListeners();
+            requestNotificationPermission();
         });
 
         function bindEventListeners() {
-            // Auth Events
-            document.getElementById('country-select').addEventListener('change', updateCountryCode);
-            document.getElementById('toggle-phone-btn').addEventListener('click', () => toggleAuthMethod('phone'));
-            document.getElementById('toggle-email-btn').addEventListener('click', () => toggleAuthMethod('email'));
-            document.getElementById('verify-trigger-btn').addEventListener('click', sendVerificationCode);
-            document.getElementById('verify-email-btn').addEventListener('click', sendVerificationCode);
-            document.getElementById('verify-code-btn').addEventListener('click', verifyCode);
-            document.getElementById('close-otp-modal-btn').addEventListener('click', () => closeModal('otp-modal'));
-            
-            const uploadPicBtn = document.getElementById('upload-pic-btn');
-            const profilePicInput = document.getElementById('profile-pic-input');
-            uploadPicBtn.addEventListener('click', () => profilePicInput.click());
-            profilePicInput.addEventListener('change', handleProfilePicUpload);
-            document.getElementById('setup-profile-btn').addEventListener('click', setupProfile);
-
-            // Main App Events
+            // Auth
             document.getElementById('menu-btn').addEventListener('click', () => toggleDrawer(true));
             document.getElementById('drawer-overlay').addEventListener('click', () => toggleDrawer(false));
-
+            
             document.querySelectorAll('.drawer-item[data-view]').forEach(item => {
                 item.addEventListener('click', () => switchView(item.dataset.view, item));
-            });
-
-            document.querySelectorAll('.drawer-item[data-folder]').forEach(item => {
-                item.addEventListener('click', () => filterChats(item.dataset.folder, item));
-            });
-
-            document.getElementById('menu-stats').addEventListener('click', () => {
-                switchView('view-tree', document.getElementById('menu-stats'));
-                switchTreeView(document.getElementById('tab-stats'), 'stats-content');
             });
 
             document.getElementById('menu-settings').addEventListener('click', () => {
@@ -702,40 +614,43 @@
                 openModal('settings-modal');
             });
 
+            document.getElementById('menu-admin').addEventListener('click', () => {
+                toggleDrawer(false);
+                openModal('admin-modal');
+            });
+
             document.getElementById('drawer-install-btn').addEventListener('click', async () => {
                 if (deferredPrompt) {
                     deferredPrompt.prompt();
                     await deferredPrompt.userChoice;
                     deferredPrompt = null;
-                } else {
-                    showToast('To install: Chrome/Edge -> click install icon in address bar. iOS -> Share -> Add to Home Screen.');
                 }
             });
 
             document.getElementById('theme-btn').addEventListener('click', toggleTheme);
-            document.getElementById('settings-btn').addEventListener('click', () => openModal('settings-modal'));
             document.getElementById('nav-avatar').addEventListener('click', () => openModal('profile-modal'));
 
-            // View Toggle
-            document.getElementById('tab-tree').addEventListener('click', () => switchTreeView(document.getElementById('tab-tree'), 'tree-content'));
-            document.getElementById('tab-stats').addEventListener('click', () => switchTreeView(document.getElementById('tab-stats'), 'stats-content'));
+            // Top Tabs
+            document.querySelectorAll('.top-tab[data-filter]').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.top-tab[data-filter]').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    activeChatFilter = tab.dataset.filter;
+                    renderChats();
+                });
+            });
 
-            // Family Tree
-            document.getElementById('tree-search').addEventListener('input', renderTree);
-            document.getElementById('add-member-btn').addEventListener('click', () => openMemberModal());
+            document.getElementById('global-search').addEventListener('input', renderChats);
 
-            // Chat Events
+            // Chat
             document.getElementById('close-chat-btn').addEventListener('click', closeChat);
             document.getElementById('chat-input').addEventListener('keypress', handleChatKeyPress);
             document.getElementById('send-msg-btn').addEventListener('click', sendMessage);
-            
-            const attachBtn = document.getElementById('attach-btn');
-            const chatFileInput = document.getElementById('chat-file-input');
-            attachBtn.addEventListener('click', () => chatFileInput.click());
-            chatFileInput.addEventListener('change', handleChatFileUpload);
+            document.getElementById('attach-btn').addEventListener('click', () => document.getElementById('chat-file-input').click());
+            document.getElementById('chat-file-input').addEventListener('change', handleChatFileUpload);
 
-            // Modals Generic Close
-            ['settings-modal', 'profile-modal', 'logout-modal', 'member-modal', 'create-chat-modal', 'otp-modal'].forEach(modalId => {
+            // Modals
+            ['settings-modal', 'profile-modal', 'logout-modal', 'create-chat-modal', 'member-modal', 'forgot-modal', 'admin-modal'].forEach(modalId => {
                 const modal = document.getElementById(modalId);
                 modal.querySelectorAll('[data-close-modal]').forEach(btn => {
                     btn.addEventListener('click', () => closeModal(btn.dataset.closeModal));
@@ -745,234 +660,206 @@
                 });
             });
 
-            // Settings Actions
-            document.getElementById('go-to-profile').addEventListener('click', () => {
-                closeModal('settings-modal');
-                openModal('profile-modal');
-            });
-            document.getElementById('go-to-logout').addEventListener('click', () => {
-                closeModal('settings-modal');
-                openModal('logout-modal');
-            });
+            // Settings
+            document.getElementById('go-to-profile').addEventListener('click', () => { closeModal('settings-modal'); openModal('profile-modal'); });
+            document.getElementById('go-to-logout').addEventListener('click', () => { closeModal('settings-modal'); openModal('logout-modal'); });
             document.getElementById('confirm-logout-btn').addEventListener('click', logout);
-            document.getElementById('add-account-btn').addEventListener('click', addAccount);
-            document.getElementById('lang-select').addEventListener('change', () => showToast('Language Updated'));
             document.getElementById('dark-mode-toggle').addEventListener('change', toggleTheme);
-
-            // Create Chat Actions (Group / Channel)
             document.getElementById('new-group-btn').addEventListener('click', () => openCreateChatModal('group'));
             document.getElementById('new-channel-btn').addEventListener('click', () => openCreateChatModal('channel'));
-            document.getElementById('confirm-create-chat-btn').addEventListener('click', createNewChat);
 
             // Profile Edit
-            const editUploadPicBtn = document.getElementById('edit-upload-pic-btn');
-            const editProfilePicInput = document.getElementById('edit-profile-pic-input');
-            editUploadPicBtn.addEventListener('click', () => editProfilePicInput.click());
-            editProfilePicInput.addEventListener('change', handleEditProfilePicUpload);
+            document.getElementById('edit-upload-pic-btn').addEventListener('click', () => document.getElementById('edit-profile-pic-input').click());
+            document.getElementById('edit-profile-pic-input').addEventListener('change', handleEditProfilePicUpload);
             document.getElementById('save-profile-btn').addEventListener('click', saveProfile);
 
-            // Member Modal
+            // Create Chat
+            document.getElementById('create-chat-pic-btn').addEventListener('click', () => document.getElementById('create-chat-pic-input').click());
+            document.getElementById('create-chat-pic-input').addEventListener('change', handleCreateChatPicUpload);
+            document.getElementById('confirm-create-chat-btn').addEventListener('click', createNewChat);
+
+            // Family Tree
+            document.getElementById('add-member-btn').addEventListener('click', () => openMemberModal());
             document.getElementById('save-member-btn').addEventListener('click', saveMember);
 
-            // Context Menu
-            document.querySelectorAll('.ctx-item').forEach(item => {
-                item.addEventListener('click', () => ctxAction(item.dataset.action));
+            // Forgot Password
+            document.getElementById('send-otp-btn').addEventListener('click', sendResetOTP);
+            document.getElementById('confirm-reset-btn').addEventListener('click', resetPassword);
+
+            // Admin
+            document.getElementById('admin-create-btn').addEventListener('click', adminCreateUser);
+
+            // Context Menus
+            document.querySelectorAll('#message-context-menu .ctx-item').forEach(item => {
+                item.addEventListener('click', () => ctxMessageAction(item.dataset.action));
+            });
+            document.querySelectorAll('#chat-context-menu .ctx-item').forEach(item => {
+                item.addEventListener('click', () => ctxChatAction(item.dataset.action));
             });
             document.addEventListener('click', (e) => {
-                const menu = document.getElementById('context-menu');
-                if (menu && !e.target.closest('#context-menu') && !e.target.closest('.message-bubble')) {
-                    menu.classList.remove('active');
+                if (!e.target.closest('.context-menu') && !e.target.closest('.message-bubble') && !e.target.closest('.chat-item')) {
+                    document.querySelectorAll('.context-menu').forEach(m => m.classList.remove('active'));
                 }
             });
         }
 
-        function populateCountries() {
-            const select = document.getElementById('country-select');
-            select.innerHTML = '';
-            countries.forEach(c => {
-                const opt = document.createElement('option');
-                opt.value = c.code;
-                opt.textContent = `${c.name} (${c.code})`;
-                select.appendChild(opt);
-            });
-            updateCountryCode();
-        }
-
-        function updateCountryCode() {
-            document.getElementById('country-code-display').textContent = document.getElementById('country-select').value;
-        }
-
         // ==========================================
-        // AUTH LOGIC (PHONE & EMAIL WITH EMAILJS)
+        // AUTHENTICATION LOGIC
         // ==========================================
-        function toggleAuthMethod(method) {
-            const phoneGroup = document.getElementById('phone-input-group');
-            const phoneNumGroup = document.getElementById('phone-number-group');
-            const emailGroup = document.getElementById('email-input-group');
-            const countrySelect = document.getElementById('country-select');
-            const togglePhoneBtn = document.getElementById('toggle-phone-btn');
-            const toggleEmailBtn = document.getElementById('toggle-email-btn');
-
-            if (method === 'phone') {
-                phoneGroup.classList.remove('hidden');
-                phoneNumGroup.classList.remove('hidden');
-                emailGroup.classList.add('hidden');
-                countrySelect.disabled = false;
-                togglePhoneBtn.classList.add('active');
-                toggleEmailBtn.classList.remove('active');
+        function switchAuthTab(tab) {
+            if (tab === 'signin') {
+                document.getElementById('tab-signin').classList.add('active');
+                document.getElementById('tab-signup').classList.remove('active');
+                document.getElementById('form-signin').classList.remove('hidden');
+                document.getElementById('form-signup').classList.add('hidden');
             } else {
-                phoneGroup.classList.add('hidden');
-                phoneNumGroup.classList.add('hidden');
-                emailGroup.classList.remove('hidden');
-                countrySelect.disabled = true;
-                toggleEmailBtn.classList.add('active');
-                togglePhoneBtn.classList.remove('active');
+                document.getElementById('tab-signup').classList.add('active');
+                document.getElementById('tab-signin').classList.remove('active');
+                document.getElementById('form-signup').classList.remove('hidden');
+                document.getElementById('form-signin').classList.add('hidden');
             }
         }
 
-        function sendVerificationCode() {
-            let userInput = '';
-            const isPhoneVisible = !document.getElementById('phone-input-group').classList.contains('hidden');
+        function signIn() {
+            const username = document.getElementById('signin-username').value.trim();
+            const password = document.getElementById('signin-password').value;
+
+            if (!username || !password) return showToast('Please enter username and password');
             
-            if (isPhoneVisible) {
-                // Phone Logic (Fallback with popup since no SMS gateway)
-                userInput = document.getElementById('phone-input').value;
-                if (!userInput) return showToast('Please enter phone number');
-                
-                generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
-                console.log("Generated Code (Phone):", generatedCode);
+            const user = usersDB[username];
+            if (!user || user.password !== password) return showToast('Invalid credentials');
 
-                document.getElementById('otp-display').textContent = generatedCode;
-                document.getElementById('otp-modal').classList.add('open');
-                
-                document.getElementById('code-verify-group').classList.remove('hidden');
-                document.getElementById('verify-trigger-btn').disabled = true;
-                startCountdown();
-            } else {
-                // Email Logic with EmailJS
-                userInput = document.getElementById('email-input').value;
-                if (!userInput || !userInput.includes('@')) return showToast('Please enter a valid email');
-                
-                generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
-                
-                const verifyEmailBtn = document.getElementById('verify-email-btn');
-                verifyEmailBtn.disabled = true;
-                verifyEmailBtn.textContent = 'SENDING...';
-                
-                const templateParams = {
-                    to_email: userInput,
-                    passcode: generatedCode
-                };
-
-                emailjs.send("service_g1hwbnc", "template_hpex3ar", templateParams)
-                    .then(function(response) {
-                        console.log('Email sent successfully!', response.status, response.text);
-                        showToast('Verification code sent to your email!');
-                        document.getElementById('code-verify-group').classList.remove('hidden');
-                        verifyEmailBtn.textContent = 'VERIFY';
-                        startCountdown();
-                    }, function(error) {
-                        console.error('EmailJS failed...', error);
-                        showToast('Failed to send email OTP. Try again.');
-                        verifyEmailBtn.disabled = false;
-                        verifyEmailBtn.textContent = 'VERIFY';
-                    });
-            }
-        }
-
-        function startCountdown() {
-            let timeLeft = 60;
-            const timerEl = document.getElementById('countdown-timer');
-            timerEl.textContent = `Resend code in ${timeLeft}s`;
-            
-            clearInterval(countdownInterval);
-            countdownInterval = setInterval(() => {
-                timeLeft--;
-                timerEl.textContent = `Resend code in ${timeLeft}s`;
-                if (timeLeft <= 0) {
-                    clearInterval(countdownInterval);
-                    timerEl.textContent = '';
-                    const phoneBtn = document.getElementById('verify-trigger-btn');
-                    const emailBtn = document.getElementById('verify-email-btn');
-                    if(phoneBtn) phoneBtn.disabled = false;
-                    if(emailBtn) emailBtn.disabled = false;
-                }
-            }, 1000);
-        }
-
-        function verifyCode() {
-            const code = document.getElementById('code-input').value;
-            if (!code) return showToast('Please enter the verification code');
-            if (code !== generatedCode) return showToast('Invalid verification code');
-
-            clearInterval(countdownInterval);
-            document.getElementById('otp-modal').classList.remove('open');
-            
-            // Smooth transition to Page 2
-            document.getElementById('auth-page-1').style.transform = 'translateX(-100%)';
-            document.getElementById('auth-page-1').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('auth-page-1').classList.add('hidden');
-                document.getElementById('auth-page-2').classList.remove('hidden');
-                document.getElementById('auth-page-2').style.transform = 'translateX(0)';
-            }, 400);
-        }
-
-        function setupProfile() {
-            const fullName = document.getElementById('fullname-input').value || 'Guest User';
-            const username = document.getElementById('username-input').value || '@guest';
-            const bio = document.getElementById('bio-input').value || 'Family member';
-            const phone = document.getElementById('phone-input').value || document.getElementById('email-input').value;
-            const pic = document.getElementById('profile-preview').style.backgroundImage;
-            
-            currentUser = { fullName, username, bio, phone, pic };
-            localStorage.setItem('kiyar_user', JSON.stringify(currentUser));
+            currentUser = user;
+            localStorage.setItem('kiyar_current_user', JSON.stringify(user));
             enterApp();
-            showToast('Profile Setup Complete!');
+            showToast('Welcome back!');
         }
 
-        function enterApp() {
-            if (!currentUser) return;
-            document.getElementById('drawer-name').textContent = currentUser.fullName;
-            document.getElementById('drawer-phone').textContent = currentUser.phone;
-            document.getElementById('drawer-avatar').style.backgroundImage = currentUser.pic || "var(--kiyar-logo-url)";
-            document.getElementById('nav-avatar').style.backgroundImage = currentUser.pic || "var(--kiyar-logo-url)";
+        function signUp() {
+            const fullName = document.getElementById('signup-fullname').value.trim() || 'User';
+            const username = document.getElementById('signup-username').value.trim();
+            const password = document.getElementById('signup-password').value;
+            const email = document.getElementById('signup-email').value.trim();
+
+            if (!username || !password) return showToast('Username and password are required');
+            if (usersDB[username]) return showToast('Username already exists');
+
+            usersDB[username] = {
+                fullName, username, password, email,
+                bio: 'Hey there! I am using Kiyar.',
+                pic: '',
+                role: 'user',
+                chats: [{ id: 'saved_messages', name: 'Saved Messages', type: 'personal', username: 'saved', pic: '', lastMessage: 'Saved items here.' }]
+            };
+            localStorage.setItem('kiyar_users', JSON.stringify(usersDB));
             
-            document.getElementById('auth-page-1').classList.add('hidden');
-            document.getElementById('auth-page-2').classList.add('hidden');
-            document.getElementById('main-app').classList.remove('hidden');
+            currentUser = usersDB[username];
+            localStorage.setItem('kiyar_current_user', JSON.stringify(currentUser));
+            enterApp();
+            showToast('Account created successfully!');
         }
 
         function logout() {
-            localStorage.removeItem('kiyar_user');
+            localStorage.removeItem('kiyar_current_user');
             currentUser = null;
             closeModal('logout-modal');
             document.getElementById('main-app').classList.add('hidden');
-            document.getElementById('auth-page-1').classList.remove('hidden');
-            document.getElementById('auth-page-1').style.transform = 'translateX(0)';
-            document.getElementById('auth-page-1').style.opacity = '1';
-            document.getElementById('phone-input').value = '';
-            document.getElementById('email-input').value = '';
-            document.getElementById('code-input').value = '';
-            document.getElementById('code-verify-group').classList.add('hidden');
-            showToast('Logged out successfully');
+            document.getElementById('auth-container').classList.remove('hidden');
+            document.getElementById('signin-username').value = '';
+            document.getElementById('signin-password').value = '';
+            showToast('Logged out');
         }
 
-        function addAccount() {
-            closeModal('settings-modal');
-            logout();
+        function enterApp() {
+            document.getElementById('auth-container').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+
+            document.getElementById('drawer-name').textContent = currentUser.fullName;
+            document.getElementById('drawer-username').textContent = '@' + currentUser.username;
+            document.getElementById('drawer-avatar').style.backgroundImage = currentUser.pic ? `url(${currentUser.pic})` : 'none';
+            document.getElementById('nav-avatar').style.backgroundImage = currentUser.pic ? `url(${currentUser.pic})` : 'none';
+
+            // Admin Panel Visibility
+            if (currentUser.role === 'admin') {
+                document.getElementById('menu-admin').style.display = 'flex';
+            } else {
+                document.getElementById('menu-admin').style.display = 'none';
+            }
+
+            // Family Tree Add Button Visibility (Admin only)
+            document.getElementById('add-member-btn').style.display = currentUser.role === 'admin' ? 'flex' : 'none';
+
+            renderChats();
+            renderTree();
         }
 
-        function handleProfilePicUpload(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                document.getElementById('profile-preview').style.backgroundImage = `url(${ev.target.result})`;
+        // ==========================================
+        // FORGOT PASSWORD (EMAILJS)
+        // ==========================================
+        function sendResetOTP() {
+            const email = document.getElementById('forgot-email').value.trim();
+            if (!email || !email.includes('@')) return showToast('Please enter a valid email');
+
+            const user = Object.values(usersDB).find(u => u.email === email);
+            if (!user) return showToast('No account found with this email');
+
+            resetOTP = Math.floor(1000 + Math.random() * 9000).toString();
+            
+            emailjs.send("service_g1hwbnc", "template_hpex3ar", { to_email: email, passcode: resetOTP })
+                .then(() => {
+                    showToast('OTP sent to your email!');
+                    document.getElementById('reset-otp-group').classList.remove('hidden');
+                }, (err) => {
+                    showToast('Failed to send OTP. Try again.');
+                });
+        }
+
+        function resetPassword() {
+            const otp = document.getElementById('reset-otp').value;
+            const newPass = document.getElementById('reset-new-pass').value;
+            if (otp !== resetOTP) return showToast('Invalid OTP');
+            if (!newPass) return showToast('Enter new password');
+
+            const email = document.getElementById('forgot-email').value.trim();
+            const username = Object.keys(usersDB).find(u => usersDB[u].email === email);
+            
+            usersDB[username].password = newPass;
+            localStorage.setItem('kiyar_users', JSON.stringify(usersDB));
+            
+            showToast('Password reset successfully! Please sign in.');
+            closeModal('forgot-modal');
+            switchAuthTab('signin');
+        }
+
+        // ==========================================
+        // ADMIN PANEL LOGIC
+        // ==========================================
+        function adminCreateUser() {
+            const fullName = document.getElementById('admin-fullname').value.trim() || 'User';
+            const username = document.getElementById('admin-username').value.trim();
+            const password = document.getElementById('admin-password').value;
+
+            if (!username || !password) return showToast('Username and password required');
+            if (usersDB[username]) return showToast('Username already exists');
+
+            usersDB[username] = {
+                fullName, username, password,
+                email: '', bio: 'Credentials generated by Admin.',
+                pic: '', role: 'user',
+                chats: [{ id: 'saved_messages', name: 'Saved Messages', type: 'personal', username: 'saved', pic: '', lastMessage: 'Saved items here.' }]
             };
-            reader.readAsDataURL(file);
+            localStorage.setItem('kiyar_users', JSON.stringify(usersDB));
+            
+            showToast(`User ${username} created!`);
+            closeModal('admin-modal');
+            document.getElementById('admin-fullname').value = '';
+            document.getElementById('admin-username').value = '';
+            document.getElementById('admin-password').value = '';
         }
 
+        // ==========================================
+        // PROFILE LOGIC
+        // ==========================================
         function handleEditProfilePicUpload(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -984,21 +871,21 @@
         }
 
         function saveProfile() {
-            if (!currentUser) return;
             currentUser.fullName = document.getElementById('edit-name').value || currentUser.fullName;
-            currentUser.username = document.getElementById('edit-username').value || currentUser.username;
             currentUser.bio = document.getElementById('edit-bio').value || currentUser.bio;
             const newPic = document.getElementById('edit-profile-preview').style.backgroundImage;
-            if (newPic && newPic !== 'none' && !newPic.includes('placeholder')) currentUser.pic = newPic;
+            if (newPic && newPic !== 'none' && !newPic.includes('placeholder')) currentUser.pic = newPic.slice(5, -2);
             
-            localStorage.setItem('kiyar_user', JSON.stringify(currentUser));
+            usersDB[currentUser.username] = currentUser;
+            localStorage.setItem('kiyar_users', JSON.stringify(usersDB));
+            localStorage.setItem('kiyar_current_user', JSON.stringify(currentUser));
             enterApp();
             closeModal('profile-modal');
             showToast('Profile Updated');
         }
 
         // ==========================================
-        // NAVIGATION LOGIC
+        // NAVIGATION & UI
         // ==========================================
         function toggleDrawer(state) {
             document.getElementById('side-drawer').classList.toggle('open', state);
@@ -1013,153 +900,236 @@
             toggleDrawer(false);
         }
 
-        function switchTreeView(element, contentId) {
-            document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-            element.classList.add('active');
+        function switchTreeView(contentId) {
             if (contentId === 'tree-content') {
                 document.getElementById('tree-content').classList.remove('hidden');
                 document.getElementById('stats-content').classList.add('hidden');
+                document.getElementById('tab-tree-content').classList.add('active');
+                document.getElementById('tab-stats-content').classList.remove('active');
             } else {
                 document.getElementById('tree-content').classList.add('hidden');
                 document.getElementById('stats-content').classList.remove('hidden');
+                document.getElementById('tab-stats-content').classList.add('active');
+                document.getElementById('tab-tree-content').classList.remove('active');
             }
         }
 
         function openModal(modalId) { document.getElementById(modalId).classList.add('open'); }
         function closeModal(modalId) { document.getElementById(modalId).classList.remove('open'); }
-        function toggleTheme() { document.body.classList.toggle('light-mode'); showToast('Theme Toggled'); }
+        function toggleTheme() { document.body.classList.toggle('light-mode'); }
 
         // ==========================================
-        // CHAT LOGIC & FILTERING
+        // CHAT LOGIC & PRIVACY
         // ==========================================
-        function filterChats(folder, element) {
-            activeChatFilter = folder;
-            document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
-            if (element) element.classList.add('active');
-            switchView('view-home', element);
-            renderChats();
-        }
-
         function renderChats() {
             const container = document.getElementById('chat-list-container');
             container.innerHTML = '';
+            const searchQuery = document.getElementById('global-search').value.toLowerCase();
             
-            const filteredChats = chats.filter(c => activeChatFilter === 'all' || c.type === activeChatFilter);
+            // Ensure saved messages exists
+            if (!currentUser.chats.find(c => c.id === 'saved_messages')) {
+                currentUser.chats.unshift({ id: 'saved_messages', name: 'Saved Messages', type: 'personal', username: 'saved', pic: '', lastMessage: 'Saved items here.' });
+            }
+
+            const filteredChats = currentUser.chats.filter(c => {
+                const matchFilter = activeChatFilter === 'all' || c.type === activeChatFilter;
+                const matchSearch = c.name.toLowerCase().includes(searchQuery) || (c.username && c.username.toLowerCase().includes(searchQuery));
+                return matchFilter && matchSearch;
+            });
+
             if (filteredChats.length === 0) {
-                container.innerHTML = `<div style="text-align: center; color: var(--text-tertiary); margin-top: 50px;">No chats found. Create a new one from Settings.</div>`;
+                container.innerHTML = `<div style="text-align: center; color: var(--text-tertiary); margin-top: 50px;">No chats found.</div>`;
                 return;
             }
 
             filteredChats.forEach(chat => {
                 const item = document.createElement('div');
                 item.className = 'chat-item glass';
+                item.dataset.chatId = chat.id;
                 item.innerHTML = `
-                    <div class="chat-avatar">${chat.avatar}</div>
-                    <div class="chat-info"><h4>${chat.name}</h4><p>${chat.lastMessage}</p></div>
+                    <div class="chat-avatar" style="${chat.pic ? `background-image: url(${chat.pic})` : ''}">${chat.pic ? '' : chat.name.substring(0, 2).toUpperCase()}</div>
+                    <div class="chat-info"><h4>${chat.name}</h4><p>${chat.lastMessage || 'No messages yet'}</p></div>
                 `;
+                
                 item.addEventListener('click', () => openChat(chat));
+                
+                // Chat Context Menu (Long press / right click)
+                item.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    activeContextChatId = chat.id;
+                    showContextMenu('chat-context-menu', e.clientX, e.clientY);
+                });
+                let pressTimer;
+                item.addEventListener('touchstart', (e) => {
+                    pressTimer = setTimeout(() => {
+                        activeContextChatId = chat.id;
+                        const touch = e.touches[0];
+                        showContextMenu('chat-context-menu', touch.clientX, touch.clientY);
+                    }, 500);
+                });
+                item.addEventListener('touchend', () => clearTimeout(pressTimer));
+                item.addEventListener('touchmove', () => clearTimeout(pressTimer));
+
                 container.appendChild(item);
             });
         }
 
-        function openChat(chat) {
+        async function openChat(chat) {
             document.getElementById('workspace-name').textContent = chat.name;
-            document.getElementById('workspace-avatar').textContent = chat.avatar;
-            document.getElementById('messages-area').innerHTML = `
-                <div class="message-bubble message-received" data-id="msg-1">Welcome to ${chat.name}!</div>
-            `;
+            document.getElementById('workspace-avatar').style.backgroundImage = chat.pic ? `url(${chat.pic})` : 'none';
+            document.getElementById('workspace-avatar').textContent = chat.pic ? '' : chat.name.substring(0, 2).toUpperCase();
+            
+            const area = document.getElementById('messages-area');
+            area.innerHTML = '<div style="text-align: center; color: var(--text-tertiary);">Loading messages...</div>';
             document.getElementById('chat-workspace').classList.add('open');
-            attachContextMenuListeners();
+
+            const messages = await getMessages(chat.id);
+            area.innerHTML = '';
+            messages.forEach(msg => appendMessageToDOM(msg));
+            area.scrollTop = area.scrollHeight;
         }
 
         function closeChat() { document.getElementById('chat-workspace').classList.remove('open'); }
         function handleChatKeyPress(event) { if (event.key === 'Enter') sendMessage(); }
         
-        function sendMessage() {
+        async function sendMessage() {
             const input = document.getElementById('chat-input');
             const text = input.value.trim();
             if (!text) return;
-            const area = document.getElementById('messages-area');
-            const bubble = document.createElement('div');
-            bubble.className = 'message-bubble message-sent';
-            bubble.textContent = text;
-            bubble.dataset.id = 'msg-' + Date.now();
-            area.appendChild(bubble);
+            
+            const chatId = document.getElementById('workspace-avatar').dataset.chatId || currentUser.chats[0].id; // Fallback logic needs fix
+            // Actually, we need to track active chat ID globally
+            const activeChat = currentUser.chats.find(c => c.name === document.getElementById('workspace-name').textContent);
+            if (!activeChat) return;
+
+            const msg = {
+                id: 'msg-' + Date.now(),
+                chatId: activeChat.id,
+                sender: currentUser.username,
+                text: text,
+                type: 'text',
+                timestamp: Date.now()
+            };
+
+            await saveMessageToDB(msg);
+            appendMessageToDOM(msg);
             input.value = '';
-            area.scrollTop = area.scrollHeight;
-            attachContextMenuListeners();
+            
+            // Update last message
+            activeChat.lastMessage = text;
+            usersDB[currentUser.username] = currentUser;
+            localStorage.setItem('kiyar_users', JSON.stringify(usersDB));
+            localStorage.setItem('kiyar_current_user', JSON.stringify(currentUser));
+            renderChats();
         }
 
-        function handleChatFileUpload(e) {
+        async function handleChatFileUpload(e) {
             const file = e.target.files[0];
             if (!file) return;
+            
+            const activeChat = currentUser.chats.find(c => c.name === document.getElementById('workspace-name').textContent);
+            if (!activeChat) return;
+
             const reader = new FileReader();
-            reader.onload = (ev) => {
-                const area = document.getElementById('messages-area');
-                const bubble = document.createElement('div');
-                bubble.className = 'message-bubble message-sent';
-                bubble.dataset.id = 'msg-' + Date.now();
-                if (file.type.startsWith('image/')) {
-                    bubble.innerHTML = `<img src="${ev.target.result}" class="message-img">`;
-                } else {
-                    bubble.textContent = `📎 ${file.name}`;
-                }
-                area.appendChild(bubble);
-                area.scrollTop = area.scrollHeight;
-                attachContextMenuListeners();
-                showToast('File Attached');
+            reader.onload = async (ev) => {
+                const msg = {
+                    id: 'msg-' + Date.now(),
+                    chatId: activeChat.id,
+                    sender: currentUser.username,
+                    text: file.name,
+                    media: ev.target.result,
+                    type: file.type.startsWith('image/') ? 'image' : 'file',
+                    timestamp: Date.now()
+                };
+                await saveMessageToDB(msg);
+                appendMessageToDOM(msg);
+                
+                activeChat.lastMessage = `📎 ${file.name}`;
+                usersDB[currentUser.username] = currentUser;
+                localStorage.setItem('kiyar_users', JSON.stringify(usersDB));
+                localStorage.setItem('kiyar_current_user', JSON.stringify(currentUser));
+                renderChats();
             };
             reader.readAsDataURL(file);
             e.target.value = '';
         }
 
+        function appendMessageToDOM(msg) {
+            const area = document.getElementById('messages-area');
+            const bubble = document.createElement('div');
+            bubble.className = `message-bubble ${msg.sender === currentUser.username ? 'message-sent' : 'message-received'}`;
+            bubble.dataset.id = msg.id;
+
+            if (msg.type === 'image') {
+                bubble.innerHTML = `<img src="${msg.media}" class="message-img" onclick="openImageViewer('${msg.id}')"><span style="font-size: 11px; float: right;">${new Date(msg.timestamp).toLocaleTimeString()}</span>`;
+            } else if (msg.type === 'file') {
+                bubble.innerHTML = `<a href="${msg.media}" download="${msg.text}" style="color: inherit; text-decoration: none;">📎 ${msg.text}</a><span style="font-size: 11px; float: right;">${new Date(msg.timestamp).toLocaleTimeString()}</span>`;
+            } else {
+                bubble.innerHTML = `${msg.text}<span style="font-size: 11px; float: right; margin-left: 10px;">${new Date(msg.timestamp).toLocaleTimeString()}</span>`;
+            }
+
+            area.appendChild(bubble);
+            area.scrollTop = area.scrollHeight;
+            attachMessageContextMenu(bubble);
+        }
+
+        // ==========================================
+        // CREATE CHAT (GROUP / CHANNEL)
+        // ==========================================
         function openCreateChatModal(type) {
             activeChatType = type;
             document.getElementById('create-chat-title').textContent = type === 'group' ? 'New Group' : 'New Channel';
             document.getElementById('create-chat-name').value = '';
-            document.getElementById('create-chat-desc').value = '';
+            document.getElementById('create-chat-username').value = '';
+            document.getElementById('create-chat-pic-preview').style.backgroundImage = 'none';
             openModal('create-chat-modal');
         }
 
-        function createNewChat() {
-            const name = document.getElementById('create-chat-name').value;
-            if (!name) return showToast('Please enter a name');
-            
-            const newChat = {
-                id: 'c' + Date.now(),
-                name: name,
-                type: activeChatType,
-                lastMessage: 'Tap to start chatting',
-                avatar: name.substring(0, 2).toUpperCase()
+        function handleCreateChatPicUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                document.getElementById('create-chat-pic-preview').style.backgroundImage = `url(${ev.target.result})`;
             };
-            
-            chats.unshift(newChat);
-            localStorage.setItem('kiyar_chats', JSON.stringify(chats));
-            
+            reader.readAsDataURL(file);
+        }
+
+        function createNewChat() {
+            const name = document.getElementById('create-chat-name').value.trim();
+            const username = document.getElementById('create-chat-username').value.trim();
+            const pic = document.getElementById('create-chat-pic-preview').style.backgroundImage.slice(5, -2);
+
+            if (!name || !username) return showToast('Name and Username are required');
+
+            const newChat = {
+                id: 'c-' + Date.now(),
+                name, username, pic,
+                type: activeChatType,
+                lastMessage: 'Chat created',
+                members: [currentUser.username] // Strict privacy
+            };
+
+            currentUser.chats.push(newChat);
+            usersDB[currentUser.username] = currentUser;
+            localStorage.setItem('kiyar_users', JSON.stringify(usersDB));
+            localStorage.setItem('kiyar_current_user', JSON.stringify(currentUser));
+
             closeModal('create-chat-modal');
-            activeChatFilter = activeChatType;
-            document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
-            const folderBtn = document.querySelector(`.drawer-item[data-folder="${activeChatType}"]`);
-            if (folderBtn) folderBtn.classList.add('active');
-            
-            switchView('view-home', folderBtn);
             renderChats();
-            showToast(`${activeChatType === 'group' ? 'Group' : 'Channel'} created successfully!`);
+            showToast(`${activeChatType === 'group' ? 'Group' : 'Channel'} created!`);
         }
 
         // ==========================================
-        // FAMILY TREE LOGIC
+        // FAMILY TREE LOGIC (AMIR PRIVILEGES)
         // ==========================================
         function renderTree() {
-            localStorage.setItem('kiyar_family', JSON.stringify(familyMembers));
+            localStorage.setItem('kiyar_family_tree', JSON.stringify(familyTree));
             const container = document.getElementById('tree-container');
             container.innerHTML = '';
             
-            const searchQuery = document.getElementById('tree-search').value.toLowerCase();
-            const filteredMembers = familyMembers.filter(m => m.name.toLowerCase().includes(searchQuery) || m.relation.toLowerCase().includes(searchQuery));
-
             const gens = {};
-            filteredMembers.forEach(m => {
+            familyTree.forEach(m => {
                 if (!gens[m.generation]) gens[m.generation] = [];
                 gens[m.generation].push(m);
             });
@@ -1170,35 +1140,35 @@
                     line.className = 'tree-line-v';
                     container.appendChild(line);
                 }
-
                 const row = document.createElement('div');
                 row.className = 'generation-row';
 
                 gens[genKey].forEach(m => {
                     const card = document.createElement('div');
                     card.className = 'member-card glass';
+                    const canEdit = currentUser.role === 'admin' || m.ownerUser === currentUser.username;
+                    
                     card.innerHTML = `
                         <div class="member-header">
                             <div class="member-avatar ${m.gender === 'male' ? 'male' : 'female'}">${m.gender === 'male' ? '♂' : '♀'}</div>
                             <div>
                                 <div class="member-name">${m.name}</div>
-                                <div class="member-relation">${m.relation} - Gen ${m.generation} ${m.status === 'deceased' ? '💔' : '💚'}</div>
+                                <div class="member-relation">${m.relation} - Gen ${m.generation}</div>
                             </div>
                         </div>
+                        ${canEdit ? `
                         <div class="member-actions">
                             <button class="action-btn" data-action="add" data-target="${m.id}" data-rel="Father">↑ Father</button>
                             <button class="action-btn" data-action="add" data-target="${m.id}" data-rel="Mother">↑ Mother</button>
-                            <button class="action-btn" data-action="add" data-target="${m.id}" data-rel="Brother">← Brother</button>
-                            <button class="action-btn" data-action="add" data-target="${m.id}" data-rel="Sister">→ Sister</button>
                             <button class="action-btn" data-action="add" data-target="${m.id}" data-rel="Son">↓ Son</button>
                             <button class="action-btn" data-action="add" data-target="${m.id}" data-rel="Daughter">↓ Daughter</button>
                             <button class="action-btn" data-action="add" data-target="${m.id}" data-rel="Spouse">♥ Spouse</button>
                         </div>
                         <div class="card-actions">
-                            <svg class="card-action-icon" data-action="view" data-name="${m.name}" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5z"/></svg>
                             <svg class="card-action-icon" data-action="edit" data-id="${m.id}" viewBox="0 0 24 24"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg>
-                            <svg class="card-action-icon delete" data-action="delete" data-id="${m.id}" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                            <svg class="card-action-icon delete" data-action="delete" data-id="${m.id}" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z"/></svg>
                         </div>
+                        ` : ''}
                     `;
                     row.appendChild(card);
                 });
@@ -1211,8 +1181,7 @@
             container.querySelectorAll('.card-action-icon').forEach(icon => {
                 icon.addEventListener('click', () => {
                     const action = icon.dataset.action;
-                    if (action === 'view') showToast(`Viewing ${icon.dataset.name}`);
-                    else if (action === 'edit') openMemberModal(icon.dataset.id);
+                    if (action === 'edit') openMemberModal(icon.dataset.id);
                     else if (action === 'delete') deleteMember(icon.dataset.id);
                 });
             });
@@ -1220,34 +1189,27 @@
 
         function openMemberModal(id = '', targetId = '', relation = '') {
             document.getElementById('member-id').value = id;
-            
             if (id) {
-                const m = familyMembers.find(x => x.id === id);
-                if (!m) return;
+                const m = familyTree.find(x => x.id === id);
                 document.getElementById('member-modal-title').textContent = 'Edit Member';
                 document.getElementById('member-name').value = m.name;
                 document.getElementById('member-gender').value = m.gender;
                 document.getElementById('member-relation').value = m.relation;
                 document.getElementById('member-gen').value = m.generation;
-                document.getElementById('member-status').value = m.status;
             } else {
                 document.getElementById('member-modal-title').textContent = 'Add Member';
                 document.getElementById('member-name').value = '';
-                document.getElementById('member-gender').value = relation === 'Mother' || relation === 'Sister' || relation === 'Daughter' ? 'female' : 'male';
+                document.getElementById('member-gender').value = relation === 'Mother' || relation === 'Daughter' ? 'female' : 'male';
                 document.getElementById('member-relation').value = relation;
-                
                 if (targetId) {
-                    const target = familyMembers.find(x => x.id === targetId);
-                    if (target) {
-                        let gen = target.generation;
-                        if (['Father', 'Mother'].includes(relation)) gen = target.generation - 1;
-                        else if (['Son', 'Daughter'].includes(relation)) gen = target.generation + 1;
-                        document.getElementById('member-gen').value = gen;
-                    }
+                    const target = familyTree.find(x => x.id === targetId);
+                    let gen = target.generation;
+                    if (['Father', 'Mother'].includes(relation)) gen = target.generation - 1;
+                    else if (['Son', 'Daughter'].includes(relation)) gen = target.generation + 1;
+                    document.getElementById('member-gen').value = gen;
                 } else {
                     document.getElementById('member-gen').value = 1;
                 }
-                document.getElementById('member-status').value = 'living';
             }
             openModal('member-modal');
         }
@@ -1262,149 +1224,144 @@
                 gender: document.getElementById('member-gender').value,
                 relation: document.getElementById('member-relation').value,
                 generation: parseInt(document.getElementById('member-gen').value),
-                status: document.getElementById('member-status').value
+                ownerUser: currentUser.username
             };
 
             if (id) {
-                const idx = familyMembers.findIndex(m => m.id === id);
-                if (idx !== -1) {
-                    familyMembers[idx] = { ...familyMembers[idx], ...data };
-                    showToast('Member Updated');
-                }
+                const idx = familyTree.findIndex(m => m.id === id);
+                familyTree[idx] = { ...familyTree[idx], ...data };
             } else {
-                familyMembers.push({ id: crypto.randomUUID(), ...data });
-                showToast('Member Added');
+                familyTree.push({ id: crypto.randomUUID(), ...data });
             }
             closeModal('member-modal');
             renderTree();
-            renderStats();
+            showToast('Member saved');
         }
 
         function deleteMember(id) {
-            familyMembers = familyMembers.filter(m => m.id !== id);
+            familyTree = familyTree.filter(m => m.id !== id);
             renderTree();
-            renderStats();
-            showToast('Member Deleted');
+            showToast('Member deleted');
         }
 
         // ==========================================
-        // STATISTICS LOGIC
+        // INDEXED DB FOR PERMANENT MEDIA
         // ==========================================
-        function renderStats() {
-            const total = familyMembers.length;
-            const males = familyMembers.filter(m => m.gender === 'male').length;
-            const females = familyMembers.filter(m => m.gender === 'female').length;
-            const living = familyMembers.filter(m => m.status === 'living').length;
-            const deceased = familyMembers.filter(m => m.status === 'deceased').length;
-            
-            const gens = {};
-            familyMembers.forEach(m => {
-                if (!gens[m.generation]) gens[m.generation] = 0;
-                gens[m.generation]++;
-            });
-            const genCount = Object.keys(gens).length;
-
-            document.getElementById('stats-grid').innerHTML = `
-                <div class="stat-card glass"><div class="stat-icon">👥</div><div class="stat-value">${total}</div><div class="stat-label">Members</div></div>
-                <div class="stat-card glass"><div class="stat-icon" style="color:var(--male-color)">♂</div><div class="stat-value">${males}</div><div class="stat-label">Males</div></div>
-                <div class="stat-card glass"><div class="stat-icon" style="color:var(--female-color)">♀</div><div class="stat-value">${females}</div><div class="stat-label">Females</div></div>
-                <div class="stat-card glass"><div class="stat-icon">📊</div><div class="stat-value">${genCount}</div><div class="stat-label">Generations</div></div>
-                <div class="stat-card glass"><div class="stat-icon">🟢</div><div class="stat-value">${living}</div><div class="stat-label">Living</div></div>
-                <div class="stat-card glass"><div class="stat-icon">🔴</div><div class="stat-value">${deceased}</div><div class="stat-label">Deceased</div></div>
-            `;
-
-            const genBars = document.getElementById('gen-bars');
-            genBars.innerHTML = '';
-            for (const [gen, count] of Object.entries(gens)) {
-                const percentage = total > 0 ? (count / total) * 100 : 0;
-                genBars.innerHTML += `
-                    <div class="gen-bar-item">
-                        <div class="gen-bar-header"><span>Generation ${gen}</span><span>${count} Members</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width:${percentage}%"></div></div>
-                    </div>
-                `;
-            }
-        }
-
-        // ==========================================
-        // CONTEXT MENU LOGIC
-        // ==========================================
-        function attachContextMenuListeners() {
-            const messages = document.querySelectorAll('.message-bubble');
-            messages.forEach(msg => {
-                if (msg.dataset.contextBound) return;
-                msg.dataset.contextBound = 'true';
-
-                msg.addEventListener('contextmenu', (e) => {
-                    e.preventDefault();
-                    showContextMenu(e.clientX, e.clientY, msg.dataset.id);
-                });
-
-                let pressTimer;
-                msg.addEventListener('touchstart', (e) => {
-                    pressTimer = setTimeout(() => {
-                        const touch = e.touches[0];
-                        showContextMenu(touch.clientX, touch.clientY, msg.dataset.id);
-                    }, 500);
-                });
-                msg.addEventListener('touchend', () => clearTimeout(pressTimer));
-                msg.addEventListener('touchmove', () => clearTimeout(pressTimer));
+        function saveMessageToDB(msg) {
+            return new Promise((resolve) => {
+                const transaction = db.transaction(["messages"], "readwrite");
+                const store = transaction.objectStore("messages");
+                store.add(msg);
+                transaction.oncomplete = () => resolve();
             });
         }
 
-        function showContextMenu(x, y, msgId) {
-            activeContextMessageId = msgId;
-            const menu = document.getElementById('context-menu');
+        function getMessages(chatId) {
+            return new Promise((resolve) => {
+                const transaction = db.transaction(["messages"], "readonly");
+                const store = transaction.objectStore("messages");
+                const request = store.getAll();
+                request.onsuccess = () => {
+                    const msgs = request.result.filter(m => m.chatId === chatId);
+                    resolve(msgs.sort((a,b) => a.timestamp - b.timestamp));
+                };
+            });
+        }
+
+        function deleteMessageFromDB(msgId) {
+            const transaction = db.transaction(["messages"], "readwrite");
+            const store = transaction.objectStore("messages");
+            store.delete(msgId);
+        }
+
+        // ==========================================
+        // CONTEXT MENUS & IMAGE VIEWER
+        // ==========================================
+        function attachMessageContextMenu(bubble) {
+            if (bubble.dataset.contextBound) return;
+            bubble.dataset.contextBound = 'true';
+
+            bubble.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                activeContextMessageId = bubble.dataset.id;
+                showContextMenu('message-context-menu', e.clientX, e.clientY);
+            });
+
+            let pressTimer;
+            bubble.addEventListener('touchstart', (e) => {
+                pressTimer = setTimeout(() => {
+                    activeContextMessageId = bubble.dataset.id;
+                    const touch = e.touches[0];
+                    showContextMenu('message-context-menu', touch.clientX, touch.clientY);
+                }, 500);
+            });
+            bubble.addEventListener('touchend', () => clearTimeout(pressTimer));
+            bubble.addEventListener('touchmove', () => clearTimeout(pressTimer));
+        }
+
+        function showContextMenu(menuId, x, y) {
+            const menu = document.getElementById(menuId);
             menu.classList.add('active');
-            
             const menuWidth = 160;
             const menuHeight = 240;
             if (x + menuWidth > window.innerWidth) x = window.innerWidth - menuWidth - 10;
             if (y + menuHeight > window.innerHeight) y = window.innerHeight - menuHeight - 10;
-            
             menu.style.left = `${x}px`;
             menu.style.top = `${y}px`;
         }
 
-        function ctxAction(action) {
-            const msg = document.querySelector(`[data-id="${activeContextMessageId}"]`);
-            if (!msg) return;
-            
-            switch(action) {
-                case 'copy':
-                    navigator.clipboard.writeText(msg.textContent).then(() => showToast('Text Copied'));
-                    break;
-                case 'reply':
-                    document.getElementById('chat-input').value = `Replying to: ${msg.textContent.substring(0, 20)}... `;
-                    document.getElementById('chat-input').focus();
-                    showToast('Replying');
-                    break;
-                case 'edit':
-                    if (msg.classList.contains('message-sent')) {
-                        document.getElementById('chat-input').value = msg.textContent;
-                        msg.remove();
-                        showToast('Editing Message');
-                    } else {
-                        showToast('You can only edit your own messages.');
-                    }
-                    break;
-                case 'forward':
-                    showToast('Message Forwarded');
-                    break;
-                case 'save':
-                    showToast('Saved to Local Storage');
-                    break;
-                case 'delete':
-                    msg.remove();
-                    showToast('Message Deleted');
-                    break;
+        function ctxMessageAction(action) {
+            const msgElement = document.querySelector(`[data-id="${activeContextMessageId}"]`);
+            if (!msgElement) return;
+
+            if (action === 'copy') {
+                navigator.clipboard.writeText(msgElement.textContent);
+                showToast('Copied');
+            } else if (action === 'delete') {
+                msgElement.remove();
+                deleteMessageFromDB(activeContextMessageId);
+                showToast('Deleted');
+            } else {
+                showToast(`${action} clicked`);
             }
-            document.getElementById('context-menu').classList.remove('active');
+            document.getElementById('message-context-menu').classList.remove('active');
+        }
+
+        function ctxChatAction(action) {
+            if (action === 'delete_chat') {
+                currentUser.chats = currentUser.chats.filter(c => c.id !== activeContextChatId);
+                usersDB[currentUser.username] = currentUser;
+                localStorage.setItem('kiyar_users', JSON.stringify(usersDB));
+                localStorage.setItem('kiyar_current_user', JSON.stringify(currentUser));
+                renderChats();
+                showToast('Chat deleted');
+            } else {
+                showToast(`${action} clicked`);
+            }
+            document.getElementById('chat-context-menu').classList.remove('active');
+        }
+
+        function openImageViewer(msgId) {
+            const msgElement = document.querySelector(`[data-id="${msgId}"]`);
+            if (!msgElement) return;
+            const imgSrc = msgElement.querySelector('img').src;
+            document.getElementById('viewer-img-src').src = imgSrc;
+            document.getElementById('image-viewer').classList.add('active');
+        }
+
+        function closeImageViewer() {
+            document.getElementById('image-viewer').classList.remove('active');
         }
 
         // ==========================================
-        // TOAST NOTIFICATIONS
+        // NOTIFICATIONS
         // ==========================================
+        function requestNotificationPermission() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+        }
+
         function showToast(message) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -1415,6 +1372,10 @@
                 toast.classList.add('fade-out');
                 setTimeout(() => toast.remove(), 300);
             }, 2000);
+
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('Kiyar', { body: message });
+            }
         }
     </script>
 </body>
